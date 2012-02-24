@@ -5,7 +5,7 @@ import android.os.Bundle;
 
 public class SpentraxActivity extends Activity {
     /** Called when the activity is first created. */
-	// hello world 
+	// hello world mooo i sux haoyi
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);

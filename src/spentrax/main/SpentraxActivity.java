@@ -13,4 +13,5 @@ public class SpentraxActivity extends Activity {
         setContentView(R.layout.main);
     }
     // i am a cow 
+    // lol i sux
 }

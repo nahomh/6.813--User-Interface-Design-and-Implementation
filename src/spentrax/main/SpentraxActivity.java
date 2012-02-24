@@ -12,6 +12,7 @@ public class SpentraxActivity extends Activity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.main);
     }
-    // i am a cow 
-    // lol i sux noooo
+    /*
+     * moooooooo
+     */
 }

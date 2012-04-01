@@ -11,6 +11,40 @@
 			.owe{color:#FF0000;}
 			.owed{color:#000000;}
 		</style>
+		<script type="text/javascript">
+			$.extend({
+				getUrlVars : function() {
+						var vars = [], hash;
+						var hashes = window.location.href.slice(
+							window.location.href.indexOf('?') + 1).split('&');
+						for ( var i = 0; i < hashes.length; i++) {
+							hash = hashes[i].split('=');
+							vars.push(hash[0]);
+							vars[hash[0]] = hash[1];
+						}
+						return vars;
+				},
+				getUrlVar : function(name) {
+					return $.getUrlVars()[name];
+				}
+			});
+			$(document).ready(function(){
+				var dataarea = document.getElementById('listarea');
+				debugger;
+				var limitData = $.getUrlVars('list')["limit"];
+				if(limitData==""){
+					var limitData = "all";
+				}
+				
+				var htmlCodes = new Array();
+				htmlCodes['all'] = "<li class='owe'><a href='?list=Akira'>Akira LENT me $250.00</a></li><li class='owed'><a href='?list=Haoyi'>Haoyi OWES me $10.00</a></li><li class='owe'><a href='?list=Nahom'>Nahom LENT me $1.00</a></li>";
+				htmlCodes['Akira'] = "<li class='owe'>Akira LENT me $150.00</li><li class='owed'>Akira OWES me $10.00</li><li class='owe'>Akira LENT me $110.00</li><li class='owe'>Akira LENT me $50.00</li><li class='owed'>Akira OWES me $50.00</li>";
+				htmlCodes['Haoyi'] = "<li class='owe'>Haoyi LENT me $10.00</li><li class='owed'>Haoyi OWES me $10.00</li><li class='owed'>Haoyi OWES me $10.00</li><li class='owe'>Haoyi LENT me $5.00</li><li class='owed'>Haoyi OWES me $5.00</li>";
+				htmlCodes['Nahom'] = "<li class='owe'>Nahom LENT me $11.00</li><li class='owed'>Nahom OWES me $10.00</li>";
+	
+				dataarea.innerHTML = htmlCodes[limitData];
+			});
+		</script>
 	</head>
 	<body>
 		<div data-role="navbar">
@@ -23,11 +57,7 @@
 			</ul>
 		</div>
 		<div data-role="content">
-			<ul data-role="listview" data-filter="true">
-				<li class="owe">Akira LENT me $250.00</li>
-				<li class="owed">Haoyi OWES me $10.00</li>
-				<li class="owe">Nahom LENT me $1.00</li>
-				<li class="owe">Rob LENT me $8.13</li>
+			<ul data-role="listview" data-filter="true" id="listarea">
 			</ul>
 		</div>
 	</body>

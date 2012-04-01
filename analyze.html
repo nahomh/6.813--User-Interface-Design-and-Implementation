@@ -7,38 +7,11 @@
         <script src="http://code.jquery.com/mobile/1.0.1/jquery.mobile-1.0.1.min.js"></script>
         <script type="text/javascript" src="https://www.google.com/jsapi"></script>
         <script type="text/javascript">
-
             // Load the Visualization API and the piechart package.
-            google.load('visualization', '1.0', {'packages':['corechart']});
-
-            // Set a callback to run when the Google Visualization API is loaded.
-            google.setOnLoadCallback(drawChart);
-
-            // Callback that creates and populates a data table,
-            // instantiates the pie chart, passes in the data and
-            // draws it.
-            function drawChart() {
-
-                // Create the data table.
-                var data = new google.visualization.DataTable();
-                data.addColumn('string', 'Year');
-                data.addColumn('number', 'Sales');
-                data.addRows([
-                  ['Previous Week', 1170],
-                  ['Last Week',  1260],
-                  ['This Week', 1030]
-                ]);
-
-                var options = {
-                    width: 400,
-                    legend: {position: 'none', textStyle: {color: 'blue', fontSize: 16}},
-                    title: 'Weekly Expenditure'
-                };
-                // Instantiate and draw our chart, passing in some options.
-                var chart = new google.visualization.LineChart(document.getElementById('chart_div'));
-                chart.draw(data, options);
-            }
+            google.load('visualization', '1.0', {'packages':['corechart', 'geochart']});
         </script>
+       
+        
     </head>
     <body>
         
@@ -55,6 +28,30 @@
                 </ul>
             </div>
             <div data-role="content">
+                 <script>
+                    // Set a callback to run when the Google Visualization API is loaded.
+                    google.setOnLoadCallback(function() {
+
+                        // Create the data table.
+                        var data = new google.visualization.DataTable();
+                        data.addColumn('string', 'Year');
+                        data.addColumn('number', 'Sales');
+                        data.addRows([
+                          ['Previous Week', 1170],
+                          ['Last Week',  1260],
+                          ['This Week', 1030]
+                        ]);
+
+                        var options = {
+                            width: 400,
+                            legend: {position: 'none', textStyle: {color: 'blue', fontSize: 16}},
+                            title: 'Weekly Expenditure'
+                        };
+                        // Instantiate and draw our chart, passing in some options.
+                        var chart = new google.visualization.LineChart(document.getElementById('chart_div'));
+                        chart.draw(data, options);
+                    });
+                </script>
                 <div id="chart_div"></div>
             </div>
             <div data-role="footer" data-position="fixed">
@@ -80,7 +77,41 @@
             </div>
 
             <div data-role="content">
-                <p>Page 2 content</p>
+                <script>
+                    google.setOnLoadCallback(function() {
+
+                        // Create the data table.
+                        var data = new google.visualization.DataTable();
+                        data.addColumn('number', 'latitude');
+                        data.addColumn('number', 'longitude');
+                        data.addColumn('number', 'Population');
+                        data.addColumn('number', 'Area');
+                        data.addRows([
+                            [42.36558358596026, -71.1031723022461, 2761477, 1285.31],
+                            [42.36558358596026, -71.1031723022461, 2761477, 1285.31]/*,
+                            ['Milan', 1324110, 181.76],
+                            ['Naples', 959574, 117.27],
+                            ['Turin', 907563, 130.17],
+                            ['Palermo', 655875, 158.9],
+                            ['Genoa', 607906, 243.60],
+                            ['Bologna', 380181, 140.7],
+                            ['Florence', 371282, 102.41]*/
+                        ]);
+
+                        var options = {
+                            width: 400,
+                        region: 'US-MA',
+                        resolution: 'metros',
+                        displayMode: 'markers',
+                        colorAxis: {colors: ['green', 'blue']}
+                        };
+
+                        var chart = new google.visualization.GeoChart(document.getElementById('chart_div2'));
+                        chart.draw(data, options);
+                    });
+                    
+                </script>
+                <div id="chart_div2"></div>
             </div>
             <div data-role="footer" data-position="fixed">
                 <div data-role="navbar">
@@ -105,8 +136,13 @@
             </div>
 
             <div data-role="content">
-                <p>Page 3 content</p>
-            </div>
+			<ul data-role="listview" data-filter="true">
+				<li class="owe">Akira LENT me $250.00</li>
+				<li class="owed">Haoyi OWES me $10.00</li>
+				<li class="owe">Nahom LENT me $1.00</li>
+				<li class="owe">Rob LENT me $8.13</li>
+			</ul>
+		</div>
             <div data-role="footer" data-position="fixed">
                 <div data-role="navbar">
                     <ul>

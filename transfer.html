@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<title>Traxx</title>
+		<meta name="viewport" content="width=320, initial-scale=1.0,minimum-scale=1.0,maximum-scale=1.0,user-scalable=0" />
+		<meta charset="utf-8">
+		<link rel="stylesheet" href="http://code.jquery.com/mobile/1.0.1/jquery.mobile-1.0.1.min.css" />
+		<script src="http://code.jquery.com/jquery-1.6.4.min.js"></script>
+		<script src="http://code.jquery.com/mobile/1.0.1/jquery.mobile-1.0.1.min.js"></script>
+		<style type="text/css">
+			.owe{
+				color:#FF0000;
+			}
+			.owed{
+				color:#0000FF;
+			}
+		</style>
+	</head>
+	<body>
+		<div data-role="navbar">
+			<ul>
+				<li><a href="home.html">Home</a></li>
+				<li><a href="records.html">Record</a></li>
+				<li><a href="transfer.html" class="ui-btn-active">Transfer</a></li>
+				<li><a href="debts.html">Debts</a></li>
+				<li><a href="analyze.html">Analyze</a></li>
+			</ul>
+		</div>
+		<div data-role="content">
+			Transfer $<input type="text">
+			<br>
+			From <select><option value="cash">CASH</option><option value="debit-credit">Debit/Credit</option></select>
+			To <select><option value="cash">CASH</option><option value="debit-credit">Debit/Credit</option></select>
+			<table width="320">
+				<tbody>
+					<tr>
+						<td><select><option value="1989">2011</option><option value="2012">2012</option></select></td>
+						<td><select><option value="01">Jan</option><option value="02">Feb</option><option value="03">Mar</option><option value="04">Apr</option><option value="05">May</option><option value="06">Jun</option><option value="07">Jul</option><option value="08">Aug</option><option value="09">Sep</option><option value="10">Oct</option><option value="11">Nov</option><option value="12">Dec</option></select></td>
+						<td><select><option value="01">01</option><option value="02">02</option><option value="03">03</option></select></td>
+					</tbody>
+				</table>
+			<br>
+			<input type="button" value="OK"/>
+			
+		</div>
+	</body>
+</html>

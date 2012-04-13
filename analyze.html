@@ -17,13 +17,10 @@
         
     </head>
     <body>
-        
-        
-
         <div id="home" data-role="page">
             <div data-role="navbar">
                 <ul>
-                    <li><a href="home.html">Home</a></li>
+                    
                     <li><a href="records.html">Record</a></li>
                     <li><a href="transfers.html">Transfer</a></li>
                     <li><a href="debts.html">Debts</a></li>
@@ -31,6 +28,10 @@
                 </ul>
             </div>
             <div data-role="content">
+                <script>
+                    google.load('visualization', '1.0', {'packages':['corechart', 'geochart']});
+                    console.log("B ok");
+                </script>
                  <script>
                     // Set a callback to run when the Google Visualization API is loaded.
                     
@@ -47,7 +48,7 @@
                         ]);
 
                         var options = {
-                            width: 400,
+                            width: 320,
                             legend: {position: 'none', textStyle: {color: 'blue', fontSize: 16}},
                             title: 'Weekly Expenditure'
                         };
@@ -55,7 +56,9 @@
                         var chart = new google.visualization.LineChart(document.getElementById('chart_div'));
                         chart.draw(data, options);
                     });
+                    console.log("A ok");
                 </script>
+                
                 <div id="chart_div"></div>
             </div>
             <div data-role="footer" data-position="fixed">
@@ -103,7 +106,7 @@
                         ]);
 
                         var options = {
-                            width: 400,
+                            width: 320,
                         region: 'US-MA',
                         resolution: 'metros',
                         displayMode: 'markers',
@@ -174,9 +177,7 @@
             });
         </script>
         
-        <script>
-            google.load('visualization', '1.0', {'packages':['corechart', 'geochart']});
-        </script>
+        
     </body>
     
 </html>

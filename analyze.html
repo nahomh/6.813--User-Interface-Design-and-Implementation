@@ -10,7 +10,7 @@
         <script type="text/javascript" src="https://www.google.com/jsapi"></script>
         <script type="text/javascript">
             // Load the Visualization API and the piechart package.
-            google.load('visualization', '1.0', {'packages':['corechart', 'geochart']});
+            
         </script>
        
         
@@ -32,6 +32,7 @@
             <div data-role="content">
                  <script>
                     // Set a callback to run when the Google Visualization API is loaded.
+                    
                     google.setOnLoadCallback(function() {
 
                         // Create the data table.
@@ -138,13 +139,13 @@
             </div>
 
             <div data-role="content">
-			<ul data-role="listview" data-filter="true">
-				<li class="owe">Akira LENT me $250.00</li>
-				<li class="owed">Haoyi OWES me $10.00</li>
-				<li class="owe">Nahom LENT me $1.00</li>
-				<li class="owe">Rob LENT me $8.13</li>
-			</ul>
-		</div>
+                <ul data-role="listview" data-filter="true">
+                    <li class="owe">Akira LENT me $250.00</li>
+                    <li class="owed">Haoyi OWES me $10.00</li>
+                    <li class="owe">Nahom LENT me $1.00</li>
+                    <li class="owe">Rob LENT me $8.13</li>
+                </ul>
+            </div>
             <div data-role="footer" data-position="fixed">
                 <div data-role="navbar">
                     <ul>
@@ -172,7 +173,9 @@
             });
         </script>
         
-        
+        <script>
+            google.load('visualization', '1.0', {'packages':['corechart', 'geochart']});
+        </script>
     </body>
     
 </html>

@@ -6,9 +6,9 @@
          <meta charset="utf-8">
         <link rel="stylesheet" href="traxx.css" />
         <link rel="stylesheet" href="http://code.jquery.com/mobile/1.0.1/jquery.mobile-1.0.1.min.css" />
-        <script src="http://code.jquery.com/jquery-1.6.4.min.js"></script>
-        <script src="http://code.jquery.com/mobile/1.0.1/jquery.mobile-1.0.1.min.js"></script>
-        <script type="text/javascript" src="https://www.google.com/jsapi"></script>
+        <script src="jquery-1.6.4.min.js"></script>
+        <script src="jquery.mobile-1.0.1.min.js"></script>
+        <script type="text/javascript" src="jsapi"></script>
     </head>
 	<body>
 		<div data-role="navbar">
@@ -19,30 +19,36 @@
 				<li><a href="analyze.html">Analyze</a></li>
 			</ul>
 		</div>
-        <div id="moneyInput" style="width:300px; height:200px;">
+        <div id="moneyInput">
             <label for="basic">Money Spent:</label>
 			<input type="text" name="name" style="float:left" id="basic" value="" data-mini="true" />
     		
 			<label for="select-choice-0" class="select">Spending method:</label>
 			<div id="mid_table">
-						<a href="index.html"  style="float:left;"data-role="button"   data-icon="voice"data-mini="true" data-inline="true" data-theme="b">Record</a>
+			<a href="index.html"  data-role="button"   style="float:right; margin-top:0px;"data-icon="voice"data-mini="true" data-inline="true" data-theme="b">Record</a>
 
-			<select name="select-choice-0" style="float:left" id="select-choice-1">
+			<select name="select-choice-0" id="select-choice-1">
 			   <option value="Cash">Cash</option>
 			   <option value="Debit/Cash">Debit/Credit</option>
 			</select>
+
 			</div>
-			<span><label for="SpendingDate" class="select"><br>Date:</label></span>
 			
-			<input type="date" name="date" id="date" value="" class="ui-input-text ui-body-c ui-corner-all ui-shadow-inset">
-			<span id="Inst.Location">Tap to get location</span>  
-	
+			<span><label for="SpendingDate" class="select"><br>Date:</label></span>
+			<table><tr>
+						<td><select><option value="2011">2011</option><option value="2012">2012</option></select></td>
+						<td><select><option value="01">Jan</option><option value="02">Feb</option><option value="03">Mar</option><option value="04">Apr</option><option value="05">May</option><option value="06">Jun</option><option value="07">Jul</option><option value="08">Aug</option><option value="09">Sep</option><option value="10">Oct</option><option value="11">Nov</option><option value="12">Dec</option></select></td>
+						<td><select><option value="01">01</option><option value="02">02</option><option value="03">03</option><option value="04">04</option><option value="05">05</option><option value="06">06</option><option value="07">07</option><option value="08">08</option><option value="09">09</option><option value="10">10</option><option value="11">11</option><option value="12">12</option><option value="13">13</option><option value="14">14</option><option value="15">15</option><option value="16">16</option><option value="17">17</option><option value="18">18</option><option value="19">19</option><option value="20">20</option><option value="21">21</option><option value="22">22</option><option value="23">23</option><option value="24">24</option><option value="25">25</option><option value="26">26</option><option value="27">27</option><option value="28">28</option><option value="29">29</option><option value="30">30</option><option value="31">31</option></select></td>
+			</table>
+
+			<span id="Inst.Location" style="float:left;">Tap to get location</span>  
+			 <div id="userMap" style="background-image:url('images/mapUI.png');  padding-top:25px;height:250px;"></div>
+        <a href="index.html" data-role="button" data-inline="true" data-theme="b">Track Spending</a>
         </div>
-        <br><br><br><div id="userMap" style="background-image:url('images/mapUI.png');   padding-top:15px; float:left; height:225px; width:200px;"> </div>
-        <a href="index.html" data-role="button" data-inline="true" data-theme="b">GPS</a>
-	    <div id="sbmitForm" style="width:300px;">
+     
+	    <div id="sbmitForm" >
 	        <a href="index.html" style=" float:left"data-role="button">Submit</a>
-	        <a href="submit" style=" float:left"data-role="button">Add Debits</a>
+	        <a href="records2.html" style=" float:left"data-role="button">Add Debits</a>
 		</div>
     </body>
 </html>

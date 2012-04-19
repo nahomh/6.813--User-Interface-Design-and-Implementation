@@ -6,6 +6,7 @@
 		<meta charset="utf-8">
 		<link rel="stylesheet" href="http://code.jquery.com/mobile/1.0.1/jquery.mobile-1.0.1.min.css" />
 		<script src="http://code.jquery.com/jquery-1.6.4.min.js"></script>
+        <script src="traxx.js"></script>
 		<script src="http://code.jquery.com/mobile/1.0.1/jquery.mobile-1.0.1.min.js"></script>
         <script type="text/javascript" src="https://www.google.com/jsapi"></script>
         <script type="text/javascript" src="https://www.google.com/jsapi"></script>
@@ -17,17 +18,17 @@
 					<li><a href="records.html">Record</a></li>
 					<li><a href="transfer.html">Transfer</a></li>
 					<li><a href="debts.html" class="ui-btn-active">Debts</a></li>
-					<li><a href="analyze.html">Analyze</a></li>
+					<li><a rel="external" href="analyze.html">Analyze</a></li>
 				</ul>
 			</div>
 		<div data-role="content">
 			<a href="debts.html" data-back-btn-text="Back" data-rel="back" data-role="button" data-icon="arrow-l" class="ui-btn-left">Back</a>
 			<ul data-role="listview" data-filter="true" id="listarea">
-				<li>Akira <span class="owe">OWES</span> you $15.00</li>
-				<li>Akira <span class="owed">LENT</span> you $13.00</li>
-				<li>Akira <span class="owe">OWES</span> you $1.00</li>
-				<li>Akira <span class="owe">OWES</span> you $1.00</li>
-				<li>Akira <span class="owed">LENT</span> you $3.00</li>
+				<li><a rel="external" href="records2.html?name=Akira&amount=$15&type=owe">Akira <span class="owe">OWES</span> you $15.00</a></li>
+				<li><a rel="external" href="records2.html?name=Akira&amount=$13&type=lent">Akira <span class="owed">LENT</span> you $13.00</a></li>
+				<li><a rel="external" href="records2.html?name=Akira&amount=$1&type=owe">Akira <span class="owe">OWES</span> you $1.00</a></li>
+				<li><a rel="external" href="records2.html?name=Akira&amount=$1&type=owe">Akira <span class="owe">OWES</span> you $1.00</a></li>
+				<li><a rel="external" href="records2.html?name=Akira&amount=$3&type=lent">Akira <span class="owed">LENT</span> you $3.00</a></li>
 			</ul>
 		</div>
 	</body>

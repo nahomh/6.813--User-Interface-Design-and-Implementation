@@ -4,25 +4,30 @@ app = Flask(__name__)
 app.debug = True
 
 
-class Data:
-    x = "1"
+
     
 @app.route('/')
 def hello_world():
-    Data.x = Data.x + "1"
-    return Data.x 
-    #return render_template("traxx.html")
+    return render_template("home.html")
 
     
-@app.route('/home')
+@app.route('/record')
 def hello_world():
-    Data.x = Data.x + "1"
-    return Data.x
+
+    return render_template("records.html")
+
+@app.route('/transfers')
+def hello_world():
+    return render_template("transfers.html")
 
 @app.route('/debts')
 def hello_world():
-    Data.x = Data.x + "x"
-    return Data.x
+    return render_template("debts.html")
     
+@app.route('/analytics')
+def hello_world():
+    return render_template("analytics.html")
+
+
 if __name__ == '__main__':
     app.run()

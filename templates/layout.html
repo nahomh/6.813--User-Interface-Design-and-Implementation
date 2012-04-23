@@ -1,0 +1,27 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<title>{% block title %}Top{% endblock %} - Traxx</title>
+		<meta name="viewport" content="width=320, initial-scale=1.0,minimum-scale=1.0,maximum-scale=1.0,user-scalable=0" />
+		<meta charset="utf-8">
+		<link rel="stylesheet" href="{{ url_for('static', filename='traxx.css' }}" />
+		<link rel="stylesheet" href="http://code.jquery.com/mobile/1.0.1/jquery.mobile-1.0.1.min.css" />
+		<script src="{{ url_for('static', filename='jquery-1.6.4.min.js' }}"></script>
+		<script src="{{ url_for('static', filename='jquery-mobile-1.0.1.min.js' }}"></script>
+		<script src="{{ url_for('static', filename='traxx.js' }}"></script>
+		{% block head %}{% endblock %}
+	</head>
+	<body>
+		<div data-role="navbar">
+			<ul>
+				<li><a href="records.html" {% block record-top-btn %}{% endblock %}>Record</a></li>
+				<li><a href="transfer.html" {% block transfer-top-btn %}{% endblock %}>Transfer</a></li>
+				<li><a href="debts.html" {% block debts-top-btn %}{% endblock %}>Debts</a></li>
+				<li><a rel="external" href="analyze.html" {% block analyze-top-btn %}{% endblock %}>Analyze</a></li>
+			</ul>
+		</div>
+		<div data-role="content">
+		{% block content %}{% endblock %}
+		</div>
+	</body>
+</html>

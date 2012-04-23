@@ -14,6 +14,7 @@ def hello_world():
 @app.route('/record')
 def hello_world():
     Data.x = Data.x + "1"
+
     return render_template("records.html")
 
 @app.route('/transfers')
@@ -29,6 +30,5 @@ def hello_world():
     return render_template("analytics.html")
 
 
-    
 if __name__ == '__main__':
     app.run()

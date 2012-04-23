@@ -3,34 +3,9 @@
     class="ui-btn-active"
 {% endblock %}
 {% block content %}
-			<table width="300">
-				<tbody>
-					<tr>
-						<td>Transfer $</td>
-						<td><input type="text"></td>
-					</tr>
-				</tbody>
-			</table>
-			<br>
-			<table width="300">
-				<tbody>
-					<tr>
-						<td>From</td>
-						<td><select><option value="cash">CASH</option><option value="debit-credit">Debit/Credit</option></select></td>
-					</tr>
-					<tr>
-						<td>To</td>
-						<td><select><option value="cash">CASH</option><option value="debit-credit">Debit/Credit</option></select></td>
-					</tr>
-				</tbody>
-			</table>
-			<table width="300">
-				<tbody>
-					<tr>
-						<td><select><option value="2011/12">2011/Dec</option><option value"2012/01">2012/Jan</option><option value="2012/02">2012/Feb</option><option value="2012/03">2012/Mar</option><option value="2012/04" SELECTED=SELECTED>2012/Apr</option><option value="2012/05">2012/May</option></select></td>
-						<td><select><option value="01">01</option><option value="02">02</option><option value="03">03</option><option value="04">04</option><option value="05">05</option><option value="06">06</option><option value="07">07</option><option value="08">08</option><option value="09">09</option><option value="10">10</option><option value="11">11</option><option value="12">12</option><option value="13">13</option><option value="14">14</option><option value="15">15</option><option value="16">16</option><option value="17">17</option><option value="18">18</option><option value="19">19</option><option value="20">20</option><option value="21">21</option><option value="22">22</option><option value="23">23</option><option value="24">24</option><option value="25">25</option><option value="26">26</option><option value="27">27</option><option value="28">28</option><option value="29">29</option><option value="30">30</option><option value="31">31</option></select></td>
-					</tbody>
-				</table>
-			<br>
-			<input type="button" value="OK" onclick="javascript:alert('Transfer Recorded');location.reload(true);"/>
+			<ul data-role="listview" data-filter="true" id="listarea">
+				<li><a href="debts1.html">Akira <span class="owe">OWES</span> you $1.00</a></li>
+				<li><a href="debts2.html">Haoyi <span class="owed">LENT</span> you $5.00</a></li>
+				<li><a href="debts3.html">Nahom <span class="owe">OWES</span> you $10.00</a></li>
+			</ul>
 {% endblock %}

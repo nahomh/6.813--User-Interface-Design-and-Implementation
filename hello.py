@@ -8,19 +8,27 @@ app.debug = True
 
 
 @app.route('/analytics')
-def hello_world():
+def analytics():
+    print "analytics"
     return render_template("analytics.html")
 
 @app.route('/transfer')
-def hello_world():
+def transfer():
+    print "transfer"
     return render_template("transfer.html")
-    
+ 
+
+ 
 @app.route('/debts')
-def hello_world():
+def debts():
+    print "debts"
     return render_template("debts.html")
     
+
+
 @app.route('/record')
-def hello_world():
+def record():
+    print "record"
     return render_template("records.html")
 
 

@@ -1,6 +1,5 @@
 from flask import Flask
 from flask import render_template
-from stuff import *
 app = Flask(__name__)
 app.debug = True
 

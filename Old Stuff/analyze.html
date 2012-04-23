@@ -1,0 +1,164 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <title>Traxx</title>
+		<meta name="viewport" content="width=320, initial-scale=1.0,minimum-scale=1.0,maximum-scale=1.0,user-scalable=0" />
+		<meta charset="utf-8">
+        <link rel="stylesheet" href="traxx.css" />
+        <link rel="stylesheet" href="http://code.jquery.com/mobile/1.0.1/jquery.mobile-1.0.1.min.css" />
+        <script src="http://code.jquery.com/jquery-1.6.4.min.js"></script>
+        <script src="http://code.jquery.com/mobile/1.0.1/jquery.mobile-1.0.1.min.js"></script>
+        <script type="text/javascript" src="https://www.google.com/jsapi"></script>
+        <script>
+            google.load('visualization', '1.0', {'packages':['corechart', 'geochart']});
+        </script>
+        <script type="text/javascript"
+          src="http://maps.googleapis.com/maps/api/js?key=AIzaSyA78Ri4nlqK9gbFSljARo5weZYBuLbqfas&sensor=true">
+        </script>
+        
+    </head>
+    <body>
+        <div id="home" data-role="page">
+            <div data-role="navbar">
+                <ul>
+                    
+                    <li><a href="records.html">Record</a></li>
+                    <li><a href="transfers.html">Transfer</a></li>
+                    <li><a href="debts.html">Debts</a></li>
+                    <li><a href="analyze.html"class="ui-btn-active">Analyze</a></li>
+                </ul>
+            </div>
+            <div data-role="content">
+                
+                 <script>
+                    
+                    // Set a callback to run when the Google Visualization API is loaded.
+                    
+                    google.setOnLoadCallback(cow);
+                    function cow(){
+                    
+                        // Create the data table.
+                        var data = new google.visualization.DataTable();
+                        data.addColumn('string', 'Year');
+                        data.addColumn('number', 'Sales');
+                        data.addRows([
+                          ['Previous Week', 1170],
+                          ['Last Week',  1260],
+                          ['This Week', 1030]
+                        ]);
+
+                        var options = {
+                            width: 320,
+                            legend: {position: 'none', textStyle: {color: 'blue', fontSize: 16}},
+                            title: 'Weekly Expenditure'
+                        };
+                        // Instantiate and draw our chart, passing in some options.
+                        var chart = new google.visualization.LineChart(document.getElementById('chart_div'));
+                        chart.draw(data, options);
+                    }
+                    console.log("A ok");
+                </script>
+                
+                <div id="chart_div"></div>
+            </div>
+            <div data-role="footer" data-position="fixed">
+                <div data-role="navbar">
+                    <ul>
+                        <li><a href="#" data-role="tab" data-icon="grid"  class="ui-btn-active">Time</a></li>
+                        <li><a href="#page-2" data-role="tab" data-icon="grid">Location</a></li>
+                        <li><a href="#page-3" data-role="tab" data-icon="grid">List</a></li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+
+        <div id="page-2" data-role="page">
+            <div data-role="navbar">
+                <ul>
+                    <li><a href="records.html">Record</a></li>
+                    <li><a href="transfers.html">Transfer</a></li>
+                    <li><a href="debts.html">Debts</a></li>
+                    <li><a href="analyze.html"class="ui-btn-active">Analyze</a></li>
+                </ul>
+            </div>
+
+            <div data-role="content">
+
+                <div id="map_canvas" style="width:320px; height: 320px;"></div>
+                <script type="text/javascript">
+                  //$.ready(function() {
+                    var myOptions = {
+                      center: new google.maps.LatLng(42.37736, -71.110556),
+                      zoom: 12,
+                      mapTypeId: google.maps.MapTypeId.ROADMAP
+                    };
+                    var map = new google.maps.Map(document.getElementById("map_canvas"),
+                        myOptions);
+                        
+                    
+                  //  map.addOverlay(new GMarker(new GLatLng(42.8487, -73.755)));
+                  //})
+                </script>
+                
+            </div>
+            <div data-role="footer" data-position="fixed">
+                <div data-role="navbar">
+                    <ul>
+                        <li><a href="#" data-role="tab" data-icon="grid">Time</a></li>
+                        <li><a href="#page-2" data-role="tab" data-icon="grid" class="ui-btn-active">Location</a></li>
+                        <li><a href="#page-3" data-role="tab" data-icon="grid">List</a></li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+
+        <div id="page-3" data-role="page">
+            <div data-role="navbar">
+                <ul>
+                    <li><a href="records.html">Record</a></li>
+                    <li><a href="transfers.html">Transfer</a></li>
+                    <li><a href="debts.html">Debts</a></li>
+                    <li><a href="analyze.html"class="ui-btn-active">Analyze</a></li>
+                </ul>
+            </div>
+
+            <div data-role="content">
+                <ul data-role="listview" data-filter="true">
+                    <li class="owe"><a rel="external" href="records.html?amount=$250&day=8&month=03">Spent $250 on 8 Mar</a></li>
+                    <li class="owe"><a rel="external" href="records.html?amount=$50&day=6&month=03">Spent $50 on 6 Mar</a></li>
+                    <li class="owe"><a rel="external" href="records.html?amount=$20&day=6&month=03">Spent $20 on 6 Mar</a></li>
+                    <li class="owe"><a rel="external" href="records.html?amount=$25&day=26&month=02">Spent $25 on 26 Feb</a></li>
+                    
+                </ul>
+            </div>
+            <div data-role="footer" data-position="fixed">
+                <div data-role="navbar">
+                    <ul>
+                        <li><a href="#" data-role="tab" data-icon="grid">Time</a></li>
+                        <li><a href="#page-2" data-role="tab" data-icon="grid">Location</a></li>
+                        <li><a href="#page-3" data-role="tab" data-icon="grid" class="ui-btn-active">List</a></li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+        <script>
+            $("a[data-role=tab]").each(function () {
+                var anchor = $(this);
+                anchor.bind("click", function () {
+                    $.mobile.changePage(anchor.attr("href"), {
+                        transition: "none",
+                        changeHash: false
+                    });
+                    return false;
+                });
+            });
+
+            $("div[data-role=page]").bind("pagebeforeshow", function (e, data) {
+                $.mobile.silentScroll(0);
+            });
+        </script>
+        
+        
+    </body>
+    
+</html>

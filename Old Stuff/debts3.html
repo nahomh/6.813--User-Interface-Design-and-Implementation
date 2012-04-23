@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<title>Traxx</title>
+		<meta name="viewport" content="width=320, initial-scale=1.0,minimum-scale=1.0,maximum-scale=1.0,user-scalable=0" />
+		<meta charset="utf-8">
+		<link rel="stylesheet" href="http://code.jquery.com/mobile/1.0.1/jquery.mobile-1.0.1.min.css" />
+		<script src="http://code.jquery.com/jquery-1.6.4.min.js"></script>
+        <script src="traxx.js"></script>
+		<script src="http://code.jquery.com/mobile/1.0.1/jquery.mobile-1.0.1.min.js"></script>
+		<link rel="stylesheet" href="traxx.css" />
+	</head>
+	<body>
+		<div data-role="navbar">
+			<ul>
+				<li><a href="records.html">Record</a></li>
+				<li><a href="transfer.html">Transfer</a></li>
+				<li><a href="debts.html" class="ui-btn-active">Debts</a></li>
+				<li><a rel="external" href="analyze.html">Analyze</a></li>
+			</ul>
+		</div>
+		<div data-role="content">
+			<a href="debts.html" data-back-btn-text="Back" data-rel="back" data-role="button" data-icon="arrow-l" class="ui-btn-left">Back</a>
+			<ul data-role="listview" data-filter="true" id="listarea">
+				<li><a rel="external" href="records2.html?name=Nahome&amount=$50&type=owe">Nahom <span class="owe">OWES</span> you $50.00</a></li>
+				<li><a rel="external" href="records2.html?name=Nahome&amount=$60&type=lent">Nahom <span class="owed">LENT</span> you $60.00</a></li>
+				<li><a rel="external" href="records2.html?name=Nahome&amount=$14&type=owe">Nahom <span class="owe">OWES</span> you $14.00</a></li>
+				<li><a rel="external" href="records2.html?name=Nahome&amount=$26&type=owe">Nahom <span class="owe">OWES</span> you $26.00</a></li>
+				<li><a rel="external" href="records2.html?name=Nahome&amount=$10&type=lent">Nahom <span class="owed">LENT</span> you $10.00</a></li>
+				<li><a rel="external" href="records2.html?name=Nahome&amount=$10&type=owe">Nahom <span class="owe">OWES</span> you $10.00</a></li>
+				<li><a rel="external" href="records2.html?name=Nahome&amount=$20&type=lent">Nahom <span class="owed">LENT</span> you $20.00</a></li>
+			</ul>
+		</div>
+	</body>
+</html>

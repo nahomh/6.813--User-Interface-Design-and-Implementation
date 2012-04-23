@@ -13,20 +13,21 @@ def hello_world():
     
 @app.route('/record')
 def hello_world():
-
     return render_template("records.html")
 
-@app.route('/transfers')
+@app.route('/transfer')
 def hello_world():
-    return render_template("transfers.html")
+    return render_template("transfer.html")
 
+@app.route('/analytics')
+def hello_world():
+    return render_template("analytics.html")
+    
 @app.route('/debts')
 def hello_world():
     return render_template("debts.html")
     
-@app.route('/analytics')
-def hello_world():
-    return render_template("analytics.html")
+
 
 
 if __name__ == '__main__':

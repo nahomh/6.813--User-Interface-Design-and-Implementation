@@ -1,0 +1,16 @@
+{% extends "layout.html" %}
+{% block debts_top_btn %}
+    class="ui-btn-active"
+{% endblock %}
+{% block content %}
+			<a href="debts.html" data-back-btn-text="Back" data-rel="back" data-role="button" data-icon="arrow-l" class="ui-btn-left">Back</a>
+			<ul data-role="listview" data-filter="true" id="listarea">
+				<li><a rel="external" href="records2.html?name=Nahome&amount=$50&type=owe">Nahom <span class="owe">OWES</span> you $50.00</a></li>
+				<li><a rel="external" href="records2.html?name=Nahome&amount=$60&type=lent">Nahom <span class="owed">LENT</span> you $60.00</a></li>
+				<li><a rel="external" href="records2.html?name=Nahome&amount=$14&type=owe">Nahom <span class="owe">OWES</span> you $14.00</a></li>
+				<li><a rel="external" href="records2.html?name=Nahome&amount=$26&type=owe">Nahom <span class="owe">OWES</span> you $26.00</a></li>
+				<li><a rel="external" href="records2.html?name=Nahome&amount=$10&type=lent">Nahom <span class="owed">LENT</span> you $10.00</a></li>
+				<li><a rel="external" href="records2.html?name=Nahome&amount=$10&type=owe">Nahom <span class="owe">OWES</span> you $10.00</a></li>
+				<li><a rel="external" href="records2.html?name=Nahome&amount=$20&type=lent">Nahom <span class="owed">LENT</span> you $20.00</a></li>
+			</ul>
+{% endblock %}

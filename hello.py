@@ -17,7 +17,12 @@ def hello_world():
 @app.route('/home')
 def hello_world():
     Data.x = Data.x + "1"
-    return Data.x 
+    return Data.x
+
+@app.route('/debts')
+def hello_world():
+    Data.x = Data.x + "x"
+    return Data.x
     
 if __name__ == '__main__':
     app.run()

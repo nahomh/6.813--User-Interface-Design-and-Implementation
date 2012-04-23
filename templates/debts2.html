@@ -1,0 +1,16 @@
+{% extends "layout.html" %}
+{% block debts_top_btn %}
+    class="ui-btn-active"
+{% endblock %}
+{% block content %}
+			<a href="debts.html" data-back-btn-text="Back" data-rel="back" data-role="button" data-icon="arrow-l" class="ui-btn-left">Back</a>
+				<ul data-role="listview" data-filter="true" id="listarea">
+				<li><a rel="external" href="records2.html?name=Haoyi&amount=$7&type=lent">Haoyi <span class="owed">LENT</span> you $7.00</a></li>
+				<li><a rel="external" href="records2.html?name=Haoyi&amount=$3&type=lent">Haoyi <span class="owed">LENT</span> you $3.00</a></li>
+				<li><a rel="external" href="records2.html?name=Haoyi&amount=$5&type=owe">Haoyi <span class="owe">OWES</span> you $5.00</a></li>
+				<li><a rel="external" href="records2.html?name=Haoyi&amount=$5&type=lent">Haoyi <span class="owed">LENT</span> you $5.00</a></li>
+				<li><a rel="external" href="records2.html?name=Haoyi&amount=$5&type=lent">Haoyi <span class="owed">LENT</span> you $5.00</a></li>
+				<li><a rel="external" href="records2.html?name=Haoyi&amount=$12&type=lent">Haoyi <span class="owed">LENT</span> you 12.00</a></li>
+				<li><a rel="external" href="records2.html?name=Haoyi&amount=$22&type=owe">Haoyi <span class="owe">OWES</span> you $22.00</a></li>
+			</ul>
+{% endblock %}

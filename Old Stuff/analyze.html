@@ -30,36 +30,7 @@
             </div>
             <div data-role="content">
                 
-                 <script>
-                    
-                    // Set a callback to run when the Google Visualization API is loaded.
-                    
-                    google.setOnLoadCallback(cow);
-                    function cow(){
-                    
-                        // Create the data table.
-                        var data = new google.visualization.DataTable();
-                        data.addColumn('string', 'Year');
-                        data.addColumn('number', 'Sales');
-                        data.addRows([
-                          ['Previous Week', 1170],
-                          ['Last Week',  1260],
-                          ['This Week', 1030]
-                        ]);
-
-                        var options = {
-                            width: 320,
-                            legend: {position: 'none', textStyle: {color: 'blue', fontSize: 16}},
-                            title: 'Weekly Expenditure'
-                        };
-                        // Instantiate and draw our chart, passing in some options.
-                        var chart = new google.visualization.LineChart(document.getElementById('chart_div'));
-                        chart.draw(data, options);
-                    }
-                    console.log("A ok");
-                </script>
                 
-                <div id="chart_div"></div>
             </div>
             <div data-role="footer" data-position="fixed">
                 <div data-role="navbar">
@@ -84,21 +55,7 @@
 
             <div data-role="content">
 
-                <div id="map_canvas" style="width:320px; height: 320px;"></div>
-                <script type="text/javascript">
-                  //$.ready(function() {
-                    var myOptions = {
-                      center: new google.maps.LatLng(42.37736, -71.110556),
-                      zoom: 12,
-                      mapTypeId: google.maps.MapTypeId.ROADMAP
-                    };
-                    var map = new google.maps.Map(document.getElementById("map_canvas"),
-                        myOptions);
-                        
-                    
-                  //  map.addOverlay(new GMarker(new GLatLng(42.8487, -73.755)));
-                  //})
-                </script>
+                
                 
             </div>
             <div data-role="footer" data-position="fixed">

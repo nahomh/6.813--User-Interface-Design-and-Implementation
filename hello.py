@@ -26,7 +26,7 @@ def record():
     return render_template("records.html")
     
 @app.route('/analytics')
-def record():
+def analytics():
     return render_template("analytics.html")
 
 

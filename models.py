@@ -9,7 +9,7 @@ class Record(object):
     def __init__(self,longitude,latitude,debt=[],time=datetime.now()):
         self.time = time        #Long
         self.location = (longitude,latitude)    #(Number, Number)
-        self.debts = debts         #List[Debt]
+        self.debts = debt         #List[Debt]
         
 class Debt(object):
     def __init__(self,amount,lender=None,borrower=None):

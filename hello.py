@@ -26,15 +26,28 @@ def analytics():
 
 @app.route("/data-test")
 def datatest():
-	output = ""
+	output = "<html><head><title>Data Test</title></head><body>"
 	output += "Number of Users: " + str(len(users)) + "<br><br>"
 	for i in range(len(users)):
 		output += "<b>User ID: " + str(i) + "</b><br>"
-		output += "Number of Records: " + str(len(users[i].records)) + "<br>"
+		output += "<b>User Name: " + users[i].name + " / " + users[i].email + "</b><br>"
+		output += "&emsp;Number of Records: " + str(len(users[i].records)) + "<br>"
 		for r in users[i].records:
-			output += "Record Time: " + str(r.time) + "<br>"
-			output += "Record Location: " +str(r.location) + "<br>"
-			output += "Number of Debts: " + str(len(r.debts)) + "<br>"
+			output += "&emsp;&emsp;Record Time: " + str(r.time) + "<br>"
+			output += "&emsp;&emsp;Record Location: " +str(r.location) + "<br>"
+			output += "&emsp;&emsp;<img src=\"https://maps.googleapis.com/maps/api/staticmap?center=" + str(r.location[0]) + "," + str(r.location[1]) + "&zoom=14&size=400x100&sensor=false\"><br>"
+			output += "&emsp;&emsp;Amount: $" + "%.2f" % r.amount +"<br>"
+			output += "&emsp;&emsp;Number of Debts: " + str(len(r.debts)) + "<br>"
+			if len(r.debts) > 0:
+				output += "&emsp;&emsp;<b>Debt Record</b><br>"
+			for d in r.debts:
+				if d.lender != None:
+					output += "&emsp;&emsp;&emsp;Lender: " + d.lender.name + "<br>"
+				else:
+					output += "&emsp;&emsp;&emsp;Borrower: " + d.borrower.name + "<br>"
+				output += "&emsp;&emsp;&emsp;Amount: $" + "%.2f" % d.amount + "<br>"
+			output += "<br>"
+	output += "</body></html>"
 
 	
 	return output

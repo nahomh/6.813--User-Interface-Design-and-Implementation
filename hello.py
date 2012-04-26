@@ -18,11 +18,13 @@ def debts():
 
 @app.route('/record')
 def record():
+    
 	return render_template("records.html")
 	
 @app.route('/analytics')
 def analytics():
-	return render_template("analytics.html")
+    
+	return render_template("analytics.html", records=[1, 2, 3])
 
 @app.route("/data-test")
 def datatest():

@@ -25,6 +25,7 @@ def debts_route():
 					my_records.append(["&emsp;&emsp;&emsp;Debt ID: " + str(d.ID),
 						"&emsp;&emsp;&emsp;Borrower: " + d.borrower.name,
 						"&emsp;&emsp;&emsp;Amount: $" + "%.2f" % d.amount])
+			output += "<br>"
 	return render_template("debts.html")
 
 @app.route('/record')

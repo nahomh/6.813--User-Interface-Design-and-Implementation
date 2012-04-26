@@ -17,7 +17,7 @@ def debts_route():
 @app.route('/record/')
 @app.route('/record/<id>')
 def record_route(id=None):
-    record = Record() if id == None else records[id]
+    record = Record() if id == None else records[int(id)]
     return render_template("records.html", record = record)
 	
 @app.route('/analytics')

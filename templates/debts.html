@@ -3,9 +3,13 @@
     class="ui-btn-active"
 {% endblock %}
 {% block content %}
+    
 			<ul data-role="listview" data-filter="true" id="listarea">
 				<li><a href="debts1.html">Akira <span class="owe">OWES</span> you $1.00</a></li>
 				<li><a href="debts2.html">Haoyi <span class="owed">LENT</span> you $5.00</a></li>
 				<li><a href="debts3.html">Nahom <span class="owe">OWES</span> you $10.00</a></li>
 			</ul>
+            <div>
+                {{ my_records }}
+            </div>
 {% endblock %}

@@ -33,6 +33,7 @@ def datatest():
 		output += "<b>User Name: " + users[i].name + " / " + users[i].email + "</b><br>"
 		output += "&emsp;Number of Records: " + str(len(users[i].records)) + "<br>"
 		for r in users[i].records:
+			output += "&emsp;&emsp;Record ID: " + str(r.ID) + "<br>"
 			output += "&emsp;&emsp;Record Time: " + str(r.time) + "<br>"
 			output += "&emsp;&emsp;Record Location: " +str(r.location) + "<br>"
 			output += "&emsp;&emsp;<img src=\"https://maps.googleapis.com/maps/api/staticmap?center=" + str(r.location[0]) + "," + str(r.location[1]) + "&zoom=14&size=400x100&sensor=false\"><br>"
@@ -42,8 +43,10 @@ def datatest():
 				output += "&emsp;&emsp;<b>Debt Record</b><br>"
 			for d in r.debts:
 				if d.lender != None:
+					output += "&emsp;&emsp;&emsp;Debt ID: " + str(d.ID) + "<br>"
 					output += "&emsp;&emsp;&emsp;Lender: " + d.lender.name + "<br>"
 				else:
+					output += "&emsp;&emsp;&emsp;Debt ID: " + str(d.ID) + "<br>"
 					output += "&emsp;&emsp;&emsp;Borrower: " + d.borrower.name + "<br>"
 				output += "&emsp;&emsp;&emsp;Amount: $" + "%.2f" % d.amount + "<br>"
 			output += "<br>"

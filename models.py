@@ -11,7 +11,7 @@ class User(object):
 		self.email = email				#String
 
 class Record(object):
-	def __init__(self,longitude,latitude,amount,debt=[],time=datetime.now()):
+	def __init__(self,longitude=0.0,latitude=0.0,amount=0.00,debt=[],time=datetime.now()):
 		idnum = len(records)
 		self.ID = idnum					#Int
 		self.time = time				#Long
@@ -21,7 +21,7 @@ class Record(object):
 		records[idnum] = self
 
 class Debt(object):
-	def __init__(self,amount,lender=None,borrower=None):
+	def __init__(self,amount=0.00,lender=None,borrower=None):
 		idnum = len(debts)
 		self.ID = idnum					#Int
 		self.lender = lender				#User

@@ -13,7 +13,7 @@ class User(object):
 
 
 class Record(object):
-	def __init__(self,longitude=0.0,latitude=0.0,amount=0.00,ex_type=0,debt=[],time=datetime.now()):
+	def __init__(self,longitude=0.0,latitude=0.0,amount=0.00,debt=[],time=datetime.now(),ex_type=0):
 		idnum = len(records)
 		self.ID = idnum					#Int
 		self.time = time				#Long

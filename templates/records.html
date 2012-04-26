@@ -12,8 +12,8 @@
 				<div id="mid_table">
 
 				<select name="select-choice-0" id="select-choice-1">
-				   <option value="cash" {{"selected='selected'" if record.ex_type == "cash" else "" }}>Cash</option>
-				   <option value="card" {{"selected='selected'" if record.ex_type == "card" else "" }}>Card</option>
+				   <option value="0" {{"selected='selected'" if record.ex_type == 0 else "" }}>Cash</option>
+				   <option value="1" {{"selected='selected'" if record.ex_type == 1 else "" }}>Card</option>
 				</select>
 
 			</div>
@@ -73,7 +73,7 @@
                             <option value="30" {{"selected='selected'" if record.time.day == 30 else "" }}>30</option>
                             <option value="31" {{"selected='selected'" if record.time.day == 31 else "" }}>31</option>
                         </select></td>
-                    {% endfor %}
+                    
                 </tr>    
 			</table>
             

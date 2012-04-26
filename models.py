@@ -9,7 +9,7 @@ class User(object):
 		self.records = []				#List[Record]
 		self.name = name				#String
 		self.email = email				#String
-		self.ex_types = set("Cash","Bank")		#Set
+		self.ex_types = set(["Cash","Bank"])		#Set
 
 class Record(object):
 	def __init__(self,longitude=0.0,latitude=0.0,amount=0.00,ex_type="Cash",debt=[],time=datetime.now()):

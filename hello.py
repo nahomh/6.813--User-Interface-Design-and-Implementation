@@ -20,6 +20,7 @@ def record_route():
 def analytics_route():
 	return render_template("analytics.html")
 
+
 @app.route("/data-test")
 def datatest_route():
 	output = "<html><head><title>Data Test</title></head><body>"

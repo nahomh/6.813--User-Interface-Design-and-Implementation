@@ -12,9 +12,11 @@ def transfer_route():
 def debts_route():
 	return render_template("debts.html")
 
-@app.route('/record')
-def record_route():
-	return render_template("records.html")
+@app.route('/record/')
+@app.route('/record/<id>')
+def record_route(id=None):
+    record = Record() if id == None else records[id]
+    return render_template("records.html", record = record)
 	
 @app.route('/analytics')
 def analytics_route():

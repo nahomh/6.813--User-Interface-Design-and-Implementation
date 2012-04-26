@@ -25,11 +25,13 @@ class Record(object):
 class Debt(object):
 	def __init__(self,amount=0.00,lender=None,borrower=None):
 		idnum = len(debts)
+		print idnum
 		self.ID = idnum					#Int
 		self.lender = lender				#User
 		self.borrower = borrower			#User
 		self.amount = amount				#Number
 		debts[idnum] = self
+		print len(debts)
 
 users = {0:User(0,"Haoyi Li","haoyi@li.com"),1:User(1,"Nahom Workie","nahom@workie.com"),2:User(2,"Akira Monri","akira@monri.com")}
 users[0].records.append(Record(1.296383,103.848953,25.25))

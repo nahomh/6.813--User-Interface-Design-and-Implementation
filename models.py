@@ -11,6 +11,7 @@ class User(object):
 		self.email = email				#String
 		self.ex_types = {0:"Cash",1:"Bank"}		#Dictionary
 
+
 class Record(object):
 	def __init__(self,longitude=0.0,latitude=0.0,amount=0.00,ex_type=0,debt=[],time=datetime.now()):
 		idnum = len(records)

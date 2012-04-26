@@ -7,22 +7,74 @@
 		
         <div id="moneyInput">
 				<label for="basic">Money Spent:</label>
-				<input type="text" name="name" style="float:left" id="basic" value="" data-mini="true" />
+				<input type="text" name="name" style="float:left" id="basic" value="{{ record.amount }}" data-mini="true" />
 				<label for="select-choice-0" class="select">Spending method:</label>
 				<div id="mid_table">
 
 				<select name="select-choice-0" id="select-choice-1">
-				   <option value="Cash">Cash</option>
-				   <option value="Debit/Cash">Debit/Credit</option>
+				   <option value="0" {{"selected='selected'" if record.ex_type == 0 else "" }}>Cash</option>
+				   <option value="1" {{"selected='selected'" if record.ex_type == 1 else "" }}>Card</option>
 				</select>
 
 			</div>
 			
 			<span><label for="SpendingDate" class="select"><br>Date:</label></span>
-			<table><tr>
-						<td><select id="year"><option value="2011">2011</option><option value="2012">2012</option></select></td>
-						<td><select id="month"><option value="01">Jan</option><option value="02">Feb</option><option value="03">Mar</option><option value="04">Apr</option><option value="05">May</option><option value="06">Jun</option><option value="07">Jul</option><option value="08">Aug</option><option value="09">Sep</option><option value="10">Oct</option><option value="11">Nov</option><option value="12">Dec</option></select></td>
-						<td><select id="day"><option value="01">01</option><option value="02">02</option><option value="03">03</option><option value="04">04</option><option value="05">05</option><option value="06">06</option><option value="07">07</option><option value="08">08</option><option value="09">09</option><option value="10">10</option><option value="11">11</option><option value="12">12</option><option value="13">13</option><option value="14">14</option><option value="15">15</option><option value="16">16</option><option value="17">17</option><option value="18">18</option><option value="19">19</option><option value="20">20</option><option value="21">21</option><option value="22">22</option><option value="23">23</option><option value="24">24</option><option value="25">25</option><option value="26">26</option><option value="27">27</option><option value="28">28</option><option value="29">29</option><option value="30">30</option><option value="31">31</option></select></td>
+			<table>
+                <tr>
+                    
+						<td><select id="year">
+                            <option value="2011" {{"selected='selected'" if record.time.year == 2011 else "" }}>2011</option>
+                            <option value="2012" {{"selected='selected'" if record.time.year == 2012 else "" }}>2012</option>
+                        </select></td>
+						<td><select id="month">
+                            <option value="1" {{"selected='selected'" if record.time.month == 1 else "" }}>Jan</option>
+                            <option value="2" {{"selected='selected'" if record.time.month == 2 else "" }}>Feb</option>
+                            <option value="3" {{"selected='selected'" if record.time.month == 3 else "" }}>Mar</option>
+                            <option value="4" {{"selected='selected'" if record.time.month == 4 else "" }}>Apr</option>
+                            <option value="5" {{"selected='selected'" if record.time.month == 5 else "" }}>May</option>
+                            <option value="6" {{"selected='selected'" if record.time.month == 6 else "" }}>Jun</option>
+                            <option value="7" {{"selected='selected'" if record.time.month == 7 else "" }}>Jul</option>
+                            <option value="8" {{"selected='selected'" if record.time.month == 8 else "" }}>Aug</option>
+                            <option value="9" {{"selected='selected'" if record.time.month == 9 else "" }}>Sep</option>
+                            <option value="10" {{"selected='selected'" if record.time.month == 10 else "" }}>Oct</option>
+                            <option value="11" {{"selected='selected'" if record.time.month == 11 else "" }}>Nov</option>
+                            <option value="12" {{"selected='selected'" if record.time.month == 12 else "" }}>Dec</option>
+                        </select></td>
+						<td><select id="day">
+                            <option value="1" {{"selected='selected'" if record.time.day == 1 else "" }}>01</option>
+                            <option value="2" {{"selected='selected'" if record.time.day == 2 else "" }}>02</option>
+                            <option value="3" {{"selected='selected'" if record.time.day == 3 else "" }}>03</option>
+                            <option value="4" {{"selected='selected'" if record.time.day == 4 else "" }}>04</option>
+                            <option value="5" {{"selected='selected'" if record.time.day == 5 else "" }}>05</option>
+                            <option value="6" {{"selected='selected'" if record.time.day == 6 else "" }}>06</option>
+                            <option value="7" {{"selected='selected'" if record.time.day == 7 else "" }}>07</option>
+                            <option value="8" {{"selected='selected'" if record.time.day == 8 else "" }}>08</option>
+                            <option value="9" {{"selected='selected'" if record.time.day == 9 else "" }}>09</option>
+                            <option value="10" {{"selected='selected'" if record.time.day == 10 else "" }}>10</option>
+                            <option value="11" {{"selected='selected'" if record.time.day == 11 else "" }}>11</option>
+                            <option value="12" {{"selected='selected'" if record.time.day == 12 else "" }}>12</option>
+                            <option value="13" {{"selected='selected'" if record.time.day == 13 else "" }}>13</option>
+                            <option value="14" {{"selected='selected'" if record.time.day == 14 else "" }}>14</option>
+                            <option value="15" {{"selected='selected'" if record.time.day == 15 else "" }}>15</option>
+                            <option value="16" {{"selected='selected'" if record.time.day == 16 else "" }}>16</option>
+                            <option value="17" {{"selected='selected'" if record.time.day == 17 else "" }}>17</option>
+                            <option value="18" {{"selected='selected'" if record.time.day == 18 else "" }}>18</option>
+                            <option value="19" {{"selected='selected'" if record.time.day == 19 else "" }}>19</option>
+                            <option value="20" {{"selected='selected'" if record.time.day == 20 else "" }}>20</option>
+                            <option value="21" {{"selected='selected'" if record.time.day == 21 else "" }}>21</option>
+                            <option value="22" {{"selected='selected'" if record.time.day == 22 else "" }}>22</option>
+                            <option value="23" {{"selected='selected'" if record.time.day == 23 else "" }}>23</option>
+                            <option value="24" {{"selected='selected'" if record.time.day == 24 else "" }}>24</option>
+                            <option value="25" {{"selected='selected'" if record.time.day == 25 else "" }}>25</option>
+                            <option value="26" {{"selected='selected'" if record.time.day == 26 else "" }}>26</option>
+                            <option value="27" {{"selected='selected'" if record.time.day == 27 else "" }}>27</option>
+                            <option value="28" {{"selected='selected'" if record.time.day == 28 else "" }}>28</option>
+                            <option value="29" {{"selected='selected'" if record.time.day == 29 else "" }}>29</option>
+                            <option value="30" {{"selected='selected'" if record.time.day == 30 else "" }}>30</option>
+                            <option value="31" {{"selected='selected'" if record.time.day == 31 else "" }}>31</option>
+                        </select></td>
+                    
+                </tr>    
 			</table>
             
 

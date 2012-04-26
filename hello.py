@@ -4,6 +4,8 @@ from models import *
 app = Flask(__name__)
 app.debug = True
 
+myUserId = 2
+
 @app.route('/transfer')
 def transfer_route():
 	return render_template("transfer.html")

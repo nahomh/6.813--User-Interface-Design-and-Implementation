@@ -1,7 +1,8 @@
 from datetime import datetime
 
 class User(object):
-	def __init__(self,name="",email=""):
+	def __init__(self,idnum,name="",email=""):
+		self.ID = idnum
 		self.records = []						#List[Record]
 		self.name = name						#String
 		self.email = email						#String
@@ -19,7 +20,7 @@ class Debt(object):
 		self.borrower = borrower				#User
 		self.amount = amount					#Number
 
-users = {0:User("Haoyi Li","haoyi@li.com"),1:User("Nahom Workie","nahom@workie.com"),2:User("Akira Monri","akira@monri.com")}
+users = {0:User(0,"Haoyi Li","haoyi@li.com"),1:User(1,"Nahom Workie","nahom@workie.com"),2:User(2,"Akira Monri","akira@monri.com")}
 users[0].records.append(Record(1.296383,103.848953,25.25))
 
 users[1].records.append(Record(42.361778,-71.090426,30.20,[Debt(100.00,users[0])]))

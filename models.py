@@ -9,15 +9,17 @@ class User(object):
 		self.records = []				#List[Record]
 		self.name = name				#String
 		self.email = email				#String
+		self.ex_types = set("Cash","Bank")		#Set
 
 class Record(object):
-	def __init__(self,longitude=0.0,latitude=0.0,amount=0.00,debt=[],time=datetime.now()):
+	def __init__(self,longitude=0.0,latitude=0.0,amount=0.00,ex_type="Cash",debt=[],time=datetime.now()):
 		idnum = len(records)
 		self.ID = idnum					#Int
 		self.time = time				#Long
 		self.location = (longitude,latitude)		#(Number, Number)
 		self.debts = debt				#List[Debt]
 		self.amount = amount				#Number
+		self.ex_type = ex_type				#String
 		records[idnum] = self
 
 class Debt(object):

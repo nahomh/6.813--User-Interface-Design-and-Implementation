@@ -31,10 +31,10 @@ def debts_route():
 					
 	for record in my_records:
 		print record
-		#if record[1] in urecords.keys:
-			#urecords[record[1]].append(record)
-		#else:
-			#urecords[record[1]]=[record]
+		if record[1] in urecords.keys():
+			urecords[record[1]].append(record)
+		else:
+			urecords[record[1]]=[record]
 	
 	return render_template("debts.html", my_records = my_records, urecords=urecords)
 
@@ -46,7 +46,8 @@ def record_route(id=None):
 	
 @app.route('/analytics')
 def analytics_route():
-	return render_template("analytics.html")
+    records = users[myUserId].records
+    return render_template("analytics.html", records=records)
 
 
 @app.route("/data-test")

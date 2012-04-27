@@ -7,13 +7,11 @@
 			<ul data-role="listview" data-filter="true" id="listarea">
 				{% for i in my_records %}
 					{%if i[3]=="lender": %}
-					<li><a href="debts1.html">{{ i[1]}} <span class="owed">Lent</span>you {{ i[2]}}</a></li>
+					<li><a href="debts1.html">{{ i[1]}} <span class=" owed">LENT</span> you {{ i[2]}}</a></li>
 					{%else%}
-					<li><a href="debts1.html">{{ i[1]}} <span class="owe">OWES</span>you {{ i[2]}}</a></li>
-    				{% endfor %}
+					<li><a href="debts1.html">{{ i[1]}} <span class=" owe">OWES</span> you {{ i[2]}}</a></li>
+					{% endif %}
+				{% endfor %}
 			</ul>
-            <div>
-                {{ my_records }}
-            </div>
 {% endblock %}
 

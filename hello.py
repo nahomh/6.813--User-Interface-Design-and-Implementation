@@ -17,7 +17,7 @@ def debts_route():
 	for r in users[myUserId].records:
 		for d in r.debts:
 			if d.lender != None:
-				my_records.append(["Debt ID: " + str(d.ID,
+				my_records.append(["Debt ID: " + str(d.ID),
 					"Lender: " + d.lender.name,
 					"Amount: $" + "%.2f" % d.amount,
 					"lender"])
@@ -28,7 +28,7 @@ def debts_route():
 					"Amount: $" + "%.2f" % d.amount,
 					"borrower"])
 
-    return render_template("debts.html", my_records = my_records)
+	return render_template("debts.html", my_records = my_records)
 
 @app.route('/record/')
 @app.route('/record/<id>')

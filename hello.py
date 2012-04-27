@@ -17,7 +17,7 @@ def debts_route():
 	for r in users[myUserId].records:
 		for d in r.debts:
 			if d.lender != None:
-				my_records.append(["Debt ID: " + str(d.ID,
+				my_records.append(["Debt ID: " + str(d.ID),
 					"Lender: " + d.lender.name,
 					"Amount: $" + "%.2f" % d.amount,
 					"lender"])

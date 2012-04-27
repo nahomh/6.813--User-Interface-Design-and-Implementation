@@ -10,7 +10,8 @@
 					<li><a href="debts1.html">{{ i[1]}} <span class="owed">Lent</span>you {{ i[2]}}</a></li>
 					{%else%}
 					<li><a href="debts1.html">{{ i[1]}} <span class="owe">OWES</span>you {{ i[2]}}</a></li>
-    				{% endfor %}
+					{% endif %}
+				{% endfor %}
 			</ul>
             <div>
                 {{ my_records }}

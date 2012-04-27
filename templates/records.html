@@ -81,16 +81,15 @@
 			<div id="Inst.Location">Tap to get location</div>  
 
             <img src="http://maps.googleapis.com/maps/api/staticmap?center={{record.location[0]}},{{record.location[1]}}
-                                &zoom=15
-                                &size=380x300
+                                &zoom=14
+                                &size=320x100
                                 &maptype=roadmap
                                 &markers=color:blue%7C{{record.location[0]}},{{record.location[1]}}
                                 &sensor=false"/>
-			 <div id="userMap" style="background-image:url('images/mapUI.png');  padding-top:25px;height:250px;"></div>
-        <a data-role="button"  onclick="javascript:alert('Loading GPS');" data-inline="true" data-theme="b">Track Spending</a>
+			 
         </div>
      
-	    <div id="sbmitForm" >
+	    <div id="submitForm" >
 	        <a onclick="javascript:alert('Transaction Recorded');" style="float:left" data-role="button">Submit</a>
 	        <a href="records2.html" style=" float:left"data-role="button">Add Debits</a>
 		</div>

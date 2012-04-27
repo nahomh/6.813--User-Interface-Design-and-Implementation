@@ -18,14 +18,14 @@ def debts_route():
 		for d in r.debts:
 			if d.lender != None:
 				my_records.append(["Debt ID: " + str(d.ID),
-					"Lender: " + d.lender.name,
-					"Amount: $" + "%.2f" % d.amount,
+					 d.lender.name,
+					"$" + "%.2f" % d.amount,
 					"lender"])
 				
 			else:
 				my_records.append(["Debt ID: " + str(d.ID),
-					"Borrower: " + d.borrower.name,
-					"Amount: $" + "%.2f" % d.amount,
+					d.borrower.name,
+					"$" + "%.2f" % d.amount,
 					"borrower"])
 
 	return render_template("debts.html", my_records = my_records)

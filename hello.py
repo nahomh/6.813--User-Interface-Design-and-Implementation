@@ -14,7 +14,6 @@ def transfer_route():
 def debts_route():
 
 	my_records=[]
-	output="<ul data-role="listview" data-filter="true" id="listarea">"
 	for r in users[myUserId].records:
 		for d in r.debts:
 			if d.lender != None:

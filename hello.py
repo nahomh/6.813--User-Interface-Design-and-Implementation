@@ -12,23 +12,22 @@ def transfer_route():
 
 @app.route('/debts')
 def debts_route():
-	
-    my_records=[]
-    for r in users[myUserId].records:
-        print r
-        print r.debts
-        for d in r.debts:
-            print d
-            if d.lender != None:
-                my_records.append(["&emsp;&emsp;&emsp;Debt ID: " + str(d.ID),
-                    "&emsp;&emsp;&emsp;Lender: " + d.lender.name,
-                    "&emsp;&emsp;&emsp;Amount: $" + "%.2f" % d.amount])
-                
-            else:
-                my_records.append(["&emsp;&emsp;&emsp;Debt ID: " + str(d.ID),
-                    "&emsp;&emsp;&emsp;Borrower: " + d.borrower.name,
-                    "&emsp;&emsp;&emsp;Amount: $" + "%.2f" % d.amount])
-    
+
+	my_records=[]
+	for r in users[myUserId].records:
+		for d in r.debts:
+			if d.lender != None:
+				my_records.append(["Debt ID: " + str(d.ID,
+					"Lender: " + d.lender.name,
+					"Amount: $" + "%.2f" % d.amount,
+					"lender"])
+				
+			else:
+				my_records.append(["Debt ID: " + str(d.ID),
+					"Borrower: " + d.borrower.name,
+					"Amount: $" + "%.2f" % d.amount,
+					"borrower"])
+
     return render_template("debts.html", my_records = my_records)
 
 @app.route('/record/')

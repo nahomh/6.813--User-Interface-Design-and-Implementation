@@ -39,7 +39,8 @@ def record_route(id=None):
 	
 @app.route('/analytics')
 def analytics_route():
-	return render_template("analytics.html")
+    records = users[myUserId].records
+    return render_template("analytics.html", records=records)
 
 
 @app.route("/data-test")

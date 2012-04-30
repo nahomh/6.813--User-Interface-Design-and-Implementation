@@ -8,6 +8,11 @@ myUserId = 2
 my_records=[]
 urecords={}
 
+@app.route('/')
+def root_route():
+	return record_route()
+
+
 @app.route('/transfer')
 def transfer_route():
 	return render_template("transfer.html")

@@ -1,6 +1,9 @@
 from flask import Flask
 from flask import render_template
+from flask import request
+from flask import redirect
 from models import *
+from datetime import *
 app = Flask(__name__)
 app.debug = True
 
@@ -48,7 +51,20 @@ def debts_route():
 def record_route(id=None):
     record = Record() if id == None else records[int(id)]
     return render_template("records.html", record = record)
-	
+
+@app.route('/record_callback/<id>')	
+def record_callback(id):
+    record = records[int(id)]
+    record.location = (request.args["lat"], request.args["lng"])
+    record.amount = float(request.args["amount"])
+    record.ex_type = request.args["type"]
+    record.time = date(int(request.args["year"]), int(request.args["month"]), int(request.args["day"]))
+    print "CALLBACK"
+    print request.args
+    users[myUserId].records += [record]
+    
+    return redirect("/record/"+id)
+    
 @app.route('/analytics')
 def analytics_route():
     records = users[myUserId].records

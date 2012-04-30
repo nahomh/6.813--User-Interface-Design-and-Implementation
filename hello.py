@@ -55,8 +55,8 @@ def analytics_route():
     records = users[myUserId].records
     return render_template("analytics.html", records=records)
 
-@app.route('/debts1')
-@app.route('/debts1/<id>')
+@app.route('/invdebt')
+@app.route('/invdebt/<id>')
 def debt_records_route(id=None):
 	us_rec=[]
 	for i in my_records:
@@ -67,7 +67,7 @@ def debt_records_route(id=None):
 				print i[1]
 				us_rec.append(i)
 		
-	return render_template("debts1.html",urec = us_rec, my_records=my_records)
+	return render_template("invdebt.html",urec = us_rec, my_records=my_records)
 	
 @app.route("/data-test")
 def datatest_route():

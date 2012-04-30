@@ -6,6 +6,11 @@ app.debug = True
 
 myUserId = 2
 
+@app.route('/')
+def root_route():
+	return record_route()
+
+
 @app.route('/transfer')
 def transfer_route():
 	return render_template("transfer.html")

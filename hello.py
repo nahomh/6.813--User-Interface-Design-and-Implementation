@@ -49,16 +49,25 @@ def debts_route():
 	
 	return render_template("debts.html", my_records = my_records, urecords=urecords)
 
+def find(f, seq):
+  """Return first item in sequence where f(item) == True."""
+  for item in seq:
+    if f(item): 
+      return item
+      
 @app.route('/debt_callback/<recordid>/<debtid>')	
-def debts_callback(id):
-    record = records[int(id)]
-    debt = debts[int(id)]
-    debt.lender = request.args
-    debt.borrower = request.args
-    ddebt.amount = request.args
+def debts_callback(recordid, debtid):
+    record = records[int(recordid)]
+    debt = debts[int(debtid)]
+    lender, borrower = (users[myUserId], find(lambda u: u.name == request.args["other"], users.values()))
+    if request.args["type"] == "Owe": 
+        lender, borrower = borrower, lender
+    debt.lender = lender
+    debt.borrower = borrower
+    debt.amount = float(request.args["amount"])
     record.debts += [debt]
-    
-    return redirect("/debts/"+id)
+
+    return redirect("/record/"+recordid)
     
 @app.route('/record/')
 @app.route('/record/<id>')
@@ -98,11 +107,11 @@ def debt_records_route(id=None):
 		
 	return render_template("invdebt.html",urec = us_rec, my_records=my_records)
 
-@app.route('/addDebts/')
-@app.route('/addDebts/<id>')
-def add_debts_oute(id=None):
+@app.route('/addDebts/<recordId>')
+@app.route('/addDebts/<recordId>/<id>')
+def add_debts_route(recordId, id=None):
     debt = Debt() if id == None else debts[int(id)]
-    return render_template("addDebts.html", debt=debt)	
+    return render_template("addDebts.html", debt=debt, recordId=recordId)	
 	
 
 @app.route("/data-test")

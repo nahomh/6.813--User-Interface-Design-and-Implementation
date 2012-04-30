@@ -2,11 +2,12 @@
 {% block title %}Transfer{% endblock %}
 {% block transfer_top_btn %}class="ui-btn-active"{% endblock %}
 {% block content %}
+
 	<table width="300">
 		<tbody>
 			<tr>
 				<td>Transfer $</td>
-				<td><input type="text" name="amount"></td>
+				<td><input type="text" name="amount" value="{{ two_decimal(record.amount) }}"></td>
 			</tr>
 		</tbody>
 	</table>
@@ -17,7 +18,7 @@
 				<td>From</td>
 				<td><select name="from">
 						{% for et in my_ex_types.keys() %}
-							<option value="{{ et }}">{{ my_ex_types[et] }}</option>
+						<option value="{{ et }}" {{"SELECTED=SELECTED" if record.ex_type==et else ""}}>{{ my_ex_types[et] }}</option>
 						{% endfor %}
 				</select></td>
 			</tr>
@@ -26,7 +27,7 @@
 				<td>
 					<select name="to">
 						{% for et in my_ex_types.keys() %}
-							<option value="{{ et }}">{{ my_ex_types[et] }}</option>
+						<option value="{{ et }}" {{"SELECTED=SELECTED" if record.transfer_to==et else ""}}>{{ my_ex_types[et] }}</option>
 						{% endfor %}
 					</select>
 				</td>

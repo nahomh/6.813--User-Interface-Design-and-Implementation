@@ -10,15 +10,23 @@ app.debug = True
 myUserId = 2
 my_records=[]
 urecords={}
+@app.context_processor
+def utility_processor():
+	def two_decimal(amount):
+		s = "%.2f" % amount
+		return s
+	return dict(two_decimal=two_decimal)
 
 @app.route('/')
 def root_route():
 	return record_route()
 
 
-@app.route('/transfer')
-def transfer_route():
-	return render_template("transfer.html", my_ex_types=users[myUserId].ex_types, today=datetime.now())
+@app.route('/transfer/')
+@app.route('/transfer/<id>')
+def transfer_route(id=None):
+	record = Record() if id == None else records[int(id)]
+	return render_template("transfer.html", my_ex_types=users[myUserId].ex_types, today=datetime.now(), record=record)
 
 @app.route('/debts')
 def debts_route():

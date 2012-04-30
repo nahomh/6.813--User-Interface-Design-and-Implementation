@@ -9,14 +9,14 @@ class User(object):
 		self.records = []						#List[Record]
 		self.name = name						#String
 		self.email = email						#String
-		self.ex_types = {0:"Cash",1:"Bank"}		#Dictionary
+		self.ex_types = {0:"Cash",1:"Bank",2:"Credit Card"}		#Dictionary
 
 
 class Record(object):
 	def __init__(self,latitude=0.0,longitude=0.0,amount=0.00,debt=[],time=datetime.now(),ex_type=0,transfer_to=None):
 		idnum = len(records)
 		self.ID = idnum								#Int
-		self.time = time							#Long
+		self.time = time							#Datetime
 		self.location = (latitude,longitude)		#(Number, Number)
 		self.debts = debt							#List[Debt]
 		self.amount = amount						#Number

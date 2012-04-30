@@ -8,12 +8,10 @@
         <ul data-role="listview" class="ui-listview">
             {% for record in records %}
                 <li>
-                    <a href="debts1.html">
-                        <h3 class="ui-li-heading">{{record.amount}}</h3>
-                        <p class="ui-li-desc">{{record.time}}</p>
+                    <a href="record/{{record.ID}}">
+                        ${{"%.2f" % record.amount}} spent on {{record.time.year}} / {{record.time.month}} / {{record.time.day}}
                     </a>
                 </li>
-               
             {% endfor %}
         </ul>
     </div>

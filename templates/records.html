@@ -4,14 +4,14 @@
 {% endblock %}
 {% block content %}
 
-		
+    <form action="/record_callback/{{record.ID}}" method="get">
         <div id="moneyInput">
 				<label for="basic">Money Spent:</label>
-				<input type="text" name="name" style="float:left" id="basic" value="{{ record.amount }}" data-mini="true" />
+				<input type="text" name="amount" style="float:left" id="basic" value="{{ record.amount }}" data-mini="true" />
 				<label for="select-choice-0" class="select">Spending method:</label>
 				<div id="mid_table">
 
-				<select name="select-choice-0" id="select-choice-1">
+				<select name="type" id="select-choice-1">
 				   <option value="0" {{"selected='selected'" if record.ex_type == 0 else "" }}>Cash</option>
 				   <option value="1" {{"selected='selected'" if record.ex_type == 1 else "" }}>Card</option>
 				</select>
@@ -22,11 +22,11 @@
 			<table>
                 <tr>
                     
-						<td><select id="year">
+						<td><select id="year" name="year">
                             <option value="2011" {{"selected='selected'" if record.time.year == 2011 else "" }}>2011</option>
                             <option value="2012" {{"selected='selected'" if record.time.year == 2012 else "" }}>2012</option>
                         </select></td>
-						<td><select id="month">
+						<td><select id="month" name="month">
                             <option value="1" {{"selected='selected'" if record.time.month == 1 else "" }}>Jan</option>
                             <option value="2" {{"selected='selected'" if record.time.month == 2 else "" }}>Feb</option>
                             <option value="3" {{"selected='selected'" if record.time.month == 3 else "" }}>Mar</option>
@@ -40,7 +40,7 @@
                             <option value="11" {{"selected='selected'" if record.time.month == 11 else "" }}>Nov</option>
                             <option value="12" {{"selected='selected'" if record.time.month == 12 else "" }}>Dec</option>
                         </select></td>
-						<td><select id="day">
+						<td><select id="day" name="day">
                             <option value="1" {{"selected='selected'" if record.time.day == 1 else "" }}>01</option>
                             <option value="2" {{"selected='selected'" if record.time.day == 2 else "" }}>02</option>
                             <option value="3" {{"selected='selected'" if record.time.day == 3 else "" }}>03</option>
@@ -79,18 +79,29 @@
             
 
 			<div id="Inst.Location">Tap to get location</div>  
-
+            <input type="hidden" name="lat" id="lat" value="0"/>
+            <input type="hidden" name="lng" id="lng" value="0"/>
             <img src="http://maps.googleapis.com/maps/api/staticmap?center={{record.location[0]}},{{record.location[1]}}
                                 &zoom=14
                                 &size=320x100
                                 &maptype=roadmap
                                 &markers=color:blue%7C{{record.location[0]}},{{record.location[1]}}
                                 &sensor=false"/>
-			 
+			<script>
+                if (navigator.geolocation){
+                    navigator.geolocation.getCurrentPosition(function(position){
+                        var lat = position.coords.latitude
+                        var lng = position.coords.longitude
+                        $("#lat").val(lat)
+                        $("#lng").val(lng)
+                    });
+                }
+            </script>
         </div>
      
 	    <div id="submitForm" >
-	        <a onclick="javascript:alert('Transaction Recorded');" style="float:left" data-role="button">Submit</a>
+	        <button type="submit" style="float:left" data-role="button" value="Submit">Submit</button>
 	        <a href="records2.html" style=" float:left"data-role="button">Add Debits</a>
 		</div>
+    </form>
 {% endblock %}

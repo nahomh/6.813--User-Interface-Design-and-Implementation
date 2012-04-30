@@ -5,6 +5,8 @@ app = Flask(__name__)
 app.debug = True
 
 myUserId = 2
+my_records=[]
+urecords={}
 
 @app.route('/transfer')
 def transfer_route():
@@ -13,8 +15,7 @@ def transfer_route():
 @app.route('/debts')
 def debts_route():
 
-	my_records=[]
-	urecords={}
+	
 	for r in users[myUserId].records:
 		for d in r.debts:
 			if d.lender != None:
@@ -49,7 +50,20 @@ def analytics_route():
     records = users[myUserId].records
     return render_template("analytics.html", records=records)
 
-
+@app.route('/debts1')
+@app.route('/debts1/<id>')
+def debt_records_route(id=None):
+	us_rec=[]
+	for i in my_records:
+		if i in us_rec:
+			break
+		else:
+			if i[1]==id:
+				print i[1]
+				us_rec.append(i)
+		
+	return render_template("debts1.html",urec = us_rec, my_records=my_records)
+	
 @app.route("/data-test")
 def datatest_route():
 	output = "<html><head><title>Data Test</title></head><body>"

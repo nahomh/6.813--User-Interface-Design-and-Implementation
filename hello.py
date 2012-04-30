@@ -33,7 +33,6 @@ def transfer_route(id=None):
 @app.route('/debts')
 def debts_route():
 
-	
 	for r in users[myUserId].records:
 		for d in r.debts:
 			if d.lender != None:
@@ -80,20 +79,25 @@ def debts_callback(recordid, debtid):
 @app.route('/record/')
 @app.route('/record/<id>')
 def record_route(id=None):
-    record = Record() if id == None else records[int(id)]
-    return render_template("records.html", record = record)
+    return render_template("records.html", record = users[myUserId].tempRecord)
 
-@app.route('/record_callback/<id>')	
+@app.route('/record_callback/<id>', methods=['POST']) 	
 def record_callback(id):
-    record = records[int(id)]
-    record.location = (request.args["lat"], request.args["lng"])
-    record.amount = float(request.args["amount"])
-    record.ex_type = request.args["type"]
-    record.time = date(int(request.args["year"]), int(request.args["month"]), int(request.args["day"]))
-    print "CALLBACK"
+    print "OMG"
+    print request.form
     print request.args
-    users[myUserId].records += [record]
-    
+    record = users[myUserId].tempRecord
+    users[myUserId].tempRecord.location = (request.args["lat"], request.args["lng"])
+    users[myUserId].tempRecord.amount = float(request.args["amount"])
+    users[myUserId].tempRecord.ex_type = request.args["type"]
+    users[myUserId].tempRecord.time = date(int(request.args["year"]), int(request.args["month"]), int(request.args["day"]))
+    print "OK"  
+    return "Ok"
+
+@app.route('/record_commit/<id>')
+def record_commit(id):    
+    users[myUserId].records += [users[myUserId].tempRecord]
+    users[myUserId].tempRecord = Record()
     return redirect("/record/"+id)
     
 @app.route('/analytics')

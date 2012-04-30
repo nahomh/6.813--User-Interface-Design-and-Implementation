@@ -6,6 +6,7 @@ debts = {}
 class User(object):
 	def __init__(self,idnum,name="",email=""):
 		self.ID = idnum
+		self.tempRecord = Record()
 		self.records = []						#List[Record]
 		self.name = name						#String
 		self.email = email						#String

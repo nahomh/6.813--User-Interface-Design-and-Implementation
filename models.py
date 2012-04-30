@@ -6,21 +6,22 @@ debts = {}
 class User(object):
 	def __init__(self,idnum,name="",email=""):
 		self.ID = idnum
-		self.records = []				#List[Record]
-		self.name = name				#String
-		self.email = email				#String
+		self.records = []						#List[Record]
+		self.name = name						#String
+		self.email = email						#String
 		self.ex_types = {0:"Cash",1:"Bank"}		#Dictionary
 
 
 class Record(object):
-	def __init__(self,latitude=0.0,longitude=0.0,amount=0.00,debt=[],time=datetime.now(),ex_type=0):
+	def __init__(self,latitude=0.0,longitude=0.0,amount=0.00,debt=[],time=datetime.now(),ex_type=0,transfer_to=None):
 		idnum = len(records)
-		self.ID = idnum					#Int
-		self.time = time				#Long
+		self.ID = idnum								#Int
+		self.time = time							#Long
 		self.location = (latitude,longitude)		#(Number, Number)
-		self.debts = debt				#List[Debt]
-		self.amount = amount				#Number
-		self.ex_type = ex_type				#Int
+		self.debts = debt							#List[Debt]
+		self.amount = amount						#Number
+		self.ex_type = ex_type						#Int
+		self.transfer_to = transfer_to				#Int/None
 		records[idnum] = self
 
 class Debt(object):

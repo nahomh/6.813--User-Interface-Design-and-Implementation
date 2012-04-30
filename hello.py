@@ -47,6 +47,17 @@ def debts_route():
 	
 	return render_template("debts.html", my_records = my_records, urecords=urecords)
 
+@app.route('/debt_callback/<recordid>/<debtid>')	
+def debts_callback(id):
+    record = records[int(id)]
+    debt = debts[int(id)]
+    debt.lender = request.args
+    debt.borrower = request.args
+    ddebt.amount = request.args
+    record.debts += [debt]
+    
+    return redirect("/debts/"+id)
+    
 @app.route('/record/')
 @app.route('/record/<id>')
 def record_route(id=None):

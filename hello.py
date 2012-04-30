@@ -13,7 +13,7 @@ urecords={}
 @app.context_processor
 def utility_processor():
 	def two_decimal(amount):
-		s = "%.2f" % amount
+		s = "%.2f" % float(amount)
 		return s
 	return dict(two_decimal=two_decimal)
 
@@ -26,9 +26,23 @@ def root_route():
 @app.route('/transfer/<id>')
 def transfer_route(id=None):
 	record = Record() if id == None else records[int(id)]
-	return render_template("transfer.html", my_ex_types=users[myUserId].ex_types, today=datetime.now(), record=record)
+	return render_template("transfer.html", my_ex_types=users[myUserId].ex_types, record=record,is_new=(id==None))
 
 	
+@app.route('/transfer_callback/<id>', methods=['POST','GET'])
+def transfer_callback(id):
+	if request.method=='POST':
+		record = records[int(id)]
+		record.amount = float(request.form['amount'])
+		record.ex_type = int(request.form['from'])
+		record.transfer_to = int(request.form['to'])
+		the_date = datetime(int(request.form['year']),int(request.form['month']),int(request.form['day']))
+		record.time = the_date
+		if request.form["isNew"]=="1": users[myUserId].records += [record]
+		return redirect('/transfer/'+id)
+	else:
+		return redirect('/transfer/')
+
 	
 @app.route('/debts')
 def debts_route():

@@ -13,7 +13,7 @@ def root_route():
 
 @app.route('/transfer')
 def transfer_route():
-	return render_template("transfer.html")
+	return render_template("transfer.html", my_ex_types=users[myUserId].ex_types, today=datetime.now())
 
 @app.route('/debts')
 def debts_route():

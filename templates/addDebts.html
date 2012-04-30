@@ -2,29 +2,31 @@
 {% block title %}Transfer{% endblock %}
 {% block transfer_top_btn %}class="ui-btn-active"{% endblock %}
 {% block content %}
-	<table width="300">
-				<tbody>
-					<tr>
-						<td>I</td>
-						<td><select name="select-debtopt" id="select-choice-1">
-							   <option value="Cash">Owe</option>
-							   <option value="Debit/Cash">Lent</option>
-							</select>
-						</td>
-						<td><input type="text" name="name" id="basic" value="" data-mini="true" />
-                        
-						</td>
-					</tr>
-				</tbody>
-			</table>
-			<br>
-			<p style="margin-top:-15px;">Amount $</p> 
-			<input type="text" name="name"   id="quantity" value="" data-mini="true"/>
-            <script>
-                
-            </script>
-			<p>in</p>
-			<select><option value="cash">CASH</option><option value="debit-credit">Debit/Credit</option></select>
-			<br>
-			<input type="button" value="OK" onclick="javascript:alert('Debit Recorded');location.href='records.html';"/>
+    <form action="/debt_callback/{{recordId}}/{{debt.ID}}" method="get">
+        <table width="300">
+            <tbody>
+                <tr>
+                    <td>I</td>
+                    <td><select name="type" id="direct">
+                           <option value="Owe">Owe</option>
+                           <option value="Lent">Lent</option>
+                        </select>
+                    </td>
+                    <td><input type="text" name="other" id="basic" value="" data-mini="true" />
+                    
+                    </td>
+                </tr>
+            </tbody>
+        </table>
+        <br>
+        <p style="margin-top:-15px;">Amount $</p> 
+        <input type="text" name="amount"   id="amount" value="" data-mini="true"/>
+        <script>
+            
+        </script>
+        <p>in</p>
+        <select><option value="cash">CASH</option><option value="debit-credit">Debit/Credit</option></select>
+        <br>
+        <button type="submit" style="float:left" data-role="button" value="Submit">Done</button>
+    </form>
 {% endblock %}

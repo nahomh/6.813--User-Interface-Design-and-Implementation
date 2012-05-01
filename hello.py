@@ -114,11 +114,15 @@ def record_commit(id):
     users[myUserId].tempRecord = Record()
     return redirect("/record/"+id)
 
-@app.route('/analytics')
+@app.route('/analytics',methods=['GET','POST'])
 def analytics_route():
+	if request.method=="POST":
+		exType = int(request.form["account"])
+	else:
+		exType = 0
 	records = users[myUserId].records
 	records.sort(key=lambda rec:rec.time)
-	return render_template("analytics.html", records=records)
+	return render_template("analytics.html", records=records, ex_types=users[myUserId].ex_types, viewAccount=exType)
 
 @app.route('/invdebt')
 @app.route('/invdebt/<id>')

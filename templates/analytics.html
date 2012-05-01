@@ -1,20 +1,42 @@
 {% extends "layout.html" %}
+{% block title %}
+Analytics
+{% endblock %}
 {% block analytics_top_btn %}
     class="ui-btn-active"
 {% endblock %}
 {% block content %}
-    
-       <div class="content-primary">
-        <ul data-role="listview" class="ui-listview">
-            {% for record in records %}
-                <li>
+<div class="content-primary">
+	<form method="POST" action="/analytics">
+		<table width=320>
+			<tbody>
+				<tr>
+					<td>
+						<select name="account">
+							{% for x in ex_types.keys() %}
+							<option value="{{x}}" {{"SELECTED='SELECTED'" if x==viewAccount else ""}}>{{ex_types[x]}}</option>
+							{% endfor %}
+						</select>
+					</td>
+					<td>
+						<input type="submit" value="View"/>
+					</td>
+				</tr>
+			</tbody>
+		</table>
+	</form>
+	<br/>
+	<ul data-role="listview" class="ui-listview">
+		{% for record in records %}
+		{% if record.ex_type==viewAccount %}
+			<li>
 				<a href="{{"record" if record.transfer_to==None else "transfer"}}/{{record.ID}}">
-					${{ two_decimal(record.amount)}} {{"spent" if record.transfer_to==None else "transferred"}} on {{record.time.year}} / {{record.time.month}} / {{record.time.day}}
-                    </a>
-                </li>
-            {% endfor %}
-        </ul>
-    </div>
+				${{ two_decimal(record.amount)}} {{"spent" if record.transfer_to==None else "transferred"}} on {{record.time.year}} / {{record.time.month}} / {{record.time.day}}</a>
+			</li>
+		{% endif %}
+		{% endfor %}
+	</ul>
+</div>
         
     
     

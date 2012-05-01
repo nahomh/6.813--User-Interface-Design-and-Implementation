@@ -7,7 +7,7 @@
     <form action="/record_commit/{{record.ID}}" data-update="/record_callback/{{record.ID}}" method="get">
         <div id="moneyInput">
 				<label for="basic">Money Spent:</label>
-				<input type="text" name="amount" style="float:left" id="basic" value="{{ record.amount }}"  onchange="postParent(this)" data-mini="true" />
+				<input type="text" name="amount" style="float:left" id="basic" value="{{ two_decimal(record.amount) }}"  onchange="postParent(this)" data-mini="true" />
 				<label for="select-choice-0" class="select">Spending method:</label>
 				<div id="mid_table">
 

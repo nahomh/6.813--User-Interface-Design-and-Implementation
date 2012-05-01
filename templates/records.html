@@ -4,7 +4,7 @@
 {% endblock %}
 {% block content %}
 
-    <form action="/record_commit/{{record.ID}}" data-update="/record_callback/{{record.ID}}" method="get">
+    <form data-ajax="false" action="/record_commit/{{record.ID}}" data-update="/record_callback/{{record.ID}}" method="get">
         <div id="moneyInput">
 				<label for="basic">Money Spent:</label>
 				<table width=320>

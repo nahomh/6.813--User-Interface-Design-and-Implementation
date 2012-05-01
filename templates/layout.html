@@ -10,14 +10,15 @@
 		<script src="{{ url_for('static', filename='jquery.mobile-1.0.1.min.js') }}"></script>
 		<script src="{{ url_for('static', filename='traxx.js') }}"></script>
 		{% block head %}{% endblock %}
+		
 	</head>
 	<body>
         <div data-role="header" data-position="fixed" data-id="topnav">
             <div data-role="navbar" >
                 <ul>
-                    <li><a href="/record" {% block record_top_btn %}{% endblock %}>Record</a></li>
-                    <li><a href="/transfer" {% block transfer_top_btn %}{% endblock %}>Transfer</a></li>
-                    <li><a href="/debts" {% block debts_top_btn %}{% endblock %}>Debts</a></li>
+                    <li><a rel="external" href="/record" {% block record_top_btn %}{% endblock %}>Record</a></li>
+                    <li><a rel="external" href="/transfer" {% block transfer_top_btn %}{% endblock %}>Transfer</a></li>
+                    <li><a rel="external" href="/debts" {% block debts_top_btn %}{% endblock %}>Debts</a></li>
                     <li><a rel="external" href="/analytics" {% block analytics_top_btn %}{% endblock %}>Analyze</a></li>
                 </ul>
             </div>

@@ -135,7 +135,7 @@ def debt_records_route(id=None):
 		else:
 			if i.lender.name==id or i.borrower.name==id:
 				us_rec.append(i)
-		
+	print us_rec
 	return render_template("invdebt.html",urec = us_rec, debt_records=debt_records, id=id, myUserId=myUserId)
 
 @app.route('/addDebts/<recordId>')

@@ -4,9 +4,8 @@
 {% endblock %}
 {% block content %}
 
-    <form data-ajax="false" action="/record_commit/{{record.ID}}" data-update="/record_callback/{{record.ID}}" method="get">
+    <form  action="/record_commit/{{record.ID}}" data-update="/record_callback/{{record.ID}}" method="get">
         <div id="moneyInput">
-				<label for="basic">Money Spent:</label>
 				<table width=320>
 					<tbody>
 						<tr>
@@ -14,7 +13,7 @@
 								$
 							</td>
 							<td>
-								<input type="text" name="amount" style="float:left" id="basic" value="{{ two_decimal(record.amount) }}"  onchange="postParent(this)" data-mini="true" />
+								<input type="text" name="amount" style="float:left" id="basic" value="{{ two_decimal(record.amount) }}"  onkeyup="postParent(this)" onchange="postParent(this)" data-mini="true" />
 							</td>
 						</tr>
 					</tbody>
@@ -22,10 +21,11 @@
 				<label for="select-choice-0" class="select">Spending method:</label>
 				<div id="mid_table">
 
-				<select name="type" id="select-choice-1" onchange="postParent(this)">
-				   <option value="0" {{"selected='selected'" if record.ex_type == 0 else "" }}>Cash</option>
-				   <option value="1" {{"selected='selected'" if record.ex_type == 1 else "" }}>Card</option>
-				</select>
+					<select name="type" id="select-choice-1" onchange="postParent(this)">
+						{% for acc in my_accounts %}
+						<option value="{{acc}}" {{"selected='selected'" if record.ex_type == acc else "" }}>{{my_accounts[acc]}}</option>
+						{% endfor %}
+					</select>
 
 			</div>
 			

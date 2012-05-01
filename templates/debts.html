@@ -7,9 +7,9 @@
 			<ul data-role="listview" data-filter="true" id="listarea">
 				{% for i in urecords.keys() %}
 					{%if urecords[i][-1].borrower=="{{myUserId}}": %}
-					<li><a href="/invdebt/{{urecords[i][-1].lender}}">{{urecords[i][-1].borrowerl}} <span class=" owed">Lent</span> you {{ urecords[i][-1].amount}}</a></li>
+					<li><a href="/invdebt/{{urecords[i][-1].lender.name}}">{{urecords[i][-1].lender.name}} <span class=" owed">Lent</span> you {{ urecords[i][-1].amount}}</a></li>
 					{%else%}
-					<li><a href="/invdebt/{{urecords[i][-1].borrower}}">{{urecords[i][-1].lender}} <span class=" owe">OWES</span> you {{ urecords[i][-1].amount}}</a></li>
+					<li><a href="/invdebt/{{urecords[i][-1].borrower.name}}">{{urecords[i][-1].borrower.name}} <span class=" owe">OWES</span> you {{ urecords[i][-1].amount}}</a></li>
 					{% endif %}
 				{% endfor %}
 			</ul>

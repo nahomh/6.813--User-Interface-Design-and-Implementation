@@ -9,22 +9,42 @@ app.debug = True
 
 myUserId = 2
 urecords={}
+@app.context_processor
+def utility_processor():
+	def two_decimal(amount):
+		s = "%.2f" % float(amount)
+		return s
+	return dict(two_decimal=two_decimal)
 
 @app.route('/')
 def root_route():
 	return record_route()
 
 
-@app.route('/transfer')
-def transfer_route():
-	return render_template("transfer.html", my_ex_types=users[myUserId].ex_types, today=datetime.now())
+@app.route('/transfer/')
+@app.route('/transfer/<id>')
+def transfer_route(id=None):
+	record = Record() if id == None else records[int(id)]
+	return render_template("transfer.html", my_ex_types=users[myUserId].ex_types, record=record,is_new=(id==None))
 
 	
+@app.route('/transfer_callback/<id>', methods=['POST','GET'])
+def transfer_callback(id):
+	if request.method=='POST':
+		record = records[int(id)]
+		record.amount = float(request.form['amount'])
+		record.ex_type = int(request.form['from'])
+		record.transfer_to = int(request.form['to'])
+		the_date = datetime(int(request.form['year']),int(request.form['month']),int(request.form['day']))
+		record.time = the_date
+		if request.form["isNew"]=="1": users[myUserId].records += [record]
+		return redirect('/transfer/'+id)
+	else:
+		return redirect('/transfer/')
+
 	
 @app.route('/debts')
 def debts_route():
-
-	my_records=[]
 	urecords={}
 	debt_records = []		
 	for r in users[myUserId].records:
@@ -46,29 +66,59 @@ def debts_route():
 	print urecords
 	return render_template("debts.html", debt_records = debt_records, urecords=urecords, myUserId=myUserId)
 
+def find(f, seq):
+  """Return first item in sequence where f(item) == True."""
+  for item in seq:
+    if f(item): 
+      return item
+      
+@app.route('/debt_callback/<recordid>/<debtid>')	
+def debts_callback(recordid, debtid):
+    record = records[int(recordid)]
+    debt = debts[int(debtid)]
+    lender, borrower = (users[myUserId], find(lambda u: u.name == request.args["other"], users.values()))
+    if request.args["type"] == "Owe": 
+        lender, borrower = borrower, lender
+    debt.lender = lender
+    debt.borrower = borrower
+    debt.amount = float(request.args["amount"])
+    record.debts += [debt]
+
+    return redirect("/record/"+recordid)
+    
 @app.route('/record/')
 @app.route('/record/<id>')
 def record_route(id=None):
-    record = Record() if id == None else records[int(id)]
-    return render_template("records.html", record = record)
+    return render_template("records.html", record = users[myUserId].tempRecord)
 
-@app.route('/record_callback/<id>')	
+@app.route('/record_callback/<id>', methods=['POST']) 	
 def record_callback(id):
-    record = records[int(id)]
-    record.location = (request.args["lat"], request.args["lng"])
-    record.amount = float(request.args["amount"])
-    record.ex_type = request.args["type"]
-    record.time = date(int(request.args["year"]), int(request.args["month"]), int(request.args["day"]))
-    print "CALLBACK"
+    print "OMG"
+    print request.form
     print request.args
-    users[myUserId].records += [record]
-    
+    record = users[myUserId].tempRecord
+    users[myUserId].tempRecord.location = (request.args["lat"], request.args["lng"])
+    users[myUserId].tempRecord.amount = float(request.args["amount"])
+    users[myUserId].tempRecord.ex_type = request.args["type"]
+    users[myUserId].tempRecord.time = datetime(int(request.args["year"]), int(request.args["month"]), int(request.args["day"]))
+    print "OK"  
+    return "Ok"
+
+@app.route('/record_commit/<id>')
+def record_commit(id):    
+    users[myUserId].records += [users[myUserId].tempRecord]
+    users[myUserId].tempRecord = Record()
     return redirect("/record/"+id)
-    
-@app.route('/analytics')
+
+@app.route('/analytics',methods=['GET','POST'])
 def analytics_route():
-    records = users[myUserId].records
-    return render_template("analytics.html", records=records)
+	if request.method=="POST":
+		exType = int(request.form["account"])
+	else:
+		exType = 0
+	records = users[myUserId].records
+	records.sort(key=lambda rec:rec.time)
+	return render_template("analytics.html", records=records, ex_types=users[myUserId].ex_types, viewAccount=exType)
 
 @app.route('/invdebt')
 @app.route('/invdebt/<id>')
@@ -88,11 +138,11 @@ def debt_records_route(id=None):
 		
 	return render_template("invdebt.html",urec = us_rec, debt_records=debt_records, myUserId=myUserId)
 
-@app.route('/addDebts/')
-@app.route('/addDebts/<id>')
-def add_debts_oute(id=None):
+@app.route('/addDebts/<recordId>')
+@app.route('/addDebts/<recordId>/<id>')
+def add_debts_route(recordId, id=None):
     debt = Debt() if id == None else debts[int(id)]
-    return render_template("addDebts.html", debt=debt)	
+    return render_template("addDebts.html", debt=debt, recordId=recordId)	
 	
 
 @app.route("/data-test")
@@ -113,7 +163,7 @@ def datatest_route():
 			if len(r.debts) > 0:
 				output += "&emsp;&emsp;<b>Debt Record</b><br>"
 			for d in r.debts:
-				if d.lender != None:
+				if d.lender != users[myUserId]:
 					output += "&emsp;&emsp;&emsp;Debt ID: " + str(d.ID) + "<br>"
 					output += "&emsp;&emsp;&emsp;Lender: " + d.lender.name + "<br>"
 				else:

@@ -128,16 +128,15 @@ def debt_records_route(id=None):
 	debt_records = []	
 	for r in users[myUserId].records:
 		for d in r.debts:
-				debt_records.append(d)								
+				debt_records.append(d)		
 	for i in debt_records:
 		if i in us_rec:
 			break
 		else:
-			if i.lender ==myUserId or i.borrower == myUserId:
+			if i.lender.name==id or i.borrower.name==id:
 				us_rec.append(i)
-
 		
-	return render_template("invdebt.html",urec = us_rec, debt_records=debt_records, myUserId=myUserId)
+	return render_template("invdebt.html",urec = us_rec, debt_records=debt_records, id=id, myUserId=myUserId)
 
 @app.route('/addDebts/<recordId>')
 @app.route('/addDebts/<recordId>/<id>')

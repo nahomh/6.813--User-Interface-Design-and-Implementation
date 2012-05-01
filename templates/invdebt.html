@@ -6,10 +6,10 @@
    
 			<ul data-role="listview" data-filter="true" id="listarea">
 				{% for i in urec %}
-					{%if i[3]=="lender": %}
-					<li><a href="invdebt.html">{{ i[1]}} <span class=" owed">Lent</span> you {{ i[2]}}</a></li>
+					{%if i.borrower=="{{myUserId}}": %}
+					<li><a href="invdebt.html">"{{ i.lender}}" <span class=" owed">Lent</span> you {{ i.amount}}</a></li>
 					{%else%}
-					<li><a href="invdebt.html">{{ i[1]}} <span class=" owe">OWES</span> you {{ i[2]}}</a></li>
+					<li><a href="invdebt.html">"{{ i.borrower}}" <span class=" owe">OWES</span> you {{ i.amount}}</a></li>
 					{% endif %}
 				{% endfor %}
 			</ul>

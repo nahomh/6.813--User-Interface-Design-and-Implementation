@@ -104,7 +104,7 @@ def record_callback(id):
     users[myUserId].tempRecord.location = (request.args["lat"], request.args["lng"])
     users[myUserId].tempRecord.amount = float(request.args["amount"])
     users[myUserId].tempRecord.ex_type = request.args["type"]
-    users[myUserId].tempRecord.time = date(int(request.args["year"]), int(request.args["month"]), int(request.args["day"]))
+    users[myUserId].tempRecord.time = datetime(int(request.args["year"]), int(request.args["month"]), int(request.args["day"]))
     print "OK"  
     return "Ok"
 
@@ -113,11 +113,12 @@ def record_commit(id):
     users[myUserId].records += [users[myUserId].tempRecord]
     users[myUserId].tempRecord = Record()
     return redirect("/record/"+id)
-    
+
 @app.route('/analytics')
 def analytics_route():
-    records = users[myUserId].records
-    return render_template("analytics.html", records=records)
+	records = users[myUserId].records
+	records.sort(key=lambda rec:rec.time)
+	return render_template("analytics.html", records=records)
 
 @app.route('/invdebt')
 @app.route('/invdebt/<id>')
@@ -158,7 +159,7 @@ def datatest_route():
 			if len(r.debts) > 0:
 				output += "&emsp;&emsp;<b>Debt Record</b><br>"
 			for d in r.debts:
-				if d.lender != None:
+				if d.lender != users[myUserId]:
 					output += "&emsp;&emsp;&emsp;Debt ID: " + str(d.ID) + "<br>"
 					output += "&emsp;&emsp;&emsp;Lender: " + d.lender.name + "<br>"
 				else:

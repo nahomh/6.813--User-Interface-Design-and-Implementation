@@ -39,5 +39,5 @@ users[0].records.append(Record(1.296383,103.848953,25.25))
 
 users[1].records.append(Record(42.361778,-71.090426,30.20,[Debt(100.00,users[0])]))
 
-users[2].records.append(Record(35.685361,139.753368,10.50,[Debt(50.00,users[1]),Debt(40.50,users[1]),Debt(10.15,None,users[0]),Debt(10.55,None,users[1])]))
+users[2].records.append(Record(35.685361,139.753368,10.50,[Debt(50.00,users[1],users[2]),Debt(40.50,users[1],users[2]),Debt(10.15,users[2],users[0]),Debt(10.55,users[2],users[1])]))
 users[2].records.append(Record(1.296383,103.848953,40.00,[],0,1))

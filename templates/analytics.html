@@ -9,7 +9,7 @@
             {% for record in records %}
                 <li>
 				<a href="{{"record" if record.transfer_to==None else "transfer"}}/{{record.ID}}">
-					${{"%.2f" % record.amount}} {{"spent" if record.transfer_to==None else "transferred"}} on {{record.time.year}} / {{record.time.month}} / {{record.time.day}}
+					${{ two_decimal(record.amount)}} {{"spent" if record.transfer_to==None else "transferred"}} on {{record.time.year}} / {{record.time.month}} / {{record.time.day}}
                     </a>
                 </li>
             {% endfor %}

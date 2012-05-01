@@ -124,19 +124,22 @@ def analytics_route():
 @app.route('/invdebt')
 @app.route('/invdebt/<id>')
 def debt_records_route(id=None):
-	us_rec=[]
+	deep_rec=[]
 	debt_records = []	
 	for r in users[myUserId].records:
 		for d in r.debts:
 				debt_records.append(d)		
 	for i in debt_records:
-		if i in us_rec:
+		if i in deep_rec:
 			break
 		else:
-			if i.lender.name==id or i.borrower.name==id:
-				us_rec.append(i)
-	print us_rec
-	return render_template("invdebt.html",urec = us_rec, debt_records=debt_records, id=id, myUserId=myUserId)
+			if i.lender.ID==int(id):
+				deep_rec.append(i)
+			elif i.borrower.ID==int(id):
+				deep_rec.append(i)
+
+	print deep_rec
+	return render_template("invdebt.html",urec = deep_rec, debt_records=debt_records, id=id, myUserId=myUserId)
 
 @app.route('/addDebts/<recordId>')
 @app.route('/addDebts/<recordId>/<id>')

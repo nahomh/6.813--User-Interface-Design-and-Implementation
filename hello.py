@@ -113,7 +113,7 @@ def record_commit(id):
 
     users[myUserId].records.append(users[myUserId].tempRecord)
     users[myUserId].tempRecord = Record()
-    
+    import pdb; pdb.set_trace()
     return redirect("/record/"+id)
 
 @app.route('/analytics',methods=['GET','POST'])

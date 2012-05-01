@@ -22,10 +22,11 @@
 				<label for="select-choice-0" class="select">Spending method:</label>
 				<div id="mid_table">
 
-				<select name="type" id="select-choice-1" onchange="postParent(this)">
-				   <option value="0" {{"selected='selected'" if record.ex_type == 0 else "" }}>Cash</option>
-				   <option value="1" {{"selected='selected'" if record.ex_type == 1 else "" }}>Card</option>
-				</select>
+					<select name="type" id="select-choice-1" onchange="postParent(this)">
+						{% for acc in my_accounts %}
+						<option value="{{acc}}" {{"selected='selected'" if record.ex_type == acc else "" }}>{{my_accounts[acc]}}</option>
+						{% endfor %}
+					</select>
 
 			</div>
 			

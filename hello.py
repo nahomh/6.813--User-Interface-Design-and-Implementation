@@ -89,7 +89,7 @@ def debts_callback(recordid, debtid):
 @app.route('/record/')
 @app.route('/record/<id>')
 def record_route(id=None):
-    return render_template("records.html", record = users[myUserId].tempRecord if id==None else records[int(id)])
+    return render_template("records.html", record = users[myUserId].tempRecord if id==None else records[int(id)], my_accounts=users[myUserId].ex_types)
 
 @app.route('/record_callback/<id>', methods=['POST']) 	
 def record_callback(id):

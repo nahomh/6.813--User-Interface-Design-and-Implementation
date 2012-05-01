@@ -7,7 +7,18 @@
     <form action="/record_commit/{{record.ID}}" data-update="/record_callback/{{record.ID}}" method="get">
         <div id="moneyInput">
 				<label for="basic">Money Spent:</label>
-				<input type="text" name="amount" style="float:left" id="basic" value="{{ two_decimal(record.amount) }}"  onchange="postParent(this)" data-mini="true" />
+				<table width=320>
+					<tbody>
+						<tr>
+							<td>
+								$
+							</td>
+							<td>
+								<input type="text" name="amount" style="float:left" id="basic" value="{{ two_decimal(record.amount) }}"  onchange="postParent(this)" data-mini="true" />
+							</td>
+						</tr>
+					</tbody>
+				</table>
 				<label for="select-choice-0" class="select">Spending method:</label>
 				<div id="mid_table">
 
@@ -18,7 +29,6 @@
 
 			</div>
 			
-			<span><label for="SpendingDate" class="select"><br>Date:</label></span>
 			<table>
                 <tr>
                     
@@ -99,9 +109,19 @@
             </script>
         </div>
      
-	    <div id="submitForm" >
-	        <button type="submit" style="float:left" data-role="button" value="Submit">Submit</button>
-	        <a href="/addDebts/{{record.ID}}" style=" float:left"data-role="button">Add Debts</a>
+		<div id="submitForm" >
+			<table width=320>
+				<tbody>
+					<tr>
+						<td>
+							<button type="submit" style="float:left" data-role="button" value="Submit">Submit</button>
+						</td>
+						<td>
+							<a href="/addDebts/{{record.ID}}" style=" float:left"data-role="button">Add Debts</a>
+						</td>
+					</tr>
+				</tbody>
+			</table>
 		</div>
     </form>
 {% endblock %}

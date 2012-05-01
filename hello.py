@@ -8,7 +8,6 @@ app = Flask(__name__)
 app.debug = True
 
 myUserId = 2
-my_records=[]
 urecords={}
 
 @app.route('/')
@@ -25,29 +24,27 @@ def transfer_route():
 @app.route('/debts')
 def debts_route():
 
-	
+	my_records=[]
+	urecords={}
+	debt_records = []		
 	for r in users[myUserId].records:
 		for d in r.debts:
-			if d.lender != None:
-				my_records.append(["Debt ID: " + str(d.ID),
-					 d.lender.name,
-					"$" + "%.2f" % d.amount,
-					"lender"])
-				
-			else:
-				my_records.append(["Debt ID: " + str(d.ID),
-					d.borrower.name,
-					"$" + "%.2f" % d.amount,
-					"borrower"])
-					
-	for record in my_records:
-		print record
-		if record[1] in urecords.keys():
-			urecords[record[1]].append(record)
+			debt_records.append(d)	
+	for debt in debt_records:
+		if debt.lender == myUserId:
+				if  debt.borrower in urecords.keys():
+					urecords[debt.borrower].append(debt)
+				else:
+					urecords[debt.borrower]=[debt]
 		else:
-			urecords[record[1]]=[record]
-	
-	return render_template("debts.html", my_records = my_records, urecords=urecords)
+				if  debt.lender in urecords.keys():
+					urecords[debt.lender].append(debt)
+				else:
+					urecords[debt.lender]=[debt]
+	print debt_records
+	print "Break" 
+	print urecords
+	return render_template("debts.html", debt_records = debt_records, urecords=urecords, myUserId=myUserId)
 
 @app.route('/record/')
 @app.route('/record/<id>')
@@ -77,15 +74,19 @@ def analytics_route():
 @app.route('/invdebt/<id>')
 def debt_records_route(id=None):
 	us_rec=[]
-	for i in my_records:
+	debt_records = []	
+	for r in users[myUserId].records:
+		for d in r.debts:
+				debt_records.append(d)								
+	for i in debt_records:
 		if i in us_rec:
 			break
 		else:
-			if i[1]==id:
-				print i[1]
+			if i.lender ==myUserId or i.borrower == myUserId:
 				us_rec.append(i)
+
 		
-	return render_template("invdebt.html",urec = us_rec, my_records=my_records)
+	return render_template("invdebt.html",urec = us_rec, debt_records=debt_records, myUserId=myUserId)
 
 @app.route('/addDebts/')
 @app.route('/addDebts/<id>')

@@ -91,7 +91,7 @@
 			<div id="Inst.Location">Tap to get location</div>  
             <input type="hidden" name="lat" id="lat" value="0" onchange="postParent(this)"/>
             <input type="hidden" name="lng" id="lng" value="0" onchange="postParent(this)"/>
-            <img src="http://maps.googleapis.com/maps/api/staticmap?center={{record.location[0]}},{{record.location[1]}}
+            <img id="recMap" src="http://maps.googleapis.com/maps/api/staticmap?center={{record.location[0]}},{{record.location[1]}}
                                 &zoom=14
                                 &size=320x100
                                 &maptype=roadmap
@@ -103,7 +103,8 @@
                         var lat = position.coords.latitude
                         var lng = position.coords.longitude
                         $("#lat").val(lat)
-                        $("#lng").val(lng)
+						$("#lng").val(lng)
+						$("#recMap").attr("src","http://maps.googleapis.com/maps/api/staticmap?center="+lat+","+lng+"&zoom14&size=320x100&maptype=roadmap&markers=color:blue%7C"+lat+","+lng+"&sensor=false")
                     });
                 }
             </script>

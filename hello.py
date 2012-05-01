@@ -51,7 +51,7 @@ def debts_route():
 		for d in r.debts:
 			debt_records.append(d)	
 	for debt in debt_records:
-		if debt.lender == myUserId:
+		if debt.lender.ID == myUserId:
 				if  debt.borrower in urecords.keys():
 					urecords[debt.borrower].append(debt)
 				else:

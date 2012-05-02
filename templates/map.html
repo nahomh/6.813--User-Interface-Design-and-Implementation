@@ -1,1 +1,37 @@
 {% extends "analytics.html" %}
+
+{% block analytics_content %}
+    <div id="map_canvas" style="width:300px; height:300px"></div>
+    <script type="text/javascript">
+        
+        var myOptions = {
+          center: new google.maps.LatLng{{ user.recordCenter() }},
+          zoom: 14,
+          mapTypeId: google.maps.MapTypeId.ROADMAP
+        };
+        var map = new google.maps.Map(document.getElementById("map_canvas"),
+            myOptions);
+        var markers = []
+        {% for record in records %}
+            var marker = new google.maps.Marker({
+                position: new google.maps.LatLng{{record.location}},
+                map: map,
+                title: "${{two_decimal(record.amount)}},  {{record.time.day}}/{{record.time.month}}/{{record.time.year}}"
+            })
+            markers.push(marker);
+            google.maps.event.addListener(marker, 'click', function() {
+                $.mobile.changePage("/record/{{record.ID}}")
+            });
+        {% endfor %}
+        
+        console.log("OMG");
+    </script>
+    
+    {{ user.recordStdDev() }}
+    {% for record in records %}
+        
+    {% endfor %}
+{% endblock %}
+{% block map_bottom_btn %}
+    class="ui-btn-active"
+{% endblock %}

@@ -23,9 +23,11 @@ def root_route():
 
 @app.route('/transfer/')
 @app.route('/transfer/<id>')
+
 def transfer_route(id=None):
     record = Record() if id == None else records[int(id)]
     return render_template("transfer.html", my_ex_types=users[myUserId].ex_types, record=record,is_new=(id==None))
+
 
     
 @app.route('/transfer_callback/<id>', methods=['POST','GET'])
@@ -130,6 +132,7 @@ def analytics_route(analytics_type = "list"):
 @app.route('/invdebt')
 @app.route('/invdebt/<id>')
 def debt_records_route(id=None):
+
     us_rec=[]
     debt_records = []	
     for r in users[myUserId].records:
@@ -144,6 +147,7 @@ def debt_records_route(id=None):
 
         
     return render_template("invdebt.html",urec = us_rec, debt_records=debt_records, myUserId=myUserId)
+
 
 @app.route('/addDebts/<recordId>')
 @app.route('/addDebts/<recordId>/<id>')

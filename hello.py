@@ -127,7 +127,14 @@ def analytics_route(analytics_type = "list"):
     elif(analytics_type == "map"):
         return render_template("map.html", records=records, ex_types=users[myUserId].ex_types, viewAccount=exType)
     elif(analytics_type == "chart"):
-        return render_template("chart.html", records=records, ex_types=users[myUserId].ex_types, viewAccount=exType)
+        import json
+        chartDataR = []
+        chartDataR += [['Date','Amount']]
+        for r in records:
+            chartDataR += [[str(r.time.year)+'/'+str(r.time.month)+'/'+str(r.time.day),r.amount]]
+        chartData = json.dumps(chartDataR)
+        print chartData
+        return render_template("chart.html", records=records, ex_types=users[myUserId].ex_types, viewAccount=exType, chartData=chartData)
 
 @app.route('/invdebt')
 @app.route('/invdebt/<id>')

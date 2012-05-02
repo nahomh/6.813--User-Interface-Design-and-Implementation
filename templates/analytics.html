@@ -26,23 +26,8 @@ Analytics
 		</table>
 	</form>
 	<br/>
-	<ul data-role="listview" class="ui-listview">
-		{% for record in records %}
-		{% if record.ex_type==viewAccount or record.transfer_to==viewAccount %}
-			<li>
-				<a href="{{"record" if record.transfer_to==None else "transfer"}}/{{record.ID}}">
-					${{ two_decimal(record.amount)}} {% if record.transfer_to==None %}
-					<span style="color:#BB0000">spent</span>
-					{% elif record.transfer_to==viewAccount %}
-					transferred <span style="color:#00BB00">in</span>
-					{% else %}
-					transferred <span style="color:#BB0000">out</span>
-					{% endif %}
-					on {{record.time.year}} / {{record.time.month}} / {{record.time.day}}</a>
-			</li>
-		{% endif %}
-		{% endfor %}
-	</ul>
+    {% block analytics_content %}{% endblock %}
+	
 </div>
         
     

@@ -121,14 +121,24 @@ def analytics_route(analytics_type = "list"):
         exType = int(request.form["account"])
     else:
         exType = 0
-    records = users[myUserId].records
+    user = users[myUserId]
+    records = user.records
+    
     records.sort(key=lambda rec:rec.time)
     if (analytics_type == "list"):
-        return render_template("list.html", records=records, ex_types=users[myUserId].ex_types, viewAccount=exType)
+        return render_template("list.html", records=records, ex_types=users[myUserId].ex_types, viewAccount=exType, user=user)
     elif(analytics_type == "map"):
-        return render_template("map.html", records=records, ex_types=users[myUserId].ex_types, viewAccount=exType)
+        return render_template("map.html", records=records, ex_types=users[myUserId].ex_types, viewAccount=exType, user=user)
     elif(analytics_type == "chart"):
-        return render_template("chart.html", records=records, ex_types=users[myUserId].ex_types, viewAccount=exType)
+        import json
+        from flask import Markup
+        chartDataR = []
+        chartDataR += [['Date','Amount']]
+        for r in records:
+            chartDataR += [[str(r.time.year)+'/'+str(r.time.month)+'/'+str(r.time.day),r.amount]]
+        chartData = json.dumps(chartDataR)
+        print chartData
+        return render_template("chart.html", records=records, ex_types=users[myUserId].ex_types, viewAccount=exType, chartData=Markup(chartData), user=user)
 
 @app.route('/invdebt')
 @app.route('/invdebt/<id>')

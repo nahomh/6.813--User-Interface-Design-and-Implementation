@@ -85,7 +85,7 @@ def debts_callback(recordid, debtid):
     debt.borrower = borrower
     debt.amount = float(request.args["amount"])
     record.debts += [debt]
-
+    
     return redirect("/record/"+recordid)
     
 @app.route('/record/')
@@ -95,15 +95,12 @@ def record_route(id=None):
 
 @app.route('/record_callback/<id>', methods=['POST']) 	
 def record_callback(id):
-    print "CALLBACK"
-    print request.form
-    print request.args
+    
     record = users[myUserId].tempRecord
     users[myUserId].tempRecord.location = (request.args["lat"], request.args["lng"])
     users[myUserId].tempRecord.amount = float(request.args["amount"])
     users[myUserId].tempRecord.ex_type = int(request.args["type"])
     users[myUserId].tempRecord.time = datetime(int(request.args["year"]), int(request.args["month"]), int(request.args["day"]))
-    print "OK"  
     return "Ok"
 
 @app.route('/record_commit/<id>')

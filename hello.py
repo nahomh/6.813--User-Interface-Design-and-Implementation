@@ -109,7 +109,7 @@ def record_commit(id):
 
     users[myUserId].records.append(users[myUserId].tempRecord)
     users[myUserId].tempRecord = Record()
-    return redirect("/record/"+id)
+    return redirect("/analytics/list")
 
 @app.route('/analytics',methods=['GET','POST'])
 @app.route('/analytics/<analytics_type>',methods=['GET','POST'])

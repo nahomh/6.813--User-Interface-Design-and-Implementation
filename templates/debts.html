@@ -5,11 +5,11 @@
 {% block content %}
     
 			<ul data-role="listview" data-filter="true" id="listarea">
-				{% for i in urecords.keys() %}
-					{%if urecords[i][-1].borrower=="{{myUserId}}": %}
-					<li><a href="/invdebt/{{urecords[i][-1].lender.ID}}" rel="external">{{urecords[i][-1].lender.name}} <span class=" owed">Lent</span> you ${{ two_decimal(urecords[i][-1].amount)}}</a></li>
+				{% for i in debtsPerPerson.keys() %}
+					{%if debtsPerPerson[i][-1].borrower=="{{myUserId}}": %}
+					<li><a href="/invdebt/{{debtsPerPerson[i][-1].lender.ID}}" rel="external">{{debtsPerPerson[i][-1].lender.name}} <span class=" owed">Lent</span> you ${{ two_decimal(debtsPerPerson[i][-1].amount)}}</a></li>
 					{%else%}
-					<li><a href="/invdebt/{{urecords[i][-1].borrower.ID}}" rel="external">{{urecords[i][-1].borrower.name}} <span class=" owe">OWES</span> you ${{ two_decimal(urecords[i][-1].amount)}}</a></li>
+					<li><a href="/invdebt/{{debtsPerPerson[i][-1].borrower.ID}}" rel="external">{{debtsPerPerson[i][-1].borrower.name}} <span class=" owe">OWES</span> you ${{ two_decimal(debtsPerPerson[i][-1].amount)}}</a></li>
 					{% endif %}
 				{% endfor %}
 			</ul>

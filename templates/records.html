@@ -4,7 +4,7 @@
 {% endblock %}
 {% block content %}
 
-    <form  action="/record_commit/{{record.ID}}" data-update="/record_callback/{{record.ID}}" method="get">
+    <form  action="/record_commit/{{record.ID}}"  name="myform" " data-update="/record_callback/{{record.ID}}" method="get">
         <div id="moneyInput">
 				<table width=320>
 					<tbody>
@@ -107,6 +107,10 @@
 						$("#recMap").attr("src","http://maps.googleapis.com/maps/api/staticmap?center="+lat+","+lng+"&zoom14&size=320x100&maptype=roadmap&markers=color:blue%7C"+lat+","+lng+"&sensor=false")
                     });
                 }
+				function submitform()
+						{
+						  document.myform.submit();
+						}
             </script>
         </div>
      
@@ -115,7 +119,7 @@
 				<tbody>
 					<tr>
 						<td>
-							<button type="submit" style="float:left" data-role="button" value="Submit">Submit</button>
+							<a onClick=submitform()  style="float:left" data-role="button" value="button">Submit</button>
 						</td>
 						<td>
 							<a href="/addDebts/{{record.ID}}" style=" float:left"data-role="button">Add Debts</a>

@@ -5,7 +5,7 @@
     google.load("visualization","1",{packages:["corechart"]});
     google.setOnLoadCallback(drawChart);
     function drawChart(){
-        var chartDataJ = JSON.parse("{{chartData}}");
+        var chartDataJ = JSON.parse('{{chartData}}');
         var data = google.visualization.arrayToDataTable(chartDataJ);
 
     var options = {
@@ -19,7 +19,7 @@
 </script>
 {% endblock %}
 {% block analytics_content %}
-<div id="chart_div" width=320></div>
+<div id="chart_div" style="width:320"></div>
 {% endblock %}
 {% block chart_bottom_btn %}
     class="ui-btn-active"

@@ -12,7 +12,7 @@
                            <option value="Lent">Lent</option>
                         </select>
                     </td>
-                    <td><input type="text" name="other" id="basic" value="" data-mini="true" />
+                    <td><input type="text" name="other" id="toUser" value="" data-mini="true" />
                     
                     </td>
                 </tr>
@@ -22,11 +22,18 @@
         <p style="margin-top:-15px;">Amount $</p> 
         <input type="text" name="amount"   id="amount" value="" data-mini="true"/>
         <script>
-            
+         var user_list={{user_list|safe}}
+		 $( "#toUser" ).autocomplete({
+			source: user_list
+		});
         </script>
         <p>in</p>
         <select><option value="cash">CASH</option><option value="debit-credit">Debit/Credit</option></select>
         <br>
         <button type="submit" style="float:left" data-role="button" value="Submit">Done</button>
     </form>
+	
+
+	
+	
 {% endblock %}

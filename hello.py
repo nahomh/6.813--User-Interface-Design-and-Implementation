@@ -14,7 +14,7 @@ def utility_processor():
     def two_decimal(amount):
         s = "%.2f" % float(amount)
         return s
-    return dict(two_decimal=two_decimal)
+    return dict(two_decimal=two_decimal, zip=zip)
 
 @app.route('/')
 def root_route():
@@ -87,7 +87,7 @@ def debts_callback(recordid, debtid):
     debt.amount = float(request.args["amount"])
     record.debts += [debt]
     
-    return redirect("/record/"+recordid)
+    return redirect("/invdebt/"+str(debt.lender.ID if debt.lender != users[myUserId] else debt.borrower.ID))
     
 @app.route('/record/')
 @app.route('/record/<id>')
@@ -141,8 +141,8 @@ def analytics_route(analytics_type = "list"):
 @app.route('/invdebt/<id>')
 def debt_records_route(id=None):
 
-    deep_rec=[]
-    debt_records = []	
+    deep_rec=[]         # List[Debts]
+    debt_records = []	# List[Record]    
     for r in users[myUserId].records:
         for d in r.debts:
                 debt_records.append(d)	
@@ -163,7 +163,7 @@ def add_debts_route(recordId, id=None):
 	    user_list.append(users[i].name)
 	
 		
-    return render_template("addDebts.html", debt=debt, recordId=recordId, user_list=user_list)	
+    return render_template("addDebts.html", debt=debt, recordId=recordId, user=users[myUserId], user_list=user_list)	
     
 
 @app.route("/data-test")

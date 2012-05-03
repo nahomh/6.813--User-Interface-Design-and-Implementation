@@ -1,6 +1,6 @@
 {% extends "layout.html" %}
 {% block title %}Transfer{% endblock %}
-{% block transfer_top_btn %}class="ui-btn-active"{% endblock %}
+
 {% block content %}
     <form action="/debt_callback/{{recordId}}/{{debt.ID}}" method="get">
         <table width="300">
@@ -8,11 +8,11 @@
                 <tr>
                     <td>I</td>
                     <td><select name="type" id="direct">
-                           <option value="Owe">Owe</option>
-                           <option value="Lent">Lent</option>
+                           <option value="Owe" {{ "selected='selected'" if debt.borrower == user else ""}}>Owe</option>
+                           <option value="Lent"{{ "selected='selected'" if debt.borrower != user else ""}}>Lent</option>
                         </select>
                     </td>
-                    <td><input type="text" name="other" id="toUser" value="" data-mini="true" />
+                    <td><input type="text" name="other" id="toUser" value="{{debt.borrower.name if debt.borrower != user else debt.lender.name}}" data-mini="true" />
                     
                     </td>
                 </tr>
@@ -20,15 +20,14 @@
         </table>
         <br>
         <p style="margin-top:-15px;">Amount $</p> 
-        <input type="text" name="amount"   id="amount" value="" data-mini="true"/>
+        <input type="text" name="amount"   id="amount" value="{{debt.amount}}" data-mini="true"/>
         <script>
          var user_list={{user_list|safe}}
 		 $( "#toUser" ).autocomplete({
 			source: user_list
 		});
         </script>
-        <p>in</p>
-        <select><option value="cash">CASH</option><option value="debit-credit">Debit/Credit</option></select>
+        
         <br>
         <button type="submit" style="float:left" data-role="button" value="Submit">Done</button>
     </form>

@@ -47,26 +47,27 @@ def transfer_callback(id):
     
 @app.route('/debts')
 def debts_route():
-    urecords={}
+    debtsPerPerson={}
     debt_records = []		
     for r in users[myUserId].records:
         for d in r.debts:
             debt_records.append(d)	
+			
     for debt in debt_records:
         if debt.lender.ID == myUserId:
-                if  debt.borrower in urecords.keys():
-                    urecords[debt.borrower].append(debt)
+                if  debt.borrower.name in debtsPerPerson.keys():
+                    debtsPerPerson[debt.borrower.name].append(debt)
                 else:
-                    urecords[debt.borrower]=[debt]
+                    debtsPerPerson[debt.borrower.name]=[debt]
         else:
-                if  debt.lender in urecords.keys():
-                    urecords[debt.lender].append(debt)
+                if  debt.lender.name in debtsPerPerson.keys():
+                    debtsPerPerson[debt.lender.name].append(debt)
                 else:
-                    urecords[debt.lender]=[debt]
+                    debtsPerPerson[debt.lender.name]=[debt]
     print debt_records
     print "Break" 
     print urecords
-    return render_template("debts.html", debt_records = debt_records, urecords=urecords, myUserId=myUserId)
+    return render_template("debts.html", debt_records = debt_records, debtsPerPerson=debtsPerPerson, myUserId=myUserId)
 
 def find(f, seq):
   """Return first item in sequence where f(item) == True."""
@@ -133,27 +134,29 @@ def analytics_route(analytics_type = "list"):
 @app.route('/invdebt/<id>')
 def debt_records_route(id=None):
 
-    us_rec=[]
+    deep_rec=[]
     debt_records = []	
     for r in users[myUserId].records:
         for d in r.debts:
-                debt_records.append(d)								
+                debt_records.append(d)	
+				
     for i in debt_records:
-        if i in us_rec:
-            break
-        else:
-            if i.lender ==myUserId or i.borrower == myUserId:
-                us_rec.append(i)
-
+		if i.lender.ID ==int(id) or i.borrower.ID ==int(id):
+			deep_rec.append(i)
         
-    return render_template("invdebt.html",urec = us_rec, debt_records=debt_records, myUserId=myUserId)
+    return render_template("invdebt.html",urec = deep_rec, debt_records=debt_records, myUserId=myUserId)
 
 
 @app.route('/addDebts/<recordId>')
 @app.route('/addDebts/<recordId>/<id>')
 def add_debts_route(recordId, id=None):
     debt = Debt() if id == None else debts[int(id)]
-    return render_template("addDebts.html", debt=debt, recordId=recordId)	
+    user_list=[]
+    for i in users.keys():
+	    user_list.append(users[i].name)
+	
+		
+    return render_template("addDebts.html", debt=debt, recordId=recordId, user_list=user_list)	
     
 
 @app.route("/data-test")

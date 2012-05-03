@@ -1,11 +1,13 @@
 {% extends "analytics.html" %}
 {% block head %}
 <script text="text/javascript" src="https://www.google.com/jsapi"></script>
-<script type="text/javascript">
-    $(['data-role=content']).bind('pageinit',function(){
-            google.load("visualization","1",{packages:["corechart"]});
-            google.setOnLoadCallback(drawChart);
-            function drawChart(){
+{% endblock %}
+{% block analytics_content %}
+<div id="chart_div" style="width:320px">
+    <script type="text/javascript">
+        google.load("visualization","1",{packages:["corechart"]});
+        google.setOnLoadCallback(drawChart);
+        function drawChart(){
             var chartDataJ = JSON.parse('{{chartData}}');
             var data = google.visualization.arrayToDataTable(chartDataJ);
             var options = {
@@ -14,12 +16,9 @@
             };
             var chart = new google.visualization.ColumnChart(document.getElementById('chart_div'));
             chart.draw(data, options);
-            }
-        });
-</script>
-{% endblock %}
-{% block analytics_content %}
-<div id="chart_div" style="width:320"></div>
+        }
+    </script>
+</div>
 {% endblock %}
 {% block chart_bottom_btn %}
     class="ui-btn-active"

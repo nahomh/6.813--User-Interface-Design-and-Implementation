@@ -125,19 +125,29 @@ def analytics_route(analytics_type = "list"):
     
     records.sort(key=lambda rec:rec.time)
     if (analytics_type == "list"):
-        return render_template("list.html", records=records, ex_types=users[myUserId].ex_types, viewAccount=exType, user=user)
+        return render_template("list.html", records=records, ex_types=users[myUserId].ex_types, viewAccount=exType, user=user,analytics_type=analytics_type)
     elif(analytics_type == "map"):
-        return render_template("map.html", records=records, ex_types=users[myUserId].ex_types, viewAccount=exType, user=user)
+        return render_template("map.html", records=records, ex_types=users[myUserId].ex_types, viewAccount=exType, user=user,analytics_type=analytics_type)
     elif(analytics_type == "chart"):
         import json
         from flask import Markup
         chartDataR = []
         chartDataR += [['Date','Amount']]
+
+        chartDataD = {}
+
         for r in records:
-            chartDataR += [[str(r.time.year)+'/'+str(r.time.month)+'/'+str(r.time.day),r.amount]]
+            if r.ex_type==exType:
+                chartDataTime = str(r.time.year)+'/'+str(r.time.month)+'/'+str(r.time.day)
+                if chartDataTime in chartDataD.keys():
+                    chartDataD[chartDataTime] += r.amount
+                else:
+                    chartDataD[chartDataTime] = r.amount
+        for d in chartDataD.keys():
+            chartDataR += [[d,chartDataD[d]]]
         chartData = json.dumps(chartDataR)
-        print chartData
-        return render_template("chart.html", records=records, ex_types=users[myUserId].ex_types, viewAccount=exType, chartData=Markup(chartData), user=user)
+        print chartDataR
+        return render_template("chart.html", records=records, ex_types=users[myUserId].ex_types, viewAccount=exType, chartData=Markup(chartData), user=user,analytics_type=analytics_type)
 
 @app.route('/invdebt')
 @app.route('/invdebt/<id>')

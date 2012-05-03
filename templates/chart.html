@@ -2,20 +2,20 @@
 {% block head %}
 <script text="text/javascript" src="https://www.google.com/jsapi"></script>
 <script type="text/javascript">
-    google.load("visualization","1",{packages:["corechart"]});
-    google.setOnLoadCallback(drawChart);
-    function drawChart(){
-        var chartDataJ = JSON.parse('{{chartData}}');
-        var data = google.visualization.arrayToDataTable(chartDataJ);
-
-    var options = {
-        title: 'Spendings'
-    };
-
-    var chart = new google.visualization.LineChart(document.getElementById('chart_div'));
-    chart.draw(data, options);
-    
-    }
+    $(['data-role=content']).bind('pageinit',function(){
+            google.load("visualization","1",{packages:["corechart"]});
+            google.setOnLoadCallback(drawChart);
+            function drawChart(){
+            var chartDataJ = JSON.parse('{{chartData}}');
+            var data = google.visualization.arrayToDataTable(chartDataJ);
+            var options = {
+                title: 'Spendings',
+                hAxis: {title:'Time',titleTextStyle:{color:'blue'}}
+            };
+            var chart = new google.visualization.ColumnChart(document.getElementById('chart_div'));
+            chart.draw(data, options);
+            }
+        });
 </script>
 {% endblock %}
 {% block analytics_content %}

@@ -1,24 +1,32 @@
 {% extends "analytics.html" %}
 {% block head %}
 <script text="text/javascript" src="https://www.google.com/jsapi"></script>
-{% endblock %}
-{% block analytics_content %}
-<div id="chart_div" style="width:320px">
     <script type="text/javascript">
-        google.load("visualization","1",{packages:["corechart"]});
-        google.setOnLoadCallback(drawChart);
         function drawChart(){
             var chartDataJ = JSON.parse('{{chartData}}');
             var data = google.visualization.arrayToDataTable(chartDataJ);
             var options = {
                 title: 'Spendings',
-                hAxis: {title:'Time',titleTextStyle:{color:'blue'}}
+                hAxis: {title:'Time',titleTextStyle:{color:'blue'}},
+                vAxis: {title:'Amount',titleTextStyle:{color:'blue'}}
             };
             var chart = new google.visualization.ColumnChart(document.getElementById('chart_div'));
             chart.draw(data, options);
+            google.visualization.events.addListener(chart, 'select', function(){alert('Clicked: '+chart.getSelection()); console.log(chart.getSelection());});
         }
+        
+        
+        google.load("visualization","1",{packages:["corechart"]});
+        google.setOnLoadCallback(drawChart);
+        
+
     </script>
+{% endblock %}
+{% block analytics_content %}
+<div id="chart_div" style="width:320px">
 </div>
+<script>
+    </script>
 {% endblock %}
 {% block chart_bottom_btn %}
     class="ui-btn-active"

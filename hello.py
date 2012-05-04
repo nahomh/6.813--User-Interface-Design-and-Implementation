@@ -37,7 +37,7 @@ def transfer_callback(id):
         record.amount = float(request.form['amount'])
         record.ex_type = int(request.form['from'])
         record.transfer_to = int(request.form['to'])
-        the_date = datetime(int(request.form['year']),int(request.form['month']),int(request.form['day']))
+        the_date = date(int(request.form['year']),int(request.form['month']),int(request.form['day']))
         record.time = the_date
         if request.form["isNew"]=="1": users[myUserId].records += [record]
         return redirect('/transfer/'+id)
@@ -101,7 +101,7 @@ def record_callback(id):
     users[myUserId].tempRecord.location = (request.args["lat"], request.args["lng"])
     users[myUserId].tempRecord.amount = float(request.args["amount"])
     users[myUserId].tempRecord.ex_type = int(request.args["type"])
-    users[myUserId].tempRecord.time = datetime(int(request.args["year"]), int(request.args["month"]), int(request.args["day"]))
+    users[myUserId].tempRecord.time = date(int(request.args["year"]), int(request.args["month"]), int(request.args["day"]))
     return "Ok"
 
 @app.route('/record_commit/<id>')

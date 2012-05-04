@@ -1,4 +1,4 @@
-from datetime import datetime
+from datetime import *
 
 records = {}
 debts = {}
@@ -32,10 +32,10 @@ class User(object):
         return (total / len(self.records)) ** 0.5    
 
 class Record(object):
-    def __init__(self,latitude=0.0,longitude=0.0,amount=0.00,debt=[],ex_type=0,transfer_to=None,time=datetime.now()):
+    def __init__(self,latitude=0.0,longitude=0.0,amount=0.00,debt=[],ex_type=0,transfer_to=None,time=date.today()):
         idnum = len(records)
         self.ID = idnum								#Int
-        self.time = time							#Datetime
+        self.time = time							#date
         self.location = (latitude,longitude)		#(Number, Number)
         self.debts = debt							#List[Debt]
         self.amount = amount						#Number

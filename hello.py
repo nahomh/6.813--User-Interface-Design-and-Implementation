@@ -167,12 +167,12 @@ def analytics_route(analytics_type = "list"):
             for x in range(0+offset,7+offset):
                 newDay = today - timedelta(x,0,0,0,0,0,wkoffset)
                 chartDataD[newDay] = 0
-
         else:
             import calendar
             for x in range(1,calendar.monthrange(today.year-wkoffset,today.month-offset)[1]+1,1):
                 newDay = date(today.year-wkoffset,today.month-offset,x)
                 chartDataD[newDay] = 0
+
         itered = itertools.groupby(records,lambda x:x.time)
         for k,g in itered:
             if k in chartDataD.keys():

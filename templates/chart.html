@@ -12,7 +12,11 @@
             };
             var chart = new google.visualization.ColumnChart(document.getElementById('chart_div'));
             chart.draw(data, options);
-            google.visualization.events.addListener(chart, 'select', function(){console.log(chart.getSelection());});
+            google.visualization.events.addListener(chart, 'select', function(){
+                    sel = chart.getSelection()[0];
+                    console.log(sel.row + " / " + sel.column);
+                    window.location = '/analytics/list';
+                    });
         }
         
         

@@ -2,6 +2,7 @@ from flask import Flask
 from flask import render_template
 from flask import request
 from flask import redirect
+import itertools
 from models import *
 from datetime import *
 import itertools
@@ -11,7 +12,7 @@ app.debug = True
 myUserId = 2
 urecords={}
 @app.context_processor
-def utility_processor():
+def utility_processor():    
     def two_decimal(amount):
         s = "%.2f" % float(amount)
         return s
@@ -28,8 +29,6 @@ def root_route():
 def transfer_route(id=None):
     record = Record() if id == None else records[int(id)]
     return render_template("transfer.html", my_ex_types=users[myUserId].ex_types, record=record,is_new=(id==None))
-
-
     
 @app.route('/transfer_callback/<id>', methods=['POST','GET'])
 def transfer_callback(id):
@@ -65,9 +64,7 @@ def debts_route():
                     debtsPerPerson[debt.lender.name].append(debt)
                 else:
                     debtsPerPerson[debt.lender.name]=[debt]
-    print debt_records
-    print "Break" 
-    print urecords
+
     return render_template("debts.html", debt_records = debt_records, debtsPerPerson=debtsPerPerson, myUserId=myUserId)
 
 def find(f, seq):
@@ -77,7 +74,8 @@ def find(f, seq):
       return item
       
 @app.route('/debt_callback/<recordid>/<debtid>')	
-def debts_callback(recordid, debtid):
+@app.route('/debt_callback/<recordid>/<debtid>/<backToRecord>')	
+def debts_callback(recordid, debtid, backToRecord = False):
     record = records[int(recordid)]
     debt = debts[int(debtid)]
     lender, borrower = (users[myUserId], find(lambda u: u.name == request.args["other"], users.values()))
@@ -88,7 +86,8 @@ def debts_callback(recordid, debtid):
     debt.amount = float(request.args["amount"])
     record.debts += [debt]
     
-    return redirect("/invdebt/"+str(debt.lender.ID if debt.lender != users[myUserId] else debt.borrower.ID))
+    if backToRecord: return redirect("/record/"+recordid)
+    else: return redirect("/invdebt/"+str(debt.lender.ID if debt.lender != users[myUserId] else debt.borrower.ID))
     
 @app.route('/record/')
 @app.route('/record/<id>')
@@ -110,23 +109,36 @@ def record_commit(id):
 
     users[myUserId].records.append(users[myUserId].tempRecord)
     users[myUserId].tempRecord = Record()
-    return redirect("/record/"+id)
+    return redirect("/analytics/list")
 
-@app.route('/analytics',methods=['GET','POST'])
-@app.route('/analytics/<analytics_type>',methods=['GET','POST'])
+@app.route('/analytics')
+@app.route('/analytics/<analytics_type>')
 def analytics_route(analytics_type = "list"):
-    if request.method=="POST":
-        exType = int(request.form["account"])
-    else:
-        exType = 0
+    exType = 0
+    try: 
+        exType = int(request.args.get["account"])
+    except Exception: pass
+        
+    
+    
+    
     user = users[myUserId]
     records = user.records
     
     records.sort(key=lambda rec:rec.time)
+    
     if (analytics_type == "list"):
+<<<<<<< HEAD
+        return render_template("list.html", groupedRecords=itertools.groupby(records, lambda x: x.time), ex_types=users[myUserId].ex_types, viewAccount=exType, user=user)
+        
+    elif(analytics_type == "map"):
+        return render_template("map.html", records=records, ex_types=users[myUserId].ex_types, viewAccount=exType, user=user)
+        
+=======
         return render_template("list.html", records=records, ex_types=users[myUserId].ex_types, viewAccount=exType, user=user,analytics_type=analytics_type)
     elif(analytics_type == "map"):
         return render_template("map.html", records=records, ex_types=users[myUserId].ex_types, viewAccount=exType, user=user,analytics_type=analytics_type)
+>>>>>>> 37609ce9ad0028150a796ec9cfd1e564d0454ded
     elif(analytics_type == "chart"):
         import json
         from flask import Markup
@@ -179,44 +191,9 @@ def add_debts_route(recordId, id=None):
 	    user_list.append(users[i].name)
 	
 		
-    return render_template("addDebts.html", debt=debt, recordId=recordId, user=users[myUserId], user_list=user_list)	
+    return render_template("addDebts.html", debt=debt, recordId=recordId, user=users[myUserId], user_list=user_list, backToRecord=id==None)	
     
 
-@app.route("/data-test")
-def datatest_route():
-    output = "<html><head><title>Data Test</title></head><body>"
-    output += "Number of Users: " + str(len(users)) + "<br><br>"
-    for i in range(len(users)):
-        output += "<b>User ID: " + str(i) + "</b><br>"
-        output += "<b>User Name: " + users[i].name + " / " + users[i].email + "</b><br>"
-        output += "&emsp;Number of Records: " + str(len(users[i].records)) + "<br>"
-        for r in users[i].records:
-            output += "&emsp;&emsp;Record ID: " + str(r.ID) + "<br>"
-            output += "&emsp;&emsp;Record Time: " + str(r.time) + "<br>"
-            output += "&emsp;&emsp;Record Location: " +str(r.location) + "<br>"
-            output += "&emsp;&emsp;<img src=\"https://maps.googleapis.com/maps/api/staticmap?center=" + str(r.location[0]) + "," + str(r.location[1]) + "&zoom=14&size=400x100&sensor=false\"><br>"
-            output += "&emsp;&emsp;Amount: $" + "%.2f" % r.amount +"<br>"
-            output += "&emsp;&emsp;Number of Debts: " + str(len(r.debts)) + "<br>"
-            if len(r.debts) > 0:
-                output += "&emsp;&emsp;<b>Debt Record</b><br>"
-            for d in r.debts:
-                if d.lender != users[myUserId]:
-                    output += "&emsp;&emsp;&emsp;Debt ID: " + str(d.ID) + "<br>"
-                    output += "&emsp;&emsp;&emsp;Lender: " + d.lender.name + "<br>"
-                else:
-                    output += "&emsp;&emsp;&emsp;Debt ID: " + str(d.ID) + "<br>"
-                    output += "&emsp;&emsp;&emsp;Borrower: " + d.borrower.name + "<br>"
-                output += "&emsp;&emsp;&emsp;Amount: $" + "%.2f" % d.amount + "<br>"
-            output += "<br>"
-    
-    for rc in range(len(records)):
-        output += "Record ID: " + str(records[rc].ID) + "<br>"
-    
-    for db in range(len(debts)):
-        output += "Debt ID: " + str(debts[db].ID) + "<br>"
-    output += "</body></html>"
-
-    return output
 
 if __name__ == '__main__':
     app.run()

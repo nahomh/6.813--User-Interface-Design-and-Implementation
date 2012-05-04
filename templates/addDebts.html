@@ -2,7 +2,7 @@
 {% block title %}Transfer{% endblock %}
 
 {% block content %}
-    <form action="/debt_callback/{{recordId}}/{{debt.ID}}" method="get">
+    <form action="/debt_callback/{{recordId}}/{{debt.ID}}{{'/1' if backToRecord else ''}}" method="get">
         <table width="300">
             <tbody>
                 <tr>

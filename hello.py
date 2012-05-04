@@ -116,7 +116,7 @@ def record_commit(id):
 def analytics_route(analytics_type = "list"):
     exType = 0
     try: 
-        exType = int(request.args.get["account"])
+        exType = int(request.args.get("account"))
     except Exception: pass
         
     
@@ -140,24 +140,45 @@ def analytics_route(analytics_type = "list"):
         chartDataR += [['Date','Amount']]
         chartDataD = {}
         today = date.today()
-        for x in range(7):
-            newDay = today - timedelta(x)
-            chartDataD[str(newDay)] = 0
 
+        import sys
+        try:
+            offset = int(request.args.get("offset"))
+        except Exception:
+            offset = 0
+        try:
+            wkoffset = int(request.args.get("hioffset"))
+        except Exception:
+            wkoffset=0
+        try:
+            viewer = int(request.args.get("view"))
+        except Exception:
+            viewer = 0
+
+        if viewer == 0:
+            for x in range(0+offset,7+offset):
+                newDay = today - timedelta(x,0,0,0,0,0,wkoffset)
+                chartDataD[newDay] = 0
+
+        else:
+            import calendar
+            for x in range(1,calendar.monthrange(today.year-wkoffset,today.month-offset)[1]+1,1):
+                newDay = date(today.year-wkoffset,today.month-offset,x)
+                chartDataD[newDay] = 0
         itered = itertools.groupby(records,lambda x:x.time)
-
         for k,g in itered:
-            totalAmount = 0
-            for r in g:
-                if r.ex_type==exType:
-                    totalAmount += r.amount
-            chartDataD[str(k)] += totalAmount
-
+            if k in chartDataD.keys():
+                totalAmount = 0
+                for r in g:
+                    if r.ex_type==exType:
+                        totalAmount += r.amount
+                chartDataD[k] += totalAmount
+        
         for d in sorted(chartDataD.iterkeys()):
-            chartDataR += [[d,chartDataD[d]]]
+           chartDataR += [[str(d.month)+"/"+str(d.day),chartDataD[d]]]
         chartData = json.dumps(chartDataR)
         print chartDataR
-        return render_template("chart.html", records=records, ex_types=users[myUserId].ex_types, viewAccount=exType, chartData=Markup(chartData), user=user,analytics_type=analytics_type)
+        return render_template("chart.html", records=records, ex_types=users[myUserId].ex_types, viewAccount=exType, chartData=Markup(chartData), user=user,analytics_type=analytics_type, wkoff=wkoffset, off=offset, viewer=viewer)
 
 @app.route('/invdebt')
 @app.route('/invdebt/<id>')

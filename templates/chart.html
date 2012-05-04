@@ -25,8 +25,20 @@
 {% block analytics_content %}
 <div id="chart_div" style="width:320px">
 </div>
-<script>
-    </script>
+<div>
+    <table width=320>
+        <tbody>
+            <tr style="text-align:center">
+                <td><a rel="external" href="?view={{viewer}}&offset={{off}}&hioffset={{wkoff+1}}">&lt;&lt;</a></td>
+                <td><a rel="external" href="?view={{viewer}}&offset={{off+1}}&hioffset={{wkoff}}">&lt;</a></td>
+                <td><a rel="external" href="?view=0">WEEK</a></td>
+                <td><a rel="external" href="?view=1">MONTH</a></td>
+                <td><a rel="external" href="?view={{viewer}}&offset={{off-1}}&hioffset={{wkoff}}">&gt;</a></td>
+                <td><a rel="external" href="?view={{viewer}}&offset={{off}}&hioffset={{wkoff-1}}">&gt;&gt;</a></td>
+            </tr>
+        </tbody>
+    </table>
+</div>
 {% endblock %}
 {% block chart_bottom_btn %}
     class="ui-btn-active"

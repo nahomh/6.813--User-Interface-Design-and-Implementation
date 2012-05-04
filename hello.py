@@ -4,6 +4,7 @@ from flask import request
 from flask import redirect
 from models import *
 from datetime import *
+import itertools
 app = Flask(__name__)
 app.debug = True
 
@@ -131,17 +132,22 @@ def analytics_route(analytics_type = "list"):
         from flask import Markup
         chartDataR = []
         chartDataR += [['Date','Amount']]
-
         chartDataD = {}
+        today = date.today()
+        for x in range(7):
+            newDay = today - timedelta(x)
+            chartDataD[str(newDay)] = 0
 
-        for r in records:
-            if r.ex_type==exType:
-                chartDataTime = str(r.time.year)+'/'+str(r.time.month)+'/'+str(r.time.day)
-                if chartDataTime in chartDataD.keys():
-                    chartDataD[chartDataTime] += r.amount
-                else:
-                    chartDataD[chartDataTime] = r.amount
-        for d in chartDataD.keys():
+        itered = itertools.groupby(records,lambda x:x.time)
+
+        for k,g in itered:
+            totalAmount = 0
+            for r in g:
+                if r.ex_type==exType:
+                    totalAmount += r.amount
+            chartDataD[str(k)] += totalAmount
+
+        for d in sorted(chartDataD.iterkeys()):
             chartDataR += [[d,chartDataD[d]]]
         chartData = json.dumps(chartDataR)
         print chartDataR

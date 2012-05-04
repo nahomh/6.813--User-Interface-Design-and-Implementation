@@ -5,6 +5,8 @@ from flask import redirect
 import itertools
 from models import *
 from datetime import *
+from  collections import defaultdict 
+import math
 import itertools
 app = Flask(__name__)
 app.debug = True
@@ -14,7 +16,8 @@ urecords={}
 @app.context_processor
 def utility_processor():    
     def two_decimal(amount):
-        s = "%.2f" % float(amount)
+        x=math.fabs(amount)
+        s = "%.2f" % float(x)
         return s
     return dict(two_decimal=two_decimal, zip=zip)
 
@@ -64,8 +67,14 @@ def debts_route():
                     debtsPerPerson[debt.lender.name].append(debt)
                 else:
                     debtsPerPerson[debt.lender.name]=[debt]
+	full_debts = defaultdict(float) #dict with default value
+	for r in users[myUserId].records:
+		for d in r.debts:
+			if d.lender.ID==myUserId: full_debts[d.borrower.name] += d.amount
+			else: full_debts[d.lender.name] -=d.amount
 
-    return render_template("debts.html", debt_records = debt_records, debtsPerPerson=debtsPerPerson, myUserId=myUserId)
+    return render_template("debts.html", debt_records = debt_records, debtsPerPerson=debtsPerPerson,debt=full_debts, myUserId=myUserId)
+
 
 def find(f, seq):
   """Return first item in sequence where f(item) == True."""
@@ -73,21 +82,21 @@ def find(f, seq):
     if f(item): 
       return item
       
-@app.route('/debt_callback/<recordid>/<debtid>')	
-@app.route('/debt_callback/<recordid>/<debtid>/<backToRecord>')	
+@app.route('/debt_callback/<recordid>/<debtid>', methods=['POST','GET'])	
+@app.route('/debt_callback/<recordid>/<debtid>/<backToRecord>', methods=['POST','GET'])	
 def debts_callback(recordid, debtid, backToRecord = False):
     record = records[int(recordid)]
     debt = debts[int(debtid)]
-    lender, borrower = (users[myUserId], find(lambda u: u.name == request.args["other"], users.values()))
-    if request.args["type"] == "Owe": 
+    lender, borrower = (users[myUserId], find(lambda u: u.name == request.form["other"], users.values()))
+    if request.form["type"] == "Owe": 
         lender, borrower = borrower, lender
     debt.lender = lender
     debt.borrower = borrower
-    debt.amount = float(request.args["amount"])
+    debt.amount = float(request.form["amount"])
     record.debts += [debt]
     
-    if backToRecord: return redirect("/record/"+recordid)
-    else: return redirect("/invdebt/"+str(debt.lender.ID if debt.lender != users[myUserId] else debt.borrower.ID))
+    if backToRecord: return ""
+    else: return ""
     
 @app.route('/record/')
 @app.route('/record/<id>')
@@ -132,7 +141,6 @@ def analytics_route(analytics_type = "list"):
         
     elif(analytics_type == "map"):
         return render_template("map.html", records=records, ex_types=users[myUserId].ex_types, viewAccount=exType, user=user)
-        
     elif(analytics_type == "chart"):
         import json
         from flask import Markup
@@ -191,9 +199,17 @@ def debt_records_route(id=None):
                 debt_records.append(d)	
 				
     for i in debt_records:
-		if i.lender.ID ==int(id) or i.borrower.ID ==int(id):
+		if i.lender.name ==str(id) or i.borrower.name ==str(id):
 			deep_rec.append(i)
-        
+	
+    owe=0
+    lent=0
+    for i in deep_rec:
+        if i.lender.name==str(id):
+            lent+=i.amount
+        elif i.borrower.name==str(id):
+            owe+=i.amount
+    total=lent-owe
     return render_template("invdebt.html",urec = deep_rec, debt_records=debt_records, myUserId=myUserId)
 
 

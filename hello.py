@@ -36,7 +36,7 @@ def transfer_callback(id):
         record.amount = float(request.form['amount'])
         record.ex_type = int(request.form['from'])
         record.transfer_to = int(request.form['to'])
-        the_date = datetime(int(request.form['year']),int(request.form['month']),int(request.form['day']))
+        the_date = date(int(request.form['year']),int(request.form['month']),int(request.form['day']))
         record.time = the_date
         if request.form["isNew"]=="1": users[myUserId].records += [record]
         return redirect('/transfer/'+id)
@@ -100,7 +100,7 @@ def record_callback(id):
     users[myUserId].tempRecord.location = (request.args["lat"], request.args["lng"])
     users[myUserId].tempRecord.amount = float(request.args["amount"])
     users[myUserId].tempRecord.ex_type = int(request.args["type"])
-    users[myUserId].tempRecord.time = datetime(int(request.args["year"]), int(request.args["month"]), int(request.args["day"]))
+    users[myUserId].tempRecord.time = date(int(request.args["year"]), int(request.args["month"]), int(request.args["day"]))
     return "Ok"
 
 @app.route('/record_commit/<id>')
@@ -127,21 +127,37 @@ def analytics_route(analytics_type = "list"):
     records.sort(key=lambda rec:rec.time)
     
     if (analytics_type == "list"):
+<<<<<<< HEAD
         return render_template("list.html", groupedRecords=itertools.groupby(records, lambda x: x.time), ex_types=users[myUserId].ex_types, viewAccount=exType, user=user)
         
     elif(analytics_type == "map"):
         return render_template("map.html", records=records, ex_types=users[myUserId].ex_types, viewAccount=exType, user=user)
         
+=======
+        return render_template("list.html", records=records, ex_types=users[myUserId].ex_types, viewAccount=exType, user=user,analytics_type=analytics_type)
+    elif(analytics_type == "map"):
+        return render_template("map.html", records=records, ex_types=users[myUserId].ex_types, viewAccount=exType, user=user,analytics_type=analytics_type)
+>>>>>>> 37609ce9ad0028150a796ec9cfd1e564d0454ded
     elif(analytics_type == "chart"):
         import json
         from flask import Markup
         chartDataR = []
         chartDataR += [['Date','Amount']]
+
+        chartDataD = {}
+
         for r in records:
-            chartDataR += [[str(r.time.year)+'/'+str(r.time.month)+'/'+str(r.time.day),r.amount]]
+            if r.ex_type==exType:
+                chartDataTime = str(r.time.year)+'/'+str(r.time.month)+'/'+str(r.time.day)
+                if chartDataTime in chartDataD.keys():
+                    chartDataD[chartDataTime] += r.amount
+                else:
+                    chartDataD[chartDataTime] = r.amount
+        for d in chartDataD.keys():
+            chartDataR += [[d,chartDataD[d]]]
         chartData = json.dumps(chartDataR)
-        print chartData
-        return render_template("chart.html", records=records, ex_types=users[myUserId].ex_types, viewAccount=exType, chartData=Markup(chartData), user=user)
+        print chartDataR
+        return render_template("chart.html", records=records, ex_types=users[myUserId].ex_types, viewAccount=exType, chartData=Markup(chartData), user=user,analytics_type=analytics_type)
 
 @app.route('/invdebt')
 @app.route('/invdebt/<id>')

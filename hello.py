@@ -128,17 +128,11 @@ def analytics_route(analytics_type = "list"):
     records.sort(key=lambda rec:rec.time)
     
     if (analytics_type == "list"):
-<<<<<<< HEAD
         return render_template("list.html", groupedRecords=itertools.groupby(records, lambda x: x.time), ex_types=users[myUserId].ex_types, viewAccount=exType, user=user)
         
     elif(analytics_type == "map"):
         return render_template("map.html", records=records, ex_types=users[myUserId].ex_types, viewAccount=exType, user=user)
         
-=======
-        return render_template("list.html", records=records, ex_types=users[myUserId].ex_types, viewAccount=exType, user=user,analytics_type=analytics_type)
-    elif(analytics_type == "map"):
-        return render_template("map.html", records=records, ex_types=users[myUserId].ex_types, viewAccount=exType, user=user,analytics_type=analytics_type)
->>>>>>> 37609ce9ad0028150a796ec9cfd1e564d0454ded
     elif(analytics_type == "chart"):
         import json
         from flask import Markup

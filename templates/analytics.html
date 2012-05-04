@@ -7,7 +7,9 @@ Analytics
 {% endblock %}
 {% block content %}
 <div class="content-primary">
-    <form method="POST" action="/analytics/{{analytics_type}}">
+
+    <form method="POST" action="/analytics/{{analytics_type}}" data-ajax="false">
+
 		<table width=320>
 			<tbody>
 				<tr>
@@ -40,7 +42,7 @@ Analytics
             <ul>
                 <li><a href="/analytics/list" {% block list_bottom_btn %}{% endblock %}>List</a></li>
                 <li><a href="/analytics/map" {% block map_bottom_btn %}{% endblock %}>Map</a></li>
-                <li><a href="/analytics/chart" {% block chart_bottom_btn %}{% endblock %}>Chart</a></li>
+                <li><a rel="external" href="/analytics/chart" {% block chart_bottom_btn %}{% endblock %}>Chart</a></li>
                 
             </ul>
         </div>

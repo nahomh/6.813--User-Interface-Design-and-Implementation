@@ -2,7 +2,7 @@
 {% block title %}Transfer{% endblock %}
 
 {% block content %}
-    <form action="/debt_callback/{{recordId}}/{{debt.ID}}" name="addDebt" method="get">
+    <form action="/debt_callback/{{recordId}}/{{debt.ID}}{{'/1' if backToRecord else  '/0'}}" id="addDebtsform" method="get">
         <table width="300">
             <tbody>
                 <tr>
@@ -25,15 +25,14 @@
 		 $( "#toUser" ).autocomplete({
 			source: user_list
 		});
-		function submitdebt()
-						{
-						  document.addDebt.submit();
-						}
+		function submitdebt(){
+			$.post("/debt_callback/{{recordId}}/{{debt.ID}}", $("#addDebtsform").serialize());
+			}
         </script>
         
         <br>
-		<a href="records.html" onClick=submitdebt()  style="float:left" data-role="button" value="button">Done</button>
-	    <a href="addDebts.html" onClick=submitdebt() style=" float:left"data-role="button">Add Debt</a>
+		<a href={{"/records" if backToRecords else "/debts"}} onClick=submitdebt()  style="float:left" data-role="button" value="button">Done</button>
+	    <a href="/addDebts" onClick=submitdebt(); window.location.reload(); style=" float:left"data-role="button">Add Debt</a>
 
     </form>
 	

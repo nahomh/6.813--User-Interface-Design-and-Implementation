@@ -15,7 +15,7 @@
             google.visualization.events.addListener(chart, 'select', function(){
                     sel = chart.getSelection()[0];
                     console.log(sel.row + " / " + sel.column);
-                    window.location = '/analytics/list';
+                    window.location = '/chartToList/{{fromDate.year}}/{{fromDate.month}}/{{fromDate.day}}/'+sel.row;
                     });
         }
         

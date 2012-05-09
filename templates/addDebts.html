@@ -31,8 +31,8 @@
         </script>
         
         <br>
-		<a href={{"/records" if backToRecords else "/debts"}} onClick=submitdebt();  style="float:left" data-role="button" value="button">Done</button>
-	    <a href="/addDebts/{{recordId}}" onClick=submitdebt(); window.location.reload(); style=" float:left"data-role="button">Add Debt</a>
+		<a href={{"/record" if backToRecords else "/debts"}} onClick=submitdebt();  style="float:left" data-role="button" value="button">Done</button>
+	    <a href="/addDebts/{{recordId}}" onClick=submitdebt(); location.reload(); style=" float:left"data-role="button">Add Debt</a>
 
     </form>
 	

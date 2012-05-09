@@ -101,7 +101,7 @@ def debts_route():
     for r in current_user.records:
         for d in r.debts:
             debt_records.append(d)	
-			
+            
     for debt in debt_records:
         if debt.lender.ID == current_user.ID:
                 if  debt.borrower.name in debtsPerPerson.keys():
@@ -113,11 +113,11 @@ def debts_route():
                     debtsPerPerson[debt.lender.name].append(debt)
                 else:
                     debtsPerPerson[debt.lender.name]=[debt]
-	full_debts = defaultdict(float) #dict with default value
-	for r in current_user.records:
-		for d in r.debts:
-			if d.lender.ID==current_user.ID: full_debts[d.borrower.name] += d.amount
-			else: full_debts[d.lender.name] -=d.amount
+    full_debts = defaultdict(float) #dict with default value
+    for r in current_user.records:
+        for d in r.debts:
+            if d.lender.ID==current_user.ID: full_debts[d.borrower.name] += d.amount
+            else: full_debts[d.lender.name] -=d.amount
 
     return render_template("debts.html", debt_records = debt_records, debtsPerPerson=debtsPerPerson,debt=full_debts, myUserId=current_user.ID)
 
@@ -283,11 +283,11 @@ def debt_records_route(id=None):
     for r in current_user.records:
         for d in r.debts:
                 debt_records.append(d)	
-				
+                
     for i in debt_records:
-		if i.lender.name ==str(id) or i.borrower.name ==str(id):
-			deep_rec.append(i)
-	
+        if i.lender.name ==str(id) or i.borrower.name ==str(id):
+            deep_rec.append(i)
+    
     owe=0
     lent=0
     for i in deep_rec:
@@ -306,7 +306,7 @@ def add_debts_route(recordId, id=None):
     debt = Debt() if id == None else debts[int(id)]
     user_list=[]
     for i in users.keys():
-	    user_list.append(users[i].name)
+        user_list.append(users[i].name)
 
     if id==None:
         backToRecords=True

@@ -12,7 +12,6 @@ app = Flask(__name__)
 app.debug = True
 
 myUserId = 2
-urecords={}
 @app.context_processor
 def utility_processor():    
     def two_decimal(amount):
@@ -220,9 +219,12 @@ def add_debts_route(recordId, id=None):
     user_list=[]
     for i in users.keys():
 	    user_list.append(users[i].name)
-	
-		
-    return render_template("addDebts.html", debt=debt, recordId=recordId, user=users[myUserId], user_list=user_list, backToRecord=False)	
+    if id==None:
+        backToRecords=True
+    else:
+        backToRecords=False
+
+    return render_template("addDebts.html", debt=debt, recordId=recordId, user=users[myUserId], user_list=user_list, backToRecords=backToRecords)	
     
 
 

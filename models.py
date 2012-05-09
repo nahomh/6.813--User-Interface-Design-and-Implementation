@@ -2,14 +2,16 @@ from datetime import *
 
 records = {}
 debts = {}
-
+users = {}
 class User(object):
-    def __init__(self,idnum,name="",email=""):
-        self.ID = idnum
+    def __init__(self,name="",email="", password="password"):
+        self.ID = len(users)
+        users[self.ID] = self
         self.tempRecord = Record()
         self.records = []						#List[Record]
         self.name = name						#String
         self.email = email						#String
+        self.password = password                #String
         self.ex_types = {0:"Cash",1:"Bank",2:"Credit Card"}		#Dictionary
 
     def recordCenter(self):
@@ -31,6 +33,10 @@ class User(object):
             total += ((lat + oldLat) ** 2 + (long - oldLong) ** 2)
         return (total / len(self.records)) ** 0.5    
 
+    def is_active(self): return True
+    def is_authenticated(self): return True
+    def is_anonymous(self): return False
+    def get_id(self): return self.ID
 class Record(object):
     def __init__(self,latitude=0.0,longitude=0.0,amount=0.00,debt=[],ex_type=0,transfer_to=None,time=date.today()):
         idnum = len(records)
@@ -53,7 +59,10 @@ class Debt(object):
         self.amount = amount				#Number
         debts[idnum] = self
 
-users = {0:User(0,"Haoyi Li","haoyi@li.com"),1:User(1,"Nahom Workie","nahom@workie.com"),2:User(2,"Akira Monri","akira@monri.com")}
+User("Haoyi Li","haoyi@li.com")
+User("Nahom Workie","nahom@workie.com")
+User("Akira Monri","akira@monri.com")
+print users
 users[0].records.append(Record(1.296383,103.848953,25.25))
 
 users[1].records.append(Record(42.361778,-71.090426,30.20,[Debt(100.00,users[0])]))

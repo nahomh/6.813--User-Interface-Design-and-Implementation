@@ -1,0 +1,32 @@
+{% extends "layout.html" %}
+{% block title %}
+Analytics
+{% endblock %}
+{% block analytics_top_btn %}
+    class="ui-btn-active"
+{% endblock %}
+{% block content %}
+<div class="content-primary">
+
+    <form method="POST" action="/login" data-ajax="false">
+        {% if registering %}
+            We couldn't find your email; would you like to register for an Account?
+            <input type="text" name="name" placeholder="Your Name"/>
+        {% endif %}
+        <input type="text" name="email" placeholder="Email Address" {% if email %} value="{{email}}" {% endif %}/>
+        <input type="text" name="password" placeholder="Password" {% if password %} value="{{password}}" {% endif %}/>
+        {% if registering %}
+            <input type="submit" value="Register!"/>
+        {% else %}
+            <input type="submit" value="Login!"/>
+        {% endif %}
+		
+	</form>
+	<br/>
+    {% block analytics_content %}{% endblock %}
+	
+</div>
+        
+    
+    
+{% endblock %}        

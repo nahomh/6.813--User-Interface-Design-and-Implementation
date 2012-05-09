@@ -4,7 +4,7 @@
 {% endblock %}
 {% block content %}
 
-    <form  action="/record_commit/{{record.ID}}"  name="myform" " data-update="/record_callback/{{record.ID}}" method="get">
+    <form  action="/record_commit/{{record.ID}}"  id="myform" " data-update="/record_callback/{{record.ID}}" method="get">
         <div id="moneyInput">
 				<table width=320>
 					<tbody>
@@ -109,7 +109,7 @@
                 }
 				function submitform()
 						{
-						  document.myform.submit();
+						  $("#myform").submit();
 						}
             </script>
         </div>

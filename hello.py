@@ -122,22 +122,33 @@ def record_commit(id):
 
 @app.route('/analytics')
 @app.route('/analytics/<analytics_type>')
-def analytics_route(analytics_type = "list"):
+@app.route('/analytics/<analytics_type>/<year>/<month>/<day>')
+def analytics_route(analytics_type = "list", year=None,month=None,day=None):
     exType = 0
     try: 
         exType = int(request.args.get("account"))
     except Exception: pass
-        
-    
-    
-    
+
     user = users[myUserId]
     records = user.records
     
     records.sort(key=lambda rec:rec.time)
     
     if (analytics_type == "list"):
-        return render_template("list.html", groupedRecords=itertools.groupby(records, lambda x: x.time), ex_types=users[myUserId].ex_types, viewAccount=exType, user=user)
+
+        if(year==None or month==None or day==None):
+            return render_template("list.html", groupedRecords=itertools.groupby(records, lambda x: x.time), ex_types=users[myUserId].ex_types, viewAccount=exType, user=user)
+        else:
+            itered = itertools.groupby(records, lambda x:x.time)
+            limitDate = date(int(year),int(month),int(day))
+            limited = []
+            for k, g in itered:
+                if k == limitDate:
+                    for r in g:
+                        limited += [r]
+            regrouped = itertools.groupby(limited, lambda x:x.time)
+            return render_template("list.html", groupedRecords=regrouped, ex_types=users[myUserId].ex_types, viewAccount=exType, user=user)
+
         
     elif(analytics_type == "map"):
         return render_template("map.html", records=records, ex_types=users[myUserId].ex_types, viewAccount=exType, user=user)
@@ -163,15 +174,18 @@ def analytics_route(analytics_type = "list"):
         except Exception:
             viewer = 0
 
+        fromDate = None
         if viewer == 0:
             for x in range(0+offset,7+offset):
                 newDay = today - timedelta(x,0,0,0,0,0,wkoffset)
                 chartDataD[newDay] = 0
+            fromDate = newDay
         else:
             import calendar
             for x in range(1,calendar.monthrange(today.year-wkoffset,today.month-offset)[1]+1,1):
                 newDay = date(today.year-wkoffset,today.month-offset,x)
                 chartDataD[newDay] = 0
+                if fromDate==None: fromDate = newDay
 
         itered = itertools.groupby(records,lambda x:x.time)
         for k,g in itered:
@@ -185,8 +199,17 @@ def analytics_route(analytics_type = "list"):
         for d in sorted(chartDataD.iterkeys()):
            chartDataR += [[str(d.month)+"/"+str(d.day),chartDataD[d]]]
         chartData = json.dumps(chartDataR)
-        print chartDataR
-        return render_template("chart.html", records=records, ex_types=users[myUserId].ex_types, viewAccount=exType, chartData=Markup(chartData), user=user,analytics_type=analytics_type, wkoff=wkoffset, off=offset, viewer=viewer)
+        print chartData
+        return render_template("chart.html", records=records, ex_types=users[myUserId].ex_types, viewAccount=exType, chartData=Markup(chartData), user=user,analytics_type=analytics_type, wkoff=wkoffset, off=offset, viewer=viewer, fromDate=fromDate)
+
+@app.route('/chartToList/<fyear>/<fmonth>/<fday>/<row>')
+def chartToList_route(fyear=None,fmonth=None,fday=None,row=None):
+    if(fyear==None or fmonth==None or fday==None or row==None):
+        return redirect('/analytics/chart')
+    
+    fromDay = date(int(fyear),int(fmonth),int(fday))
+    limitDate = fromDay + timedelta(int(row))
+    return redirect('/analytics/list/'+str(limitDate.year)+'/'+str(limitDate.month)+'/'+str(limitDate.day))
 
 @app.route('/invdebt')
 @app.route('/invdebt/<id>')

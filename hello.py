@@ -222,7 +222,7 @@ def add_debts_route(recordId, id=None):
 	    user_list.append(users[i].name)
 	
 		
-    return render_template("addDebts.html", debt=debt, recordId=recordId, user=users[myUserId], user_list=user_list, backToRecord=id==None)	
+    return render_template("addDebts.html", debt=debt, recordId=recordId, user=users[myUserId], user_list=user_list, backToRecord=False)	
     
 
 

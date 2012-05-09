@@ -7,9 +7,9 @@
 			<ul data-role="listview" data-filter="true" id="listarea">
 				{% for i in debtsPerPerson.keys() %}
 					{%if debt[i]  < 0: %}
-					<li><a href="/invdebt/{{debtsPerPerson[i][0].lender.name}}" rel="external">{{i}} <span class=" owed">Lent</span> you ${{ two_decimal(debt[i])}}</a></li>
+					<li><a href="/invdebt/{{i}}" rel="external">{{i}} <span class=" owed">LENT</span> you ${{ two_decimal(debt[i])}}</a></li>
 					{%else%}
-					<li><a href="/invdebt/{{debtsPerPerson[i][0].borrower.name}}" rel="external">{{i}} <span class=" owe">OWES</span> you ${{ two_decimal(debt[i])}}</a></li>
+					<li><a href="/invdebt/{{i}}" rel="external">{{i}} <span class=" owe">OWES</span> you ${{ two_decimal(debt[i])}}</a></li>
 					{% endif %}
 				{% endfor %}
 			</ul>

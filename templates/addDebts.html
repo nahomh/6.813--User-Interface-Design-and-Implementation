@@ -8,8 +8,8 @@
                 <tr>
                     <td><input type="text" name="other" id="toUser" value="{{debt.borrower.name if debt.borrower != user else debt.lender.name}}" data-mini="true" /></td>
                     <td><select name="type" id="direct">
-                           <option value="Owe" {{"selected='selected'" if debt.borrower != user else ""}}>Owes</option>
-                           <option value="Lent"{{ "selected='selected'" if debt.borrower == user else ""}}>Lent</option>
+                           <option value="Owe" {{"selected='selected'" if debt.lender.name == user else ""}}>Owes</option>
+                           <option value="Lent"{{ "selected='selected'" if debt.borrower.name == user else ""}}>Lent</option>
                         </select>
                     </td>
                     <td>Me                  
@@ -31,8 +31,8 @@
         </script>
         
         <br>
-		<a href={{"/records" if backToRecords else "/debts"}} onClick=submitdebt()  style="float:left" data-role="button" value="button">Done</button>
-	    <a href="/addDebts" onClick=submitdebt(); window.location.reload(); style=" float:left"data-role="button">Add Debt</a>
+		<a href={{"/records" if backToRecords else "/debts"}} onClick=submitdebt();  style="float:left" data-role="button" value="button">Done</button>
+	    <a href="/addDebts/{{recordId}}" onClick=submitdebt(); window.location.reload(); style=" float:left"data-role="button">Add Debt</a>
 
     </form>
 	

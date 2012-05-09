@@ -12,7 +12,11 @@
             };
             var chart = new google.visualization.ColumnChart(document.getElementById('chart_div'));
             chart.draw(data, options);
-            google.visualization.events.addListener(chart, 'select', function(){console.log(chart.getSelection());});
+            google.visualization.events.addListener(chart, 'select', function(){
+                    sel = chart.getSelection()[0];
+                    console.log(sel.row + " / " + sel.column);
+                    window.location = '/analytics/list';
+                    });
         }
         
         
@@ -25,8 +29,20 @@
 {% block analytics_content %}
 <div id="chart_div" style="width:320px">
 </div>
-<script>
-    </script>
+<div>
+    <table width=320>
+        <tbody>
+            <tr style="text-align:center">
+                <td><a rel="external" href="?view={{viewer}}&offset={{off}}&hioffset={{wkoff+1}}">&lt;&lt;</a></td>
+                <td><a rel="external" href="?view={{viewer}}&offset={{off+1}}&hioffset={{wkoff}}">&lt;</a></td>
+                <td><a rel="external" href="?view=0">WEEK</a></td>
+                <td><a rel="external" href="?view=1">MONTH</a></td>
+                <td><a rel="external" href="?view={{viewer}}&offset={{off-1}}&hioffset={{wkoff}}">&gt;</a></td>
+                <td><a rel="external" href="?view={{viewer}}&offset={{off}}&hioffset={{wkoff-1}}">&gt;&gt;</a></td>
+            </tr>
+        </tbody>
+    </table>
+</div>
 {% endblock %}
 {% block chart_bottom_btn %}
     class="ui-btn-active"

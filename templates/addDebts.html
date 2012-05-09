@@ -2,18 +2,17 @@
 {% block title %}Transfer{% endblock %}
 
 {% block content %}
-    <form action="/debt_callback/{{recordId}}/{{debt.ID}}{{'/1' if backToRecord else ''}}" method="get">
+    <form action="/debt_callback/{{recordId}}/{{debt.ID}}{{'/1' if backToRecord else  '/0'}}" id="addDebtsform" method="get">
         <table width="300">
             <tbody>
                 <tr>
-                    <td>I</td>
+                    <td><input type="text" name="other" id="toUser" value="{{debt.borrower.name if debt.borrower != user else debt.lender.name}}" data-mini="true" /></td>
                     <td><select name="type" id="direct">
-                           <option value="Owe" {{ "selected='selected'" if debt.borrower == user else ""}}>Owe</option>
-                           <option value="Lent"{{ "selected='selected'" if debt.borrower != user else ""}}>Lent</option>
+                           <option value="Owe" {{"selected='selected'" if debt.lender.name == user else ""}}>Owes</option>
+                           <option value="Lent"{{ "selected='selected'" if debt.borrower.name == user else ""}}>Lent</option>
                         </select>
                     </td>
-                    <td><input type="text" name="other" id="toUser" value="{{debt.borrower.name if debt.borrower != user else debt.lender.name}}" data-mini="true" />
-                    
+                    <td>Me                  
                     </td>
                 </tr>
             </tbody>
@@ -26,10 +25,15 @@
 		 $( "#toUser" ).autocomplete({
 			source: user_list
 		});
+		function submitdebt(){
+			$.post("/debt_callback/{{recordId}}/{{debt.ID}}", $("#addDebtsform").serialize());
+			}
         </script>
         
         <br>
-        <button type="submit" style="float:left" data-role="button" value="Submit">Done</button>
+		<a href={{"/records" if backToRecords else "/debts"}} onClick=submitdebt();  style="float:left" data-role="button" value="button">Done</button>
+	    <a href="/addDebts/{{recordId}}" onClick=submitdebt(); window.location.reload(); style=" float:left"data-role="button">Add Debt</a>
+
     </form>
 	
 

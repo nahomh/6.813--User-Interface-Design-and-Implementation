@@ -22,6 +22,12 @@ login_manager.login_view = "/login"
 def load_user(userid):
     return users[userid] if userid in users.keys() else None
 
+    
+@app.route("/logout", methods=['POST', 'GET'])
+def logout():
+    logout_user()
+    return "Logged Out Lolz"
+    
 @app.route("/login", methods=['POST', 'GET'])
 def login():
     global users
@@ -170,7 +176,7 @@ def analytics_route(analytics_type = "list", year=None,month=None,day=None):
 
 
         if(year==None or month==None or day==None):
-            return render_template("list.html", groupedRecords=itertools.groupby(records, lambda x: x.time), ex_types=users[myUserId].ex_types, viewAccount=exType, user=user)
+            return render_template("list.html", groupedRecords=itertools.groupby(records, lambda x: x.time), ex_types=current_user.ex_types, viewAccount=exType, user=user)
         else:
             itered = itertools.groupby(records, lambda x:x.time)
             limitDate = date(int(year),int(month),int(day))

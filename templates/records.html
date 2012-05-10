@@ -119,10 +119,34 @@
 				<tbody>
 					<tr>
 						<td>
-							<a onClick=submitform()  style="float:left" data-role="button" value="button">Submit</button>
+							<a onClick=submitform()  style="float:left" data-role="button" value="button">
+                                {% if newRecord %}
+                                    Submit
+                                {% else %}
+                                    Done
+                                {% endif %}
+                            </a>
+                            
 						</td>
 						<td>
-							<a href="/addDebts/{{record.ID}}" style=" float:left"data-role="button">Add Debts</a>
+                            {% if newRecord %}
+                                <a href="/addDebts/{{record.ID}}" style=" float:left"data-role="button">
+                                    Add Debts 
+                                    {% if len(record.debts) > 0 %}
+                                        ({{len(record.debts)}})
+                                    {% endif %}
+                                
+                                </a>
+                            {% else %}
+                                <a href="/recdebt/{{record.ID}}" style=" float:left"data-role="button">
+                                    View Debts
+                                    
+                                    {% if len(record.debts) > 0 %}
+                                        ({{len(record.debts)}})
+                                    {% endif %}
+                                </a>
+                            {% endif %}
+							
 						</td>
 					</tr>
 				</tbody>

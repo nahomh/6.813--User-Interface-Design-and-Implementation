@@ -56,7 +56,7 @@ def utility_processor():
         x=math.fabs(amount)
         s = "%.2f" % float(x)
         return s
-    return dict(two_decimal=two_decimal, zip=zip)
+    return dict(two_decimal=two_decimal, zip=zip, len=len)
 
 @app.route('/')
 @login_required
@@ -126,7 +126,11 @@ def debts_callback(recordid, debtid, backToRecord = False):
 @app.route('/record/<id>')
 @login_required
 def record_route(id=None):
-    return render_template("records.html", record = current_user.tempRecord if id==None else records[int(id)], my_accounts=current_user.ex_types)
+
+    return render_template("records.html", 
+                           record = current_user.tempRecord if id==None else records[int(id)], 
+                           my_accounts=current_user.ex_types,
+                           newRecord = id == None)
 
 @app.route('/record_callback/<id>', methods=['POST']) 	
 @login_required
@@ -245,7 +249,7 @@ def chartToList_route(fyear=None,fmonth=None,fday=None,row=None):
 @app.route('/invdebt')
 @app.route('/invdebt/<person_id>')
 @login_required
-def debt_records_route(person_id=None):
+def debt_inv_route(person_id=None):
     
     debt_records = []	# List[(Debt,Record)]
     
@@ -257,7 +261,20 @@ def debt_records_route(person_id=None):
                 debt_records += [(d,r)]
     return render_template("invdebt.html",debt_records=debt_records, myUserId=current_user.ID)
 
+@app.route('/recdebt')
+@app.route('/recdebt/<record_id>')
+@login_required
+def record_debt_route(record_id=None):    
+    debt_records = []	# List[(Debt,Record)]
 
+    for d in records[int(record_id)].debts:
+        if d.lender.ID==int(person_id) and d.borrower==current_user:
+            debt_records += [(d,r)]
+        elif d.borrower.ID==int(person_id) and d.lender==current_user:
+            debt_records += [(d,r)]
+
+    return render_template("invdebt.html",debt_records=debt_records, myUserId=current_user.ID)
+    
 @app.route('/addDebts/<recordId>')
 @app.route('/addDebts/<recordId>/<id>')
 @login_required

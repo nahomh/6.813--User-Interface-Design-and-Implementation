@@ -14,7 +14,7 @@ Analytics
             <input type="text" name="name" placeholder="Your Name"/>
         {% endif %}
         <input type="text" name="email" placeholder="Email Address" {% if email %} value="{{email}}" {% endif %}/>
-        <input type="text" name="password" placeholder="Password" {% if password %} value="{{password}}" {% endif %}/>
+        <input type="password" name="password" placeholder="Password" {% if password %} value="{{password}}" {% endif %}/>
         {% if registering %}
             <input type="submit" value="Register!"/>
         {% else %}

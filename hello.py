@@ -186,16 +186,8 @@ def analytics_route(analytics_type = "list", year=None,month=None,day=None):
                     for r in g:
                         limited += [r]
             regrouped = itertools.groupby(limited, lambda x:x.time)
-            return render_template("list.html", groupedRecords=regrouped, ex_types=users[myUserId].ex_types, viewAccount=exType, user=user)
+            return render_template("list.html", groupedRecords=regrouped, ex_types=current_user.ex_types, viewAccount=exType, user=user)
 
-
-        
-    elif(analytics_type == "map"):
-        return render_template("map.html", records=records, ex_types=current_user.ex_types, viewAccount=exType, user=user)
-
-
-        return render_template("list.html", groupedRecords=itertools.groupby(records, lambda x: x.time), ex_types=current_user.ex_types, viewAccount=exType, user=user)
-        
     elif(analytics_type == "map"):
         return render_template("map.html", records=records, ex_types=current_user.ex_types, viewAccount=exType, user=user)
 
@@ -247,7 +239,7 @@ def analytics_route(analytics_type = "list", year=None,month=None,day=None):
            chartDataR += [[str(d.month)+"/"+str(d.day),chartDataD[d]]]
         chartData = json.dumps(chartDataR)
 
-        return render_template("chart.html", records=records, ex_types=users[myUserId].ex_types, viewAccount=exType, chartData=Markup(chartData), user=user,analytics_type=analytics_type, wkoff=wkoffset, off=offset, viewer=viewer, fromDate=fromDate)
+        return render_template("chart.html", records=records, ex_types=current_user.ex_types, viewAccount=exType, chartData=Markup(chartData), user=user,analytics_type=analytics_type, wkoff=wkoffset, off=offset, viewer=viewer, fromDate=fromDate)
 
 @app.route('/chartToList/<fyear>/<fmonth>/<fday>/<row>')
 def chartToList_route(fyear=None,fmonth=None,fday=None,row=None):
@@ -291,12 +283,6 @@ def add_debts_route(recordId, id=None):
         backToRecords=False
 
     return render_template("addDebts.html", debt=debt, recordId=recordId, user=current_user, user_list=user_list, backToRecords=backToRecords)	
-
-    
-
-    
-    
-    
 
 if __name__ == '__main__':
     app.run()

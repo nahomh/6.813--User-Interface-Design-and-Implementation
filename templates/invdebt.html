@@ -5,7 +5,7 @@
 {% block content %}
    
             <ul data-role="listview" data-filter="true" id="listarea">
-                {% for debt, record in debt_records %}
+                {% for debt, record in debt_records.items() %}
                     {%if debt.borrower.ID ==myUserId %}
                     <li><a href="/addDebts/{{record.ID}}/{{debt.ID}}" rel="external">
                         {{ debt.lender.name}} 

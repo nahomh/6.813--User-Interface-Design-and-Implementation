@@ -2,16 +2,17 @@
 {% block debts_top_btn %}
     class="ui-btn-active"
 {% endblock %}
+{% block title %}Debts{% endblock %}
 {% block content %}
     
-			<ul data-role="listview" data-filter="true" id="listarea">
-				{% for user, amount in full_debts.items() %}
-					{%if amount < 0: %}
-					<li><a href="/invdebt/{{user.ID}}" rel="external">{{user.name}} <span class=" owed">LENT</span> you ${{ two_decimal(amount)}}</a></li>
-					{%else%}
-					<li><a href="/invdebt/{{user.ID}}" rel="external">{{user.name}} <span class=" owe">OWES</span> you ${{ two_decimal(amount)}}</a></li>
-					{% endif %}
-				{% endfor %}
-			</ul>
+            <ul data-role="listview" data-filter="true" id="listarea">
+                {% for user, amount in full_debts.items() %}
+                    {%if amount < 0: %}
+                    <li><a href="/invdebt/{{user.ID}}" rel="external">{{user.name}} <span class=" owed">LENT</span> you ${{ two_decimal(amount)}}</a></li>
+                    {%else%}
+                    <li><a href="/invdebt/{{user.ID}}" rel="external">{{user.name}} <span class=" owe">OWES</span> you ${{ two_decimal(amount)}}</a></li>
+                    {% endif %}
+                {% endfor %}
+            </ul>
 {% endblock %}
 

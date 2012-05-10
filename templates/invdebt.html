@@ -4,22 +4,22 @@
 {% endblock %}
 {% block content %}
    
-			<ul data-role="listview" data-filter="true" id="listarea">
-				{% for debt, record in debt_records %}
-					{%if debt.borrower.ID ==myUserId %}
-					<li><a href="/addDebts/{{record.ID}}/{{debt.ID}}" rel="external">
+            <ul data-role="listview" data-filter="true" id="listarea">
+                {% for debt, record in debt_records %}
+                    {%if debt.borrower.ID ==myUserId %}
+                    <li><a href="/addDebts/{{record.ID}}/{{debt.ID}}" rel="external">
                         {{ debt.lender.name}} 
                         <span class="  owed">LENT</span> 
                         you ${{two_decimal(debt.amount)}}
                     </a></li>
-					{%else%}
-					<li><a href="/addDebts/{{record.ID}}/{{debt.ID}}" rel="external">
+                    {%else%}
+                    <li><a href="/addDebts/{{record.ID}}/{{debt.ID}}" rel="external">
                         {{ debt.borrower.name}} 
                         <span class="  owe">OWES</span> 
                         you ${{two_decimal(debt.amount)}}
                     </a></li>
-					{% endif %}
-				{% endfor %}
-			</ul>
+                    {% endif %}
+                {% endfor %}
+            </ul>
 {% endblock %}
 

@@ -273,7 +273,7 @@ def debt_records_route(person_id=None):
             elif d.borrower.ID==int(person_id) and d.lender==current_user:
                 debt_records += [(d,r)]
     print debt_records
-    return render_template("invdebt.html",debt_records=debt_records)
+    return render_template("invdebt.html",debt_records=debt_records, myUserId=current_user.ID)
 
 
 @app.route('/addDebts/<recordId>')

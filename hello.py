@@ -33,29 +33,22 @@ def login():
     global users
     email = request.form["email"] if "email" in request.form else None
     password = request.form["password"] if "password" in request.form else None
-    print users
     matchedusers = [u for u in users.values() if (u.email == email and u.password == password)]
     
     if len(matchedusers)> 0:
         login_user(matchedusers[0])
-        print("LOGGED IN YEAH")
         return redirect("/")
         
     if "name" in request.form:
-        print("REGISTERING WOR")
         login_user(User(request.form["name"], email, password))
         
         return redirect("/")
         
     anyusers = [u for u in users.values() if u.email == email]
     if email and len(anyusers) == 0:
-        print("OLD USER fouND")    
         return render_template("login.html", email=email, password=password, registering=True)
             
-    
-    
     return render_template("login.html")
-    
     
 @app.context_processor
 def utility_processor():    
@@ -68,7 +61,6 @@ def utility_processor():
 @app.route('/')
 @login_required
 def root_route():
-    print "OMGOMGOMG : " + str()
     return record_route()
 
 
@@ -104,7 +96,6 @@ def debts_route():
         if d.lender.ID==current_user.ID: full_debts[d.borrower] += d.amount
         elif d.borrower.ID==current_user.ID: full_debts[d.lender] -=d.amount
     
-    print full_debts
     return render_template("debts.html", full_debts=full_debts, myUserId=current_user.ID)
 
 
@@ -264,7 +255,6 @@ def debt_records_route(person_id=None):
                 debt_records += [(d,r)]
             elif d.borrower.ID==int(person_id) and d.lender==current_user:
                 debt_records += [(d,r)]
-    print debt_records
     return render_template("invdebt.html",debt_records=debt_records, myUserId=current_user.ID)
 
 
@@ -283,6 +273,7 @@ def add_debts_route(recordId, id=None):
         backToRecords=False
 
     return render_template("addDebts.html", debt=debt, recordId=recordId, user=current_user, user_list=user_list, backToRecords=backToRecords)	
+
 
 if __name__ == '__main__':
     app.run()

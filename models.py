@@ -15,13 +15,11 @@ class User(object):
         self.ex_types = {0:"Cash",1:"Bank",2:"Credit Card"}		#Dictionary
 
     def recordCenter(self):
-        print "MOOO I AM A COW"
         total = (0, 0)
         for record in self.records:
             lat, long = record.location
             oldLat, oldLong = total
             total = (lat + oldLat, long + oldLong)
-            print total
         return (total[0] / len(self.records), total[1] / len(self.records))
     
     def recordStdDev(self):
@@ -62,7 +60,6 @@ class Debt(object):
 User("Haoyi Li","haoyi@li.com")
 User("Nahom Workie","nahom@workie.com")
 User("Akira Monri","akira@monri.com")
-print users
 users[0].records.append(Record(1.296383,103.848953,25.25))
 
 users[1].records.append(Record(42.361778,-71.090426,30.20,[Debt(100.00,users[0],users[1])]))

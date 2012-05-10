@@ -22,10 +22,6 @@ login_manager.login_view = "/login"
 def load_user(userid):
     return users[userid] if userid in users.keys() else None
 
-myUserId = 2
-
-urecords={}
-print users
 @app.route("/login", methods=['POST', 'GET'])
 def login():
     global users
@@ -96,30 +92,14 @@ def transfer_callback(id):
 @app.route('/debts')
 @login_required
 def debts_route():
-    debtsPerPerson={}
-    debt_records = []		
-    for r in current_user.records:
-        for d in r.debts:
-            debt_records.append(d)	
-            
-    for debt in debt_records:
-        if debt.lender.ID == current_user.ID:
-                if  debt.borrower.name in debtsPerPerson.keys():
-                    debtsPerPerson[debt.borrower.name].append(debt)
-                else:
-                    debtsPerPerson[debt.borrower.name]=[debt]
-        else:
-                if  debt.lender.name in debtsPerPerson.keys():
-                    debtsPerPerson[debt.lender.name].append(debt)
-                else:
-                    debtsPerPerson[debt.lender.name]=[debt]
     full_debts = defaultdict(float) #dict with default value
-    for r in current_user.records:
-        for d in r.debts:
-            if d.lender.ID==current_user.ID: full_debts[d.borrower.name] += d.amount
-            else: full_debts[d.lender.name] -=d.amount
-
-    return render_template("debts.html", debt_records = debt_records, debtsPerPerson=debtsPerPerson,debt=full_debts, myUserId=current_user.ID)
+        
+    for d in debts.values():
+        if d.lender.ID==current_user.ID: full_debts[d.borrower] += d.amount
+        elif d.borrower.ID==current_user.ID: full_debts[d.lender] -=d.amount
+    
+    print full_debts
+    return render_template("debts.html", full_debts=full_debts, myUserId=current_user.ID)
 
 
 def find(f, seq):
@@ -274,29 +254,20 @@ def chartToList_route(fyear=None,fmonth=None,fday=None,row=None):
 
 
 @app.route('/invdebt')
-@app.route('/invdebt/<id>')
+@app.route('/invdebt/<person_id>')
 @login_required
-def debt_records_route(id=None):
-
-    deep_rec=[]         # List[Debts]
-    debt_records = []	# List[Record]    
-    for r in current_user.records:
-        for d in r.debts:
-                debt_records.append(d)	
-                
-    for i in debt_records:
-        if i.lender.name ==str(id) or i.borrower.name ==str(id):
-            deep_rec.append(i)
+def debt_records_route(person_id=None):
     
-    owe=0
-    lent=0
-    for i in deep_rec:
-        if i.lender.name==str(id):
-            lent+=i.amount
-        elif i.borrower.name==str(id):
-            owe+=i.amount
-    total=lent-owe
-    return render_template("invdebt.html",urec = deep_rec, debt_records=debt_records, myUserId=current_user.ID)
+    debt_records = []	# List[(Debt,Record)]
+    
+    for r in records.values():
+        for d in r.debts:
+            if d.lender.ID==int(person_id) and d.borrower==current_user:
+                debt_records += [(d,r)]
+            elif d.borrower.ID==int(person_id) and d.lender==current_user:
+                debt_records += [(d,r)]
+    print debt_records
+    return render_template("invdebt.html",debt_records=debt_records)
 
 
 @app.route('/addDebts/<recordId>')

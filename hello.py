@@ -93,8 +93,9 @@ def debts_route():
     full_debts = defaultdict(float) #dict with default value
         
     for d in debts.values():
-        if d.lender.ID==current_user.ID: full_debts[d.borrower] += d.amount
-        elif d.borrower.ID==current_user.ID: full_debts[d.lender] -=d.amount
+        if d.lender!=None and d.borrower!=None:
+            if d.lender.ID==current_user.ID: full_debts[d.borrower] += d.amount
+            elif d.borrower.ID==current_user.ID: full_debts[d.lender] -=d.amount
     
     return render_template("debts.html", full_debts=full_debts, myUserId=current_user.ID)
 
@@ -247,14 +248,14 @@ def chartToList_route(fyear=None,fmonth=None,fday=None,row=None):
 @login_required
 def debt_records_route(person_id=None):
     
-    debt_records = []	# List[(Debt,Record)]
+    debt_records = defaultdict(None)    # Dict[Debt:Record]
     
     for r in records.values():
         for d in r.debts:
             if d.lender.ID==int(person_id) and d.borrower==current_user:
-                debt_records += [(d,r)]
+                debt_records[d] = r
             elif d.borrower.ID==int(person_id) and d.lender==current_user:
-                debt_records += [(d,r)]
+                debt_records[d] = r
     return render_template("invdebt.html",debt_records=debt_records, myUserId=current_user.ID)
 
 

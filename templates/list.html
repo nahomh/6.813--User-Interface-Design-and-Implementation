@@ -7,7 +7,7 @@
                 {{ day}}
             </li>
             {% for record in records %}
-                {% if record.ex_type==viewAccount or record.transfer_to==viewAccount or viewAccount==None %}
+                {% if record.ex_type==viewAccount or record.transfer_to==viewAccount or record.transfer_from==viewAccount or viewAccount==None %}
                     <li>
                         <a href='/{{"record" if record.transfer_to==None else "transfer"}}/{{record.ID}}'>
                             ${{ two_decimal(record.amount)}} {% if record.transfer_to==None %}

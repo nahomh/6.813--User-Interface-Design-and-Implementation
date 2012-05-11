@@ -228,7 +228,7 @@ def analytics_route(analytics_type = "list", year=None,month=None,day=None):
             if k in chartDataD.keys():
                 totalAmount = 0
                 for r in g:
-                    if r.ex_type==exType or exType == None:
+                    if (r.ex_type==exType or exType == None) and r.transfer_to==None:
                         totalAmount += r.amount
                 chartDataD[k] += totalAmount
         for d in sorted(chartDataD.iterkeys()):

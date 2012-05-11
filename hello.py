@@ -253,14 +253,13 @@ def chartToList_route(fyear=None,fmonth=None,fday=None,row=None):
 def debt_inv_route(person_id=None):
     
     debt_records = {}    # Dict[Debt:Record]
-    
     for r in records.values():
         for d in r.debts:
             if d.lender.ID==int(person_id) and d.borrower==current_user:
                 debt_records[d] = r
             elif d.borrower.ID==int(person_id) and d.lender==current_user:
                 debt_records[d] = r
-    return render_template("invdebt.html",debt_records=debt_records, myUserId=current_user.ID)
+    return render_template("invdebt.html",user=users[int(person_id)], debt_records=debt_records, myUserId=current_user.ID)
 
 @app.route('/recdebt')
 @app.route('/recdebt/<record_id>')

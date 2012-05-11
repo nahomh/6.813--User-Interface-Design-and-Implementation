@@ -1,22 +1,22 @@
 <!DOCTYPE html>
 <html>
-	<head>
-		<title>{% block title %}Top{% endblock %} - Traxx</title>
-		<meta name="viewport" content="width=320, initial-scale=1.0,minimum-scale=1.0,maximum-scale=1.0,user-scalable=0" />
-		<meta charset="utf-8">
-		<link rel="icon" type="image/png" href="{{url_for('static', filename='TraxxFavicon.png')}}"/>
-		<link rel="stylesheet" href="{{ url_for('static', filename='traxx.css') }}" />
-		<link rel="stylesheet" href="{{ url_for('static', filename='jquery.mobile-1.0.1.min.css') }}" />
-		<link rel="stylesheet" href="{{ url_for('static', filename='css/ui-lightness/jquery-ui-1.8.20.custom.css') }}" />
-		<script src="{{ url_for('static', filename='jquery-1.6.4.min.js') }}"></script>
-		<script src="{{ url_for('static', filename='jquery.mobile-1.0.1.min.js') }}"></script>
-		<script src="{{ url_for('static', filename='jquery-ui-1.8.20.custom.min.js') }}"></script>
-		<script src="{{ url_for('static', filename='traxx.js') }}"></script>
+    <head>
+        <title>{% block title %}Top{% endblock %} - Traxx</title>
+        <meta name="viewport" content="width=320, initial-scale=1.0,minimum-scale=1.0,maximum-scale=1.0,user-scalable=0" />
+        <meta charset="utf-8">
+        <link rel="icon" type="image/png" href="{{url_for('static', filename='TraxxFavicon.png')}}"/>
+        <link rel="stylesheet" href="{{ url_for('static', filename='traxx.css') }}" />
+        <link rel="stylesheet" href="{{ url_for('static', filename='jquery.mobile-1.0.1.min.css') }}" />
+        <link rel="stylesheet" href="{{ url_for('static', filename='css/ui-lightness/jquery-ui-1.8.20.custom.css') }}" />
+        <script src="{{ url_for('static', filename='jquery-1.6.4.min.js') }}"></script>
+        <script src="{{ url_for('static', filename='jquery.mobile-1.0.1.min.js') }}"></script>
+        <script src="{{ url_for('static', filename='jquery-ui-1.8.20.custom.min.js') }}"></script>
+        <script src="{{ url_for('static', filename='traxx.js') }}"></script>
         <script type="text/javascript"src="http://maps.googleapis.com/maps/api/js?key=AIzaSyA78Ri4nlqK9gbFSljARo5weZYBuLbqfas&sensor=true">
     </script>
-		{% block head %}{% endblock %}
-	</head>
-	<body>
+        {% block head %}{% endblock %}
+    </head>
+    <body>
         <div data-role="header" data-position="fixed" data-id="topnav" data-tap-toggle="false">
             <div data-role="navbar" data-tap-toggle="false">
                 <ul>
@@ -27,9 +27,9 @@
                 </ul>
             </div>
         </div>
-	<div data-role="content">
-		{% block content %}{% endblock %}
-	</div>
-		{% block footer %}{% endblock %}
-	</body>
+    <div data-role="content">
+        {% block content %}{% endblock %}
+    </div>
+        {% block footer %}{% endblock %}
+    </body>
 </html>

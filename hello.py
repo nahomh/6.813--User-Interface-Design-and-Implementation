@@ -82,9 +82,9 @@ def transfer_callback(id):
         the_date = date(int(request.form['year']),int(request.form['month']),int(request.form['day']))
         record.time = the_date
         if request.form["isNew"]=="1": current_user.records += [record]
-        return redirect('/transfer/'+id)
+        return redirect('/analytics')
     else:
-        return redirect('/transfer/')
+        return redirect('/transfer')
 
     
 @app.route('/debts')

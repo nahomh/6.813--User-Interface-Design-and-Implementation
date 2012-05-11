@@ -1,34 +1,36 @@
 {% extends "analytics.html" %}
 {% block head %}
-<script text="text/javascript" src="https://www.google.com/jsapi"></script>
-    <script type="text/javascript">
-        function drawChart(){
-            var chartDataJ = JSON.parse('{{chartData}}');
-            var data = google.visualization.arrayToDataTable(chartDataJ);
-            var options = {
-                title: 'Spendings',
-                hAxis: {title:'Time',titleTextStyle:{color:'blue'}},
-                vAxis: {title:'Amount',titleTextStyle:{color:'blue'}}
-            };
-            var chart = new google.visualization.ColumnChart(document.getElementById('chart_div'));
-            chart.draw(data, options);
-            google.visualization.events.addListener(chart, 'select', function(){
-                    sel = chart.getSelection()[0];
-                    console.log(sel.row + " / " + sel.column);
-                    window.location = '/chartToList/{{fromDate.year}}/{{fromDate.month}}/{{fromDate.day}}/'+sel.row;
-                    });
-        }
-        
-        
-        google.load("visualization","1",{packages:["corechart"]});
-        google.setOnLoadCallback(drawChart);
-        
-
-    </script>
+<script text="text/javascript" src="{{ url_for('static',filename='jscharts.js') }}"></script>
 {% endblock %}
 {% block analytics_content %}
 <div id="chart_div" style="width:320px">
 </div>
+    <script type="text/javascript">
+        var myData = {{chartData}};
+        var myChart = new JSChart('chart_div','bar','');
+        myChart.setDataArray(myData);
+        var myColors = new Array();
+        for (i=0; i<myData.length; ++i){
+            myColors.push('#FF0000');
+        }
+        myChart.colorize(myColors);
+        myChart.setSize(320, 320);
+        myChart.setBarValues(false);
+        myChart.setBarOpacity(0.7);
+        myChart.setBarSpacingRatio(35);
+        myChart.setBarBorderWidth(0);
+        myChart.setTitle('Expenditures{{extraTitle}}');
+        myChart.setTitleFontSize(10);
+        myChart.setTitleColor('#408F7F');
+        myChart.setAxisValuesColor('#408F7F');
+        myChart.setAxisNameX('Time');
+        myChart.setAxisNameY('Amount');
+        myChart.setAxisNameColor('#408F7F');
+        myChart.setAxisColor('#5DB0A0');
+        myChart.setGridOpacity(0.8);
+        myChart.setGridColor('#B9D7C9');
+        myChart.draw();
+    </script>
 <div>
     <table width=320>
         <tbody>

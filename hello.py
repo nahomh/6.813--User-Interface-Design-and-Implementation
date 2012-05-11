@@ -191,7 +191,6 @@ def analytics_route(analytics_type = "list", year=None,month=None,day=None):
         import json
         from flask import Markup
         chartDataR = []
-        chartDataR += [['Date','Amount']]
         chartDataD = {}
         today = date.today()
 
@@ -230,12 +229,23 @@ def analytics_route(analytics_type = "list", year=None,month=None,day=None):
                     if r.ex_type==exType:
                         totalAmount += r.amount
                 chartDataD[k] += totalAmount
-        
         for d in sorted(chartDataD.iterkeys()):
-           chartDataR += [[str(d.month)+"/"+str(d.day),chartDataD[d]]]
+            if viewer==0:
+                chartDataR += [[str(d.month)+"/"+str(d.day),chartDataD[d]]]
+            else:
+                if d.day%2==1:
+                    dateToDisp = str(d.day)
+                else:
+                    dateToDisp = ""
+                chartDataR += [[dateToDisp,chartDataD[d]]]
         chartData = json.dumps(chartDataR)
+        intToMonth = {1:"Jan",2:"Feb",3:"Mar",4:"Apr",5:"May",6:"Jun",7:"Jul",8:"Aug",9:"Sep",10:"Oct",11:"Nov",12:"Dec"}
+        if viewer==1:
+            extraTitle = " - "+str(intToMonth[d.month])+", "+str(d.year)
+        else:
+            extraTitle = " - "+str(d.year)
 
-        return render_template("chart.html", records=records, ex_types=current_user.ex_types, viewAccount=exType, chartData=Markup(chartData), user=user,analytics_type=analytics_type, wkoff=wkoffset, off=offset, viewer=viewer, fromDate=fromDate)
+        return render_template("chart.html", records=records, ex_types=current_user.ex_types, viewAccount=exType, chartData=Markup(chartData), user=user,analytics_type=analytics_type, wkoff=wkoffset, off=offset, viewer=viewer, fromDate=fromDate, extraTitle=extraTitle)
 
 @app.route('/chartToList/<fyear>/<fmonth>/<fday>/<row>')
 def chartToList_route(fyear=None,fmonth=None,fday=None,row=None):

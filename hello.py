@@ -158,7 +158,7 @@ def record_commit(id):
 @app.route('/analytics/<analytics_type>/<year>/<month>/<day>')
 def analytics_route(analytics_type = "list", year=None,month=None,day=None):
 
-    exType = 0
+    exType = None
     try: 
         exType = int(request.args.get("account"))
     except Exception: pass    
@@ -172,7 +172,7 @@ def analytics_route(analytics_type = "list", year=None,month=None,day=None):
 
 
         if(year==None or month==None or day==None):
-            return render_template("list.html", groupedRecords=itertools.groupby(records, lambda x: x.time), ex_types=current_user.ex_types, viewAccount=exType, user=user)
+            return render_template("list.html", groupedRecords=itertools.groupby(records, lambda x: x.time), ex_types=current_user.ex_types, viewAccount=exType, user=user, analytics_type=analytics_type)
         else:
             itered = itertools.groupby(records, lambda x:x.time)
             limitDate = date(int(year),int(month),int(day))
@@ -180,12 +180,14 @@ def analytics_route(analytics_type = "list", year=None,month=None,day=None):
             for k, g in itered:
                 if k == limitDate:
                     for r in g:
-                        limited += [r]
+                        if r.ex_type==exType or exType == None:
+                            limited += [r]
             regrouped = itertools.groupby(limited, lambda x:x.time)
-            return render_template("list.html", groupedRecords=regrouped, ex_types=current_user.ex_types, viewAccount=exType, user=user)
+            return render_template("list.html", groupedRecords=regrouped, ex_types=current_user.ex_types, viewAccount=exType, user=user, analytics_type=analytics_type)
 
     elif(analytics_type == "map"):
-        return render_template("map.html", records=records, ex_types=current_user.ex_types, viewAccount=exType, user=user)
+        
+        return render_template("map.html", records=records, ex_types=current_user.ex_types, viewAccount=exType, user=user, analytics_type=analytics_type)
 
     elif(analytics_type == "chart"):
         import json
@@ -226,7 +228,7 @@ def analytics_route(analytics_type = "list", year=None,month=None,day=None):
             if k in chartDataD.keys():
                 totalAmount = 0
                 for r in g:
-                    if r.ex_type==exType:
+                    if r.ex_type==exType or exType == None:
                         totalAmount += r.amount
                 chartDataD[k] += totalAmount
         for d in sorted(chartDataD.iterkeys()):
@@ -245,7 +247,19 @@ def analytics_route(analytics_type = "list", year=None,month=None,day=None):
         else:
             extraTitle = " - "+str(d.year)
 
-        return render_template("chart.html", records=records, ex_types=current_user.ex_types, viewAccount=exType, chartData=Markup(chartData), user=user,analytics_type=analytics_type, wkoff=wkoffset, off=offset, viewer=viewer, fromDate=fromDate, extraTitle=extraTitle)
+        return render_template("chart.html", 
+            records=records, 
+            ex_types=current_user.ex_types, 
+            viewAccount=exType, 
+            chartData=Markup(chartData), 
+            user=user, 
+            wkoff=wkoffset, 
+            off=offset, 
+            viewer=viewer, 
+            fromDate=fromDate, 
+            analytics_type=analytics_type,
+            extraTitle=extraTitle
+        )
 
 @app.route('/chartToList/<fyear>/<fmonth>/<fday>/<row>')
 def chartToList_route(fyear=None,fmonth=None,fday=None,row=None):
@@ -269,7 +283,7 @@ def debt_inv_route(person_id=None):
                 debt_records[d] = r
             elif d.borrower.ID==int(person_id) and d.lender==current_user:
                 debt_records[d] = r
-    return render_template("invdebt.html",user=users[int(person_id)], debt_records=debt_records, myUserId=current_user.ID)
+    return render_template("invdebt.html", debt_records=debt_records, myUserId=current_user.ID, message="debts involving " + users[int(person_id)].name)
 
 @app.route('/recdebt')
 @app.route('/recdebt/<record_id>')
@@ -280,7 +294,7 @@ def record_debt_route(record_id=None):
     for d in r.debts:
         debt_records[d] = r
         
-    return render_template("invdebt.html",debt_records=debt_records, myUserId=current_user.ID)
+    return render_template("invdebt.html",debt_records=debt_records, myUserId=current_user.ID, message="debts related to expenditure on " + str(r.time))
     
 @app.route('/addDebts/<recordId>')
 @app.route('/addDebts/<recordId>/<id>')

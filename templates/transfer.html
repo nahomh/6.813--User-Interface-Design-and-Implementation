@@ -2,7 +2,7 @@
 {% block title %}Transfer{% endblock %}
 {% block transfer_top_btn %}class="ui-btn-active"{% endblock %}
 {% block content %}
-<form action="/transfer_callback/{{record.ID}}" data-ajax="false" method="post">
+<form action="/transfer_callback/{{record.ID}}" data-ajax="false" id="transfer_form" method="post">
 	<input type="hidden" name="isNew" value="{{"1" if is_new else "0"}}"/>
 	<table width="300">
 		<tbody>
@@ -63,5 +63,11 @@
 		</tbody>
 	</table>
 	<br>
-	<input type="submit" value="TRANSFER"/>
+	<script>
+			function submitform()
+						{
+						  $("#transfer_form").submit();
+						}
+    </script>
+	<a onclick=submitform(); data-role="button" style=" float:left" value="TRANSFER">Transfer</a>
 {% endblock %}

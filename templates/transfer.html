@@ -3,7 +3,7 @@
 {% block transfer_top_btn %}class="ui-btn-active"{% endblock %}
 {% block content %}
 <form action="/transfer_callback/{{record.ID}}" data-ajax="false" id="transfer_form" method="post">
-	<input type="hidden" name="isNew" value="{{"1" if is_new else "0"}}"/>
+	<input type="hidden" name="isNew" value='{{"1" if is_new else "0"}}'/>
 	<table width="300">
 		<tbody>
 			<tr>

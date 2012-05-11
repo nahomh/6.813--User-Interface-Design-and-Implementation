@@ -9,7 +9,7 @@
             {% for record in records %}
                 {% if record.ex_type==viewAccount or record.transfer_to==viewAccount %}
                     <li>
-                        <a href="/{{"record" if record.transfer_to==None else "transfer"}}/{{record.ID}}">
+                        <a href='/{{"record" if record.transfer_to==None else "transfer"}}/{{record.ID}}'>
                             ${{ two_decimal(record.amount)}} {% if record.transfer_to==None %}
                             <span style="color:#BB0000">spent</span>
                             {% elif record.transfer_to==viewAccount %}

@@ -272,7 +272,7 @@ def debt_inv_route(person_id=None):
                 debt_records[d] = r
             elif d.borrower.ID==int(person_id) and d.lender==current_user:
                 debt_records[d] = r
-    return render_template("invdebt.html",user=users[int(person_id)], debt_records=debt_records, myUserId=current_user.ID)
+    return render_template("invdebt.html", debt_records=debt_records, myUserId=current_user.ID, message="debts involving " + users[int(person_id)].name)
 
 @app.route('/recdebt')
 @app.route('/recdebt/<record_id>')
@@ -283,7 +283,7 @@ def record_debt_route(record_id=None):
     for d in r.debts:
         debt_records[d] = r
         
-    return render_template("invdebt.html",debt_records=debt_records, myUserId=current_user.ID)
+    return render_template("invdebt.html",debt_records=debt_records, myUserId=current_user.ID, message="debts related to expenditure on " + str(r.time))
     
 @app.route('/addDebts/<recordId>')
 @app.route('/addDebts/<recordId>/<id>')

@@ -6,7 +6,7 @@
     
             <ul data-role="listview" data-filter="true" id="listarea">
             <li data-role="list-divider" >
-                Debts involving {{user.name}}
+                {{message}}
             </li>
                 {% for debt, record in debt_records.items() %}
                     {%if debt.borrower.ID ==myUserId %}

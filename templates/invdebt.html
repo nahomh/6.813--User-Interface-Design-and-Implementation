@@ -3,8 +3,11 @@
     class="ui-btn-active"
 {% endblock %}
 {% block content %}
-   
+    
             <ul data-role="listview" data-filter="true" id="listarea">
+            <li data-role="list-divider" >
+                Debts involving {{user.name}}
+            </li>
                 {% for debt, record in debt_records.items() %}
                     {%if debt.borrower.ID ==myUserId %}
                     <li><a href="/addDebts/{{record.ID}}/{{debt.ID}}" rel="external">

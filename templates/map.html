@@ -13,21 +13,23 @@
             myOptions);
         var markers = []
         {% for record in records %}
-            var marker = new google.maps.Marker({
-                position: new google.maps.LatLng{{record.location}},
-                map: map,
-                title: "${{two_decimal(record.amount)}},  {{record.time.day}}/{{record.time.month}}/{{record.time.year}}"
-            })
-            markers.push(marker);
-            google.maps.event.addListener(marker, 'click', function() {
-                $.mobile.changePage("/record/{{record.ID}}")
-            });
+            {%  if record.ex_type == viewAccount or viewAccount == None %}
+                var marker = new google.maps.Marker({
+                    position: new google.maps.LatLng{{record.location}},
+                    map: map,
+                    title: "${{two_decimal(record.amount)}},  {{record.time.day}}/{{record.time.month}}/{{record.time.year}}"
+                })
+                markers.push(marker);
+                google.maps.event.addListener(marker, 'click', function() {
+                    $.mobile.changePage("/record/{{record.ID}}")
+                });
+            {% endif %}
         {% endfor %}
         
-        console.log("OMG");
+      
     </script>
     
-    {{ user.recordStdDev() }}
+    
     {% for record in records %}
         
     {% endfor %}

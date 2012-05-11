@@ -8,24 +8,20 @@ Analytics
 {% block content %}
 <div class="content-primary">
 
-    <form method="POST" action="/analytics/{{analytics_type}}" data-ajax="false">
+    <form method="GET" id="cowcowcow" action="/analytics/{{analytics_type}}" data-ajax="false">
 
-		<table width=320>
-			<tbody>
-				<tr>
-					<td>
-						<select name="account">
-							{% for x in ex_types.keys() %}
-							<option value="{{x}}" {{"SELECTED='SELECTED'" if x==viewAccount else ""}}>{{ex_types[x]}}</option>
-							{% endfor %}
-						</select>
-					</td>
-					<td>
-						<input type="submit" value="View"/>
-					</td>
-				</tr>
-			</tbody>
-		</table>
+		
+        <select name="account">
+            <option value="{{all}}" {{"SELECTED='SELECTED'" if "all"==viewAccount else ""}}>All</option>
+            {% for x in ex_types.keys() %}
+                <option value="{{x}}" {{"SELECTED='SELECTED'" if x==viewAccount else ""}}>{{ex_types[x]}}</option>
+            {% endfor %}
+        </select>
+        <script>
+        $("#cowcowcow select").change(function(){
+            $("#cowcowcow").submit()}
+        )
+        </script>
 	</form>
 	<br/>
     {% block analytics_content %}{% endblock %}

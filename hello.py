@@ -26,7 +26,7 @@ def load_user(userid):
 @app.route("/logout", methods=['POST', 'GET'])
 def logout():
     logout_user()
-    return "Logged Out Lolz"
+    return redirect("/login")
     
 @app.route("/login", methods=['POST', 'GET'])
 def login():

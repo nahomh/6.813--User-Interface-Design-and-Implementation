@@ -16,7 +16,7 @@ Login
 {% block content %}
 <div class="content-primary">
 
-    <form method="POST" action="/login" data-ajax="false">
+    <form method="POST" action="/login" id="login_form" data-ajax="false">
         {% if registering %}
             We couldn't find your email; would you like to register for an Account?
             <input type="text" name="name" placeholder="Your Name"/>
@@ -26,7 +26,7 @@ Login
         {% if registering %}
             <input type="submit" value="Register!"/>
         {% else %}
-            <input type="submit" value="Login!"/>
+             <a onclick=submitform(); data-role="button" style=" float:left"  value="Login!">Login</a>
         {% endif %}
         
     </form>
@@ -34,7 +34,12 @@ Login
     {% block analytics_content %}{% endblock %}
     
 </div>
-
+    <script>
+            function submitform()
+                        {
+                          $("#login_form").submit();
+                        }
+    </script>
 
 
         

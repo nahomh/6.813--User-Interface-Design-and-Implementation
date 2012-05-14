@@ -4,13 +4,12 @@
 {% block content %}
 <form action="/transfer_callback/{{record.ID}}" data-ajax="false" id="transfer_form" method="post">
     <input type="hidden" name="isNew" value='{{"1" if is_new else "0"}}'/>
-    <table width="300">
-        <tbody>
-            <tr>
-                <td>Transfer $</td>
-                <td><input type="text" name="amount" value="{{ two_decimal(record.amount) }}"/></td>
-            </tr>
-        </tbody>
+    <div>
+		<span>
+		<b>I Transfered $</b>
+		<input type="tel" name="amount" style="width: 100px; display: inline" data-mini="true" onclick="$(this).val('')" value="{{ two_decimal(record.amount) }}"/>
+		</span>
+	</div>
     </table>
     <br>
     <table width="300">

@@ -6,28 +6,21 @@
 
     <form  action="/record_commit/{{record.ID}}"  id="myform" " data-update="/record_callback/{{record.ID}}" method="get">
         <div id="moneyInput">
-				<table width=320>
-					<tbody>
-						<tr>
-							<td>
-								$
-							</td>
-							<td>
-								<input  type="tel"  name="amount" style="float:left" id="basic" value="{{ two_decimal(record.amount) }}"  onkeyup="postParent(this)" onchange="postParent(this)" onclick="$(this).val('')"data-mini="true" />
-							</td>
-						</tr>
-					</tbody>
-				</table>
-				<label for="select-choice-0" class="select">Spending method:</label>
-				<div id="mid_table">
+            <div>
+                <b>I Spent  $</b>
+                <input  type="tel"  name="amount" style="width: 200px; display: inline" id="basic" value="{{ two_decimal(record.amount) }}"  onkeyup="postParent(this)" onchange="postParent(this)" onclick="$(this).val('')"data-mini="true" />
+                <b>in</b>
+            </div>
+            
+            <span style="width: 100px; display: inline">
+                <select name="type" id="select-choice-1"  onchange="postParent(this)">
+                    {% for acc in my_accounts %}
+                    <option value="{{acc}}" {{"selected='selected'" if record.ex_type == acc else "" }}>{{my_accounts[acc]}}</option>
+                    {% endfor %}
+                </select>
+            <span>
 
-					<select name="type" id="select-choice-1" onchange="postParent(this)">
-						{% for acc in my_accounts %}
-						<option value="{{acc}}" {{"selected='selected'" if record.ex_type == acc else "" }}>{{my_accounts[acc]}}</option>
-						{% endfor %}
-					</select>
-
-			</div>
+			
 			
 			<table>
                 <tr>

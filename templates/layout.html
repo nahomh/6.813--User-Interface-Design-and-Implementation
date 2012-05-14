@@ -17,6 +17,7 @@
     </head>
     <body>
         <div data-role="header" data-position="fixed" data-id="topnav" data-tap-toggle="false">
+            <img src="{{ url_for('static', filename='header.png') }}"/>
             <div data-role="navbar" data-tap-toggle="false">
                 <ul>
                     <li><a href="/record" {% block record_top_btn %}{% endblock %}>Record</a></li>

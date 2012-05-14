@@ -139,7 +139,7 @@ def record_route(id=None):
 def record_callback(id):
     
     record = current_user.tempRecord
-    current_user.tempRecord.location = (request.args["lat"], request.args["lng"])
+    current_user.tempRecord.location = (float(request.args["lat"]), float(request.args["lng"]))
     current_user.tempRecord.amount = float(request.args["amount"])
     current_user.tempRecord.ex_type = int(request.args["type"])
     current_user.tempRecord.time = date(int(request.args["year"]), int(request.args["month"]), int(request.args["day"]))

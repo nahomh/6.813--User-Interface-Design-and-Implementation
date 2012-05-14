@@ -4,7 +4,13 @@ Login
 {% endblock %}
 {% block head %}
 <style type="text/css">
-    .ui-page{background:#000000 url('{{ url_for("static",filename="traxbg.png") }}') no-repeat center bottom;}
+    .ui-page{
+        background-color:#000000;
+        background-image:url('{{ url_for("static",filename="traxbg.png") }}');
+        background-repeat:no-repeat;
+        background-position:center center;
+        background-size:320px 210px;
+    }
 </style>
 {% endblock %}
 {% block content %}
@@ -22,11 +28,11 @@ Login
         {% else %}
             <input type="submit" value="Login!"/>
         {% endif %}
-		
-	</form>
-	<br/>
+        
+    </form>
+    <br/>
     {% block analytics_content %}{% endblock %}
-	
+    
 </div>
 
 

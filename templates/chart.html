@@ -46,7 +46,13 @@
     </table>
 </div>
 <script>
-    setTimeout(function(){$("img").remove();}, 1000);
+    setTimeout(function(){
+        $("img").each(function(){
+            if(this.width!=153){
+                $(this).remove();
+            };
+        })
+    }, 1000);
 </script>
 {% endblock %}
 {% block chart_bottom_btn %}

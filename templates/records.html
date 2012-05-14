@@ -6,6 +6,8 @@
 
     <form  action="/record_commit/{{record.ID}}"  id="myform" " data-update="/record_callback/{{record.ID}}" method="get">
         <div id="moneyInput">
+			<div style="background-image: url('../static/header.png'); height: 50px; width:200px;">
+			</div>
             <div>
                 <b>I Spent  $</b>
                 <input  type="tel"  name="amount" style="width: 100px; display: inline" id="basic" value="{{ two_decimal(record.amount) }}"  onkeyup="postParent(this)" onchange="postParent(this)" onclick="$(this).val('')"data-mini="true" />

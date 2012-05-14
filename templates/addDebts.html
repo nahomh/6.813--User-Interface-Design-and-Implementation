@@ -31,7 +31,7 @@
         </script>
         
         <br>
-        <a href={{"/record" if backToRecords else "/debts"}} onClick="submitdebt();"  style="float:left" data-role="button" value="button">Done</button>
+        <a href={{"/record" if backToRecords else "/debts"}} onClick="submitdebt();"  style="float:left" data-role="button" value="button">Done</a>
         {% if backToRecord %}
             <a href="/addDebts/{{recordId}}" onClick="submitdebt();" style=" float:left"data-role="button">Add More</a>
         {% endif %}

@@ -13,7 +13,7 @@
 								$
 							</td>
 							<td>
-								<input type="text" name="amount" style="float:left" id="basic" value="{{ two_decimal(record.amount) }}"  onkeyup="postParent(this)" onchange="postParent(this)" data-mini="true" />
+								<input  type="number"  name="amount" style="float:left" id="basic" value="{{ two_decimal(record.amount) }}"  onkeyup="postParent(this)" onchange="postParent(this)" onclick="$(this).val('')"data-mini="true" />
 							</td>
 						</tr>
 					</tbody>

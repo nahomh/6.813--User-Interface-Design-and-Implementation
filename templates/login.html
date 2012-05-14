@@ -1,9 +1,11 @@
 {% extends "layout.html" %}
 {% block title %}
-Analytics
+Login
 {% endblock %}
-{% block analytics_top_btn %}
-    class="ui-btn-active"	
+{% block head %}
+<style type="text/css">
+    .ui-page{background:#000000 url('{{ url_for("static",filename="traxbg.png") }}') no-repeat center bottom;}
+</style>
 {% endblock %}
 {% block content %}
 <div class="content-primary">

@@ -113,12 +113,13 @@ def debts_callback(recordid, debtid, backToRecord = False):
     record = records[int(recordid)]
     debt = debts[int(debtid)]
     lender, borrower = (current_user, find(lambda u: u.name == request.form["other"], users.values()))
-    if request.form["type"] == "Owe": 
+    
+    if request.form["type"] == "Lent": 
         lender, borrower = borrower, lender
     debt.lender = lender
     debt.borrower = borrower
     debt.amount = float(request.form["amount"])
-    record.debts += [debt]
+    if debt not in record.debts: record.debts += [debt]
     
     if backToRecord: return ""
     else: return ""

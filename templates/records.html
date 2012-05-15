@@ -6,8 +6,8 @@
 
     <form  action="/record_commit/{{record.ID}}"  id="myform" " data-update="/record_callback/{{record.ID}}" method="get">
         <div id="moneyInput">
-			
-			</div>
+            
+            </div>
             <div>
                 <b>I Spent  $</b>
                 <input  type="tel"  name="amount" style="width: 100px; display: inline" id="basic" value="{{ two_decimal(record.amount) }}"  onkeyup="postParent(this)" onchange="postParent(this)" onclick="$(this).val('')"data-mini="true" />
@@ -22,16 +22,16 @@
                 </select>
             <span>
 
-			
-			
-			<table>
+            
+            
+            <table>
                 <tr>
                     
-						<td><select id="year" name="year"  onchange="postParent(this)">
+                        <td><select id="year" name="year"  onchange="postParent(this)">
                             <option value="2011" {{"selected='selected'" if record.time.year == 2011 else "" }}>2011</option>
                             <option value="2012" {{"selected='selected'" if record.time.year == 2012 else "" }}>2012</option>
                         </select></td>
-						<td><select id="month" name="month"  onchange="postParent(this)">
+                        <td><select id="month" name="month"  onchange="postParent(this)">
                             <option value="1" {{"selected='selected'" if record.time.month == 1 else "" }}>Jan</option>
                             <option value="2" {{"selected='selected'" if record.time.month == 2 else "" }}>Feb</option>
                             <option value="3" {{"selected='selected'" if record.time.month == 3 else "" }}>Mar</option>
@@ -45,7 +45,7 @@
                             <option value="11" {{"selected='selected'" if record.time.month == 11 else "" }}>Nov</option>
                             <option value="12" {{"selected='selected'" if record.time.month == 12 else "" }}>Dec</option>
                         </select></td>
-						<td><select id="day" name="day" onchange="postParent(this)">
+                        <td><select id="day" name="day" onchange="postParent(this)">
                             <option value="1" {{"selected='selected'" if record.time.day == 1 else "" }}>01</option>
                             <option value="2" {{"selected='selected'" if record.time.day == 2 else "" }}>02</option>
                             <option value="3" {{"selected='selected'" if record.time.day == 3 else "" }}>03</option>
@@ -80,10 +80,10 @@
                         </select></td>
                     
                 </tr>    
-			</table>
+            </table>
             
 
-			<div id="Inst.Location"><b>Tap to get location</b></div>  
+            <div id="Inst.Location"><b>Tap to get location</b></div>  
             <input type="hidden" name="lat" id="lat" value="0" onchange="postParent(this)"/>
             <input type="hidden" name="lng" id="lng" value="0" onchange="postParent(this)"/>
             <img id="recMap" src="http://maps.googleapis.com/maps/api/staticmap?center={{record.location[0]}},{{record.location[1]}}
@@ -92,28 +92,28 @@
                                 &maptype=roadmap
                                 &markers=color:blue%7C{{record.location[0]}},{{record.location[1]}}
                                 &sensor=false"/>
-			<script>
+            <script>
                 if (navigator.geolocation){
                     navigator.geolocation.getCurrentPosition(function(position){
                         var lat = position.coords.latitude
                         var lng = position.coords.longitude
                         $("#lat").val(lat)
-						$("#lng").val(lng)
-						$("#recMap").attr("src","http://maps.googleapis.com/maps/api/staticmap?center="+lat+","+lng+"&zoom14&size=320x100&maptype=roadmap&markers=color:blue%7C"+lat+","+lng+"&sensor=false")
+                        $("#lng").val(lng)
+                        $("#recMap").attr("src","http://maps.googleapis.com/maps/api/staticmap?center="+lat+","+lng+"&zoom14&size=320x100&maptype=roadmap&markers=color:blue%7C"+lat+","+lng+"&sensor=false")
                     });
                 }
-				function submitform()
-						{
-						  $("#myform").submit();
-						}
+                function submitform()
+                        {
+                          $("#myform").submit();
+                        }
             </script>
         </div>
-		<div id="submitForm" >
-			<table width=320>
-				<tbody>
-					<tr>
-						<td>
-							<a onClick=submitform()  style="float:left" data-role="button" value="button">
+        <div id="submitForm" >
+            <table width=320>
+                <tbody>
+                    <tr>
+                        <td>
+                            <a onClick=submitform()  style="float:left" data-role="button" value="button">
                                 {% if newRecord %}
                                     Submit
                                 {% else %}
@@ -121,8 +121,8 @@
                                 {% endif %}
                             </a>
                             
-						</td>
-						<td>
+                        </td>
+                        <td>
                             {% if newRecord %}
                                 <a href="/addDebts/{{record.ID}}" style=" float:left"data-role="button">
                                     Add Debts 
@@ -140,11 +140,11 @@
                                     {% endif %}
                                 </a>
                             {% endif %}
-							
-						</td>
-					</tr>
-				</tbody>
-			</table>
-		</div>
+                            
+                        </td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
     </form>
 {% endblock %}

@@ -36,12 +36,12 @@ class User(object):
     def is_anonymous(self): return False
     def get_id(self): return self.ID
 class Record(object):
-    def __init__(self,latitude=0.0,longitude=0.0,amount=0.00,debt=[],ex_type=0,transfer_to=None,time=date.today()):
+    def __init__(self,latitude=0.0,longitude=0.0,amount=0.00,newdebts=[],ex_type=0,transfer_to=None,time=date.today()):
         idnum = len(records)
         self.ID = idnum								#Int
         self.time = time							#date
         self.location = (latitude,longitude)		#(Number, Number)
-        self.debts = debt							#List[Debt]
+        self.debts = newdebts[:]							#List[Debt]
         self.amount = amount						#Number
         self.ex_type = ex_type						#Int
         self.transfer_to = transfer_to				#Int/None
@@ -61,9 +61,7 @@ User("Haoyi Li","haoyi@li.com")
 User("Nahom Workie","nahom@workie.com")
 User("Akira Monri","akira@monri.com")
 users[0].records.append(Record(1.296383,103.848953,25.25))
-
 users[1].records.append(Record(42.361778,-71.090426,30.20,[Debt(100.00,users[0],users[1])]))
-
 users[2].records.append(Record(42.359926,-71.095831,10.50,[Debt(50.00,users[1],users[2]),Debt(40.50,users[1],users[2]),Debt(10.15,users[2],users[0]),Debt(10.55,users[2],users[1])]))
 users[2].records.append(Record(42.358956,-71.09416,17.00,[],0,1))
 users[2].records.append(Record(42.362793,-71.090748,9.00,[],0,1))

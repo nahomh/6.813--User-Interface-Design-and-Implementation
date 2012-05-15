@@ -19,7 +19,7 @@ Login
 
     <form method="POST" action="/login" id="login_form" data-ajax="false">
         {% if registering %}
-            We couldn't find your email; would you like to register for an Account?
+        <div style="color:#FFFFFF">We couldn't find your email; would you like to register for an Account?</div>
             <input type="text" name="name" placeholder="Your Name"/>
         {% endif %}
         <input type="text" name="email" placeholder="Email Address" {% if email %} value="{{email}}" {% endif %}/>
@@ -27,6 +27,7 @@ Login
         {% if registering %}
             <input type="submit" value="Register!"/>
         {% else %}
+            <div style="color:#FFFFFF">To register, type in your email address and a password, and hit login!</div>
              <a onclick=submitform(); data-role="button" style=" float:left"  value="Login!">Login</a>
         {% endif %}
         

@@ -40,7 +40,7 @@ def login():
         return redirect("/")
         
     if "name" in request.form:
-        login_user(User(request.form["name"], email, password))
+        login_user(User(str(request.form["name"]), str(email), str(password)))
         
         return redirect("/")
         
@@ -112,7 +112,8 @@ def find(f, seq):
 def debts_callback(recordid, debtid, backToRecord = False):
     record = records[int(recordid)]
     debt = debts[int(debtid)]
-    lender, borrower = (current_user, find(lambda u: u.name == request.form["other"], users.values()))
+    print "\n----------------------\nDebt_callback will add debt no. " + str(debt.ID) + " to record no. " + str(record.ID)
+    lender, borrower = (current_user, find(lambda u: u.name+" ("+u.email+")" == request.form["other"], users.values()))
     
     if request.form["type"] == "Lent": 
         lender, borrower = borrower, lender
@@ -120,7 +121,7 @@ def debts_callback(recordid, debtid, backToRecord = False):
     debt.borrower = borrower
     debt.amount = float(request.form["amount"])
     if debt not in record.debts: record.debts += [debt]
-    
+
     if backToRecord: return ""
     else: return ""
     
@@ -128,7 +129,6 @@ def debts_callback(recordid, debtid, backToRecord = False):
 @app.route('/record/<id>')
 @login_required
 def record_route(id=None):
-
     return render_template("records.html", 
                            record = current_user.tempRecord if id==None else records[int(id)], 
                            my_accounts=current_user.ex_types,
@@ -304,8 +304,8 @@ def add_debts_route(recordId, id=None):
     debt = Debt() if id == None else debts[int(id)]
     user_list=[]
     for i in users.keys():
-        user_list.append(users[i].name)
-
+        user_list += [users[i].name+" ("+users[i].email+")"]
+    print user_list
     if id==None:
         backToRecords=True
     else:
